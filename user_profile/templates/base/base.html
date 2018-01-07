@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="{% static 'cmd/bootstrap.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<br>
+<br>    
+<br>    
+    {% block content %}
+    {% endblock %}
+
+<footer style="background-color: #f1f1f1">
+{#    <img src="{% static 'blog/steve.jpg' %}" style="visibility: hidden;" />#}
+<div class="text-center" style="padding: 100px 0">
+    <h1><a class="" href="" style=" font-family: 'Arial black';">pharmacy</a></h1>
+    <p>
+        <a target="_blank" style="padding-right: 0.5rem;"  href="" class="" ><i  class="fa fa-paper-plane fa-2x " ></i></a>
+        <a target="_blank" style="padding-right: 0.5rem;"  href="" class=""><i i class="fa fa-instagram fa-2x "></i></a>
+        <a target="_blank" style="" href= "" class=""><i  class="fa fa-envelope-square fa-2x "></i></a>
+        <a target="_blank" style="" href="" class=""><i  class="fa fa-facebook fa-2x "></i></a>
+        <a target="_blank" style="" href="" class=""><i  class="fa fa-twitter fa-2x "></i></a>
+        <a target="_blank" style="" href="" class=""><i  class="fa fa-google-plus fa-2x "></i></a>
+    </p>
+    <p style="">
+        <a href="" style=""><i class="fa fa-sign-in" aria-hidden="true"></i> login </a> |
+        <a type="button" href="" data-toggle="modal" data-target="#aboutUs" style=""><i class="fa fa-eye" aria-hidden="true"></i> about us </a> |
+        <a type="button" href="" data-toggle="modal" data-target="#callUs"style=""><i class="fa fa-phone" aria-hidden="true"></i> call us </a>
+    </p>
+    <p>AllRight reserved</p>
+</div>
+
+</footer>
+</body>
+
+</html>

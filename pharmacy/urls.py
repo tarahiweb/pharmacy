@@ -2,10 +2,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url,include
 from django.contrib import admin
-
+from .views import Home
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', Home,name='home'),
     url(r'^product/', include('Product.urls')),
+    url(r'^user/', include('user_profile.urls')),
+
 ]
 
 if settings.DEBUG:

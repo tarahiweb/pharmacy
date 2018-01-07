@@ -9,7 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="{% static 'cmd/bootstrap.js' %}"></script>
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
-
+    {% block style %}
+    {% endblock %}
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -78,7 +79,7 @@
         <a target="_blank" style="" href="" class=""><i  class="fa fa-google-plus fa-2x "></i></a>
     </p>
     <p style="">
-        <a href="" style=""><i class="fa fa-sign-in" aria-hidden="true"></i> login </a> |
+        <a type="button" href="" data-toggle="modal" data-target="#login" style=""><i class="fa fa-sign-in" aria-hidden="true"></i> login </a> |
         <a type="button" href="" data-toggle="modal" data-target="#aboutUs" style=""><i class="fa fa-eye" aria-hidden="true"></i> about us </a> |
         <a type="button" href="" data-toggle="modal" data-target="#callUs"style=""><i class="fa fa-phone" aria-hidden="true"></i> call us </a>
     </p>
@@ -86,6 +87,90 @@
 </div>
 
 </footer>
+
+<div id="login" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="margin-top: 70px;width: 90%">
+
+    <!-- Modal content-->
+      <div class="modal-content" style="background-color: #253035;color: #f1f1f1">
+        <div class="modal-header" style="border: none">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">login</h4>
+
+      </div>
+        <div class="modal-body">
+          <div class="row">
+    <div class="col-md-6 col-xs-12" style="">
+                  <h1>register</h1>
+                  <form class="form-signin text-center" action="{% url 'user_profile:register' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <label for="teacher" class="col-sm-3 control-label">first_name:</label>
+
+                              <div class="col-sm-offset-2 col-sm-6">
+                                  <input  class="form-control"  value="" name="first_name">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="teacher" class="col-sm-3 control-label">last_name:</label>
+
+                              <div class="col-sm-offset-2 col-sm-6">
+                                  <input  class="form-control"  value="" name="last_name">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label  for="teacher" class="col-sm-3 control-label">email:</label>
+
+                              <div class="col-sm-offset-2 col-sm-6">
+                                  <input type="email" class="form-control"  value="" name="email">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="teacher" class="col-sm-3 control-label">password:</label>
+
+                              <div class="col-sm-offset-2 col-sm-6">
+                                  <input type="password" class="form-control"  value="" name="password">
+                              </div>
+                          </div>
+                          <br>
+                          <button class="btn btn-primary " type="submit" style="">submit</button>
+                      </form>
+
+              </div>
+    <div class="col-md-6 col-xs-12" style="">
+        <h1>login form</h1>
+                          <form class="form-signin text-center" action="{% url 'user_profile:login' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <label for="teacher" class="col-sm-3 control-label">email:</label>
+
+                              <div class="col-sm-offset-2 col-sm-6">
+                                  <input  class="form-control"  value="" name="email" type="email">
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <label for="teacher" class="col-sm-3 control-label">password:</label>
+
+                              <div class="col-sm-offset-2 col-sm-6">
+                                  <input type="password" class="form-control"  value="" name="password">
+                              </div>
+                          </div>
+                          <br>
+                          <button class="btn btn-primary " type="submit" style="">submit</button>
+                      </form>
+
+    </div>
+</div>
+      </div>
+        <div class="modal-footer" style="border: none">
+
+            <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
+        </div>
+    </div>
+
+  </div>
+</div>
 </body>
 
 </html>

@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="container-fluid">
+<h1>home page</h1>
+{% if request.user.is_authenticated %}
+<p>user is authenticated</p>
+    <a href="{% url 'user_profile:logout' %}">log out</a>
+{% else %}
+<p>user is not authenticated</p>
+    <a type="button" href="" data-toggle="modal" data-target="#login" style="">log in</a>
+{% endif %}
+        <br>
+        <a href="{% url 'product:index' %}">product list</a>
+    </div>
+
+{% endblock %}

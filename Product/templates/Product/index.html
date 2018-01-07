@@ -1,0 +1,12 @@
+{% if all_drug %}
+    <ul>
+        <h2>here is all my drug</h2>
+        {% for object in all_drug %}
+            <li><a href="{%url 'Product:detail' object.id %}">{{ object.drug_name }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <h3>you don't have any product</h3>
+{% endif %}
+

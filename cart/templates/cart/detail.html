@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    your order cart
+{% endblock %}
+{% block content %}
+    <h1>your order cart</h1>
+    <table class="cart">
+        <thead>
+        <tr>
+            <th>image</th>
+            <th>Drug</th>
+            <th>quantity</th>
+            <th>Remove</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with drug=item.drug %}
+            <tr>
+                <td>
+                    <a href="{{ drug.get.absolute_url }}">
+                        <img src="{% if drug.drug_pic%}{{ drug.drug_pic.url }}{% else %}{% static "" %}{% endif %}"
+                    </a>
+                </td>
+                <td>{{ drug.name }}</td>
+                <td>
+                    <form action="{% url 'cart:cart_add' drug.id %}" method="post">
+                        {{ item.update_quantity_form.quantity }}
+                        {{ item.update_quantity_form.update }}
+                        <input type="submit" value="update">
+                        {% csrf_token %}
+                    </form>
+                </td>
+                <td><a href="{% url 'cart:cart_remove' drug.id %}">Remove</a></td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url 'product:index' %}" class="button light">countinue shopping</a>
+    </p>
+{% endblock %}

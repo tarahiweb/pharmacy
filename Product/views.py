@@ -3,6 +3,7 @@ from .models import Drug
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from cart.forms import CartADDDrugForm
 
 def index(request):
     queryset_list = Drug.objects.all().order_by('-id')
@@ -11,7 +12,8 @@ def index(request):
     if query:
         queryset_list = queryset_list.filter(
             Q(drug_name__icontains=query) |
-            Q(drug_company__icontains=query)
+            Q(drug_company__icontains=query) |
+            Q(drug_usage__icontains=query)
 
         ).distinct()
     paginator = Paginator(queryset_list, 3)
@@ -38,4 +40,5 @@ def index(request):
 
 def details(request, drug_id):
     drug = get_object_or_404(Drug, pk= drug_id)
-    return render(request, 'product/detail.html', {'drug': drug})
+    cart_drug_form =CartADDDrugForm()
+    return render(request, 'product/detail.html', {'drug': drug}, {'cart_drug_form': cart_drug_form})

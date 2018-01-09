@@ -21,7 +21,7 @@
             <tr>
                 <td>
                     <a href="{{ drug.get.absolute_url }}">
-                        <img src="{% if drug.drug_pic%}{{ drug.drug_pic.url }}{% else %}{% static "" %}{% endif %}"
+                        <img src="{% if drug.drug_pic%}{{ drug.drug_pic.url }}{% else %}{% static "" %}{% endif %}">
                     </a>
                 </td>
                 <td>{{ drug.name }}</td>

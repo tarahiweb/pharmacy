@@ -8,7 +8,7 @@ class Cart(object):
         self.session= request.session
         cart= self.session.get(settings.CART_SESSION_ID)
         if not cart:
-            cart=self.session[settings.CART_SESSION_ID]= {}
+            cart=self.session[settings.CART_SESSION_ID]= [{}]
         self.cart = cart
 
     def add(self, drug, quantity=1, update_quantity=False ):
@@ -18,8 +18,8 @@ class Cart(object):
         if update_quantity:
             self.cart[drug_id]['quantity']= quantity
         else:
-            self.cart[drug_id]['quantity']+= quantity
-            self.save()
+            pass
+        self.save()
 
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart

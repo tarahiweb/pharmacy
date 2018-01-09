@@ -37,8 +37,10 @@
                     <div>
                         <h4 class="">{{ item.drug_name }}</h4>
                             <p >
-                                <a class="disabled">${{ item.price }}</a>
-                                <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" style="float: right"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                                <span class="disabled" style="font-size: 17px">Free!!</span>
+
+                        <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" style="float: right" data-anijs="if: click, do: bounceIn animated, to: .anijis"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+
                             </p>
 
                     </div>
@@ -96,6 +98,7 @@
     </li>
   </ul>
 </div>
+<div class="div">click</div>
 
 
 </div>
@@ -103,4 +106,5 @@
 {% else %}
     <h3>you don't have any product</h3>
 {% endif %}
+
 {% endblock %}

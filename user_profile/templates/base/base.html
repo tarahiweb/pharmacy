@@ -7,7 +7,9 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="{% static 'cmd/jquery-ui.min.js' %}"></script>
     <script src="{% static 'cmd/bootstrap.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     {% block style %}
     {% endblock %}
@@ -46,7 +48,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="">
-            <a class="btn-success" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="{% url 'cart:cart_detail' %}">
+            <a class="btn-success  test" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="{% url 'cart:cart_detail' %}">
             <i class="fa fa-shopping-basket" aria-hidden="true"></i> your cart:
               {% if cart.len > 0 %}
                   <span class="cart-lenght">{{ cart.len }}</span>
@@ -188,6 +190,7 @@
 
   </div>
 </div>
+
 <script>
 
         function add_to_cart(id) {
@@ -195,8 +198,16 @@
                 url: '/cart/add/'+id,
                 dataType: 'json',
                 success:function (e) {
-                    var lenght=e['status']
+                    var lenght=e['len']
+                    var status=e['status']
                     $('.cart-lenght').html(lenght)
+                    console.log(status)
+                      if (status == false) {
+                        console.log('a')
+                        $(".test").effect( "bounce",
+			                    {times:4}, 500 );
+                    }
+
                 }
             })
         }

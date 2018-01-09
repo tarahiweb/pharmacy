@@ -16,10 +16,10 @@ def cart_add(request, drug_id):
     else:
         cart.add(drug = drug, quantity= 1, update_quantity= False)
     status={
-        'status':cart.len()
+        'len':cart.len(),
+        'status':cart.status
     }
     return JsonResponse(status)
-    return redirect('cart:cart_detail')
 
 def cart_remove(request, drug_id):
     cart = Cart(request)

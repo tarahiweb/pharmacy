@@ -15,6 +15,9 @@ class Cart(object):
         drug_id = str(drug.id)
         if drug_id not in self.cart:
             self.cart[drug_id]= {'quantity':1}
+            self.status=False
+        else:
+            self.status=True
         if update_quantity:
             self.cart[drug_id]['quantity']= quantity
         self.save()

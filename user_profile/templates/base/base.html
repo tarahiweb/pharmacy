@@ -61,12 +61,12 @@
      <div>
           {% with total_item=cart.length%}
               {% if cart.length > 0 %}
-              your cart:
-              <a href="{% url 'cart:cart_detail' %}">
+                  your cart:
+                   <a href="{% url 'cart:cart_detail' %}">
                   {{ total_item }}
-              </a>
+                   </a>
               {% else %}
-                your cart: 0
+                 your cart: 0
               {% endif %}
           {% endwith %}
       </div>

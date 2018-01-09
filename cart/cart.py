@@ -11,14 +11,15 @@ class Cart(object):
             cart=self.session[settings.CART_SESSION_ID]= {}
         self.cart = cart
 
-    def add(self, drug, quantity=1, update_quantity=False ):
+    def add(self, drug, quantity, update_quantity):
         drug_id = str(drug.id)
         if drug_id not in self.cart:
             self.cart[drug_id]= {'quantity':1}
+            self.status=False
+        else:
+            self.status=True
         if update_quantity:
             self.cart[drug_id]['quantity']= quantity
-        else:
-            pass
         self.save()
 
     def save(self):
@@ -41,7 +42,7 @@ class Cart(object):
             yield item
 
     def len(self):
-        return sum(item['quantity'] for item in self.cart.values())
+        return sum(1 for item in self.cart.values())
 
 
     def clear(self):

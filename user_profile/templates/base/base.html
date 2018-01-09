@@ -7,7 +7,9 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="{% static 'cmd/jquery-ui.min.js' %}"></script>
     <script src="{% static 'cmd/bootstrap.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     {% block style %}
     {% endblock %}
@@ -29,54 +31,57 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+        <li><a href="{% url 'product:index' %}">Free products</a></li>
+        <li><a href="{% url 'product:index' %}">consulting</a></li>
+{#        <li class="dropdown">#}
+{#          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>#}
+{#          <ul class="dropdown-menu">#}
+{#            <li><a href="#">Action</a></li>#}
+{#            <li><a href="#">Another action</a></li>#}
+{#            <li><a href="#">Something else here</a></li>#}
+{#            <li role="separator" class="divider"></li>#}
+{#            <li><a href="#">Separated link</a></li>#}
+{#            <li role="separator" class="divider"></li>#}
+{#            <li><a href="#">One more separated link</a></li>#}
+{#          </ul>#}
+{#        </li>#}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <li class="">
+            <a class="btn-success  test" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="{% url 'cart:cart_detail' %}">
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i> your cart:
+              {% if cart.len > 0 %}
+                  <span class="cart-lenght">{{ cart.len }}</span>
+              {% else %}
+                  <span class="cart-lenght">0</span>
+              {% endif %}
+         </a>
+        </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+              {% if request.user.is_authenticated %}
+                <li><a href="">{{ request.user.username }}</a></li>
+                <li><a href="{% url 'user_profile:logout' %}">log Out</a></li>
+                {% else %}
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Sing up</a></li>
+              {% endif %}
           </ul>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
      <div>
-          {% with total_item=cart.len%}
-              {% if cart.len > 0 %}
-              your cart:
-              <a href="{% url 'cart:cart_detail' %}">
 
-                  {{ cart.len }}
-              </a>
-              {% else %}
-                your cart: an
-              {% endif %}
-          {% endwith %}
       </div>
   </div><!-- /.container-fluid -->
 </nav>
 
 <br>
 <br>    
-<br>    
+<br>
+<br>
+<br>
     {% block content %}
     {% endblock %}
 
@@ -185,6 +190,29 @@
 
   </div>
 </div>
+
+<script>
+
+        function add_to_cart(id) {
+            $.ajax({
+                url: '/cart/add/'+id,
+                dataType: 'json',
+                success:function (e) {
+                    var lenght=e['len']
+                    var status=e['status']
+                    $('.cart-lenght').html(lenght)
+                    console.log(status)
+                      if (status == false) {
+                        console.log('a')
+                        $(".test").effect( "bounce",
+			                    {times:4}, 500 );
+                    }
+
+                }
+            })
+        }
+
+</script>
 </body>
 
 </html>

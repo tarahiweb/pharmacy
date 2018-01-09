@@ -16,7 +16,7 @@ def index(request):
             Q(drug_usage__icontains=query)
 
         ).distinct()
-    paginator = Paginator(queryset_list, 3)
+    paginator = Paginator(queryset_list, 12)
     page_request_var = "page"
     page = request.GET.get(page_request_var)
     try:

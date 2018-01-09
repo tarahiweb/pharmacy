@@ -3,12 +3,26 @@
 {% block title %}
     your order cart
 {% endblock %}
+{% block style %}
+    <style>
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        vertical-align: middle;
+    }
+    </style>
+{% endblock %}
 {% block content %}
-    <h1>your order cart</h1>
-    <table class="table">
-        <thead>
+    <div class="container-fluid">
+
+    <h1 class="text-center">your order cart</h1>
+    <p class="text-center" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;margin: auto"></p>
+        <br>
+<div class="" style="width: 80%;margin: auto">
+{% if cart.len > 0 %}
+    <table class="table table-striped">
+
+        <thead class="thead-dark">
             <tr>
-                <th>image</th>
+                <th>#</th>
                 <th>Drug</th>
                 <th>price</th>
                 <th>quantity</th>
@@ -16,35 +30,52 @@
             </tr>
         </thead>
         <tbody>
+
         {% for item in cart %}
             {% with drug=item.drug %}
             <tr>
                 <td>
+                    {% if drug.drug_pic %}
                     <a href="{{ drug.get.absolute_url }}">
-                        <img src="{% if drug.drug_pic%}{{ drug.drug_pic.url }}{% else %}{% static "" %}{% endif %}">
+                        <img src="{{ drug.drug_pic.url }}" width="100px" height="100px">
                     </a>
+                    {% else %}
+                        <img src="{% static 'icons/drugs.png' %}" alt="" width="100px" height="100px">
+                    {% endif %}
+                    
                 </td>
-                <td>{{ drug.name }}</td>
+                <td>{{ drug.drug_name }}</td>
+                <td>{{ drug.price }}</td>
                 <td>
+
                     <form action="{% url 'cart:cart_add' drug.id %}" method="post">
-                        {{ item.update_quantity_form.quantity }}
-                        {{ item.update_quantity_form.update }}
-                        <input type="submit" value="update">
+                        <input type="number" name="quantity" value="{{ item.quantity }}">
+                        <input type="hidden" name="update" value="True" >
+                        <button class="btn btn-success" type="submit"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
                         {% csrf_token %}
                     </form>
                 </td>
-                <td><a href="{% url 'cart:cart_remove' drug.id %}">Remove</a></td>
-                <td class="num">${{ item.price }}</td>
+                <td><a class="btn btn-danger" href="{% url 'cart:cart_remove' drug.id %}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             </tr>
             {% endwith %}
         {% endfor %}
         <tr class="total">
             <td>Total</td>
-            <td colspan="4"></td>
+            <td colspan="4">00.0</td>
         </tr>
         </tbody>
     </table>
-    <p class="text-right">
-        <a href="{% url 'product:index' %}" class="button light">countinue shopping</a>
+    <p class="">
+        <a class="btn btn-warning" href="{% url 'product:index' %}" ><i class="fa fa-chevron-left" aria-hidden="true"></i> countinue shopping</a>
+        <a class="btn btn-success" style="float: right" href="{% url 'product:index' %}" >checkout <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
     </p>
+    {% else %}
+        <div class="well text-center" style="width: 60%;margin: 50px auto">
+            <h3 class="">you didn't chose anything</h3>
+            <a class="btn btn-success " href="{% url 'product:index' %}"><i class="fa fa-shopping-basket" aria-hidden="true"></i> keep looking</a>
+        </div>
+
+    {% endif %}
+    </div>
+    </div>
 {% endblock %}

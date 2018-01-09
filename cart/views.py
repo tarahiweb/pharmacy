@@ -22,4 +22,5 @@ def cart_remove(request, drug_id):
 def cart_detail(request):
     cart = Cart(request)
     drug=Drug.objects.all()
+    # return HttpResponse(cart)
     return render(request, 'cart/detail.html', {'cart': cart})

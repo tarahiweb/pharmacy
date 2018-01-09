@@ -40,7 +40,7 @@ class Cart(object):
         for item in self.cart.values():
             yield item
 
-    def __len__(self):
+    def len(self):
         return sum(item['quantity'] for item in self.cart.values())
 
 

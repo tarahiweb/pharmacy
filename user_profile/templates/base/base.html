@@ -59,11 +59,12 @@
       </ul>
     </div><!-- /.navbar-collapse -->
      <div>
-          {% with total_item=cart.length%}
-              {% if cart.length > 0 %}
+          {% with total_item=cart.len%}
+              {% if cart.len > 0 %}
               your cart:
               <a href="{% url 'cart:cart_detail' %}">
-                  {{ total_item }}
+
+                  {{ cart.len }}
               </a>
               {% else %}
                 your cart: 0

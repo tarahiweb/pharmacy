@@ -10,13 +10,7 @@
             <h1>{{ drug.drug_company }}</h1>
             <p class="text-lg-right">${{ drug.price }}</p>
             {{ drug.description }}
-            <form action="{% url 'cart:cart_add' drug.id %}" method="post">
-                <input name="quantity" value="1" type="hidden">
-                <input name="update" value="False" type="hidden">
-                {% csrf_token %}
-                <input type="submit" value="add to cart">
-
-            </form>
+        <a href="{% url 'cart:cart_add' drug.id %}">add to cart</a>
 
     </div>
 {% endblock %}

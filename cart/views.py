@@ -5,14 +5,12 @@ from .cart import Cart
 from .forms import CartADDDrugForm
 from django.http import HttpResponse
 
-@require_POST
+
 def cart_add(request, drug_id):
     cart =Cart(request)
     drug = get_object_or_404(Drug, id = drug_id)
     form = CartADDDrugForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        cart.add(drug = drug, quantity= cd['quantity'], update_quantity= cd['update'])
+    cart.add(drug = drug, quantity= 1, update_quantity= False)
     return redirect('cart:cart_detail')
 
 def cart_remove(request, drug_id):
@@ -24,4 +22,4 @@ def cart_remove(request, drug_id):
 def cart_detail(request):
     cart = Cart(request)
     drug=Drug.objects.all()
-    return render(request, 'cart/detail.html', {'cart': cart,'drug':drug})
+    return render(request, 'cart/detail.html', {'cart': cart})

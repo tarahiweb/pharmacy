@@ -19,7 +19,7 @@ class Cart(object):
             self.cart[drug_id]['quantity']= quantity
         else:
             self.cart[drug_id]['quantity']+= quantity
-        self.save()
+            self.save()
 
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart

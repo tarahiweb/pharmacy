@@ -4,16 +4,18 @@
     {{ drug_name }}
 {% endblock %}
 {% block content %}
-    <div class="product-detail">
+    <div class="">
             <img src="{% if drug.drug_pic%}{{ drug.drug_pic.url }}{% else %}{% static "" %}{% endif %}"
             <h4>{{drug.drug_name}} {{drug.dose }}</h4>
             <h1>{{ drug.drug_company }}</h1>
-            <p class aria-roledescription="description">{{ drug.description }}</p>
+            <p class="text-lg-right">${{ drug.price }}</p>
+            {{ drug.description }}
             <form action="{% url 'cart:cart_add' drug.id %}" method="post">
                 {{ cart_drug_form }}
                 {% csrf_token %}
                 <input type="submit" value="add to cart">
 
             </form>
+
     </div>
 {% endblock %}

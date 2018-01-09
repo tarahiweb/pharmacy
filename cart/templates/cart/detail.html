@@ -5,15 +5,15 @@
 {% endblock %}
 {% block content %}
     <h1>your order cart</h1>
-    <table class="cart">
+    <table class="table">
         <thead>
-        <tr>
-            <th>image</th>
-            <th>Drug</th>
-            <th>quantity</th>
-            <th>Remove</th>
-
-        </tr>
+            <tr>
+                <th>image</th>
+                <th>Drug</th>
+                <th>price</th>
+                <th>quantity</th>
+                <th>Remove</th>
+            </tr>
         </thead>
         <tbody>
         {% for item in cart %}
@@ -34,9 +34,14 @@
                     </form>
                 </td>
                 <td><a href="{% url 'cart:cart_remove' drug.id %}">Remove</a></td>
+                <td class="num">${{ item.price }}</td>
             </tr>
             {% endwith %}
         {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+        </tr>
         </tbody>
     </table>
     <p class="text-right">

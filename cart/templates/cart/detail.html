@@ -67,7 +67,7 @@
     </table>
     <p class="">
         <a class="btn btn-warning" href="{% url 'product:index' %}" ><i class="fa fa-chevron-left" aria-hidden="true"></i> countinue shopping</a>
-        <a class="btn btn-success" style="float: right" href="{% url 'product:index' %}" >checkout <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        <a class="btn btn-success" style="float: right" href="{% url 'orders:order_create' %}" >checkout <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
     </p>
     {% else %}
         <div class="well text-center" style="width: 60%;margin: 50px auto">

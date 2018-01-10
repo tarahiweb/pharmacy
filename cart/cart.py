@@ -39,11 +39,15 @@ class Cart(object):
         for drug in drugs:
             self.cart[str(drug.id)]['drug']= drug
         for item in self.cart.values():
+            #item['price'] = Decimal(item['price'])
+            #item['total_price'] = item['price'] * item['quantity']
             yield item
 
     def len(self):
         return sum(1 for item in self.cart.values())
 
+    #def get_total_price(self):
+        #return sum(Decimal(item['price']) * item['quantity']for item in self.cart.values())
 
     def clear(self):
         self.session[settings.CART_SESSION_ID] = {}

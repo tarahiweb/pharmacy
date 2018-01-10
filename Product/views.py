@@ -1,9 +1,11 @@
 from django.http import HttpResponse
-from .models import Drug
-from django.shortcuts import render, get_object_or_404
+from .models import Drug,Comment
+from django.shortcuts import render, get_object_or_404,redirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from cart.forms import CartADDDrugForm
+from .forms import CommentForm,ChildCommentForm
+
 
 def index(request):
     queryset_list = Drug.objects.all().order_by('-id')
@@ -38,7 +40,38 @@ def index(request):
 
 
 
-def details(request, drug_id):
-    drug = get_object_or_404(Drug, pk= drug_id)
+def details(request, drug_slug):
+    drug = get_object_or_404(Drug, slug= drug_slug)
     cart_drug_form =CartADDDrugForm()
-    return render(request, 'product/detail.html', {'drug': drug}, {'cart_drug_form': cart_drug_form})
+    comments=Comment.objects.filter(drug_slug=drug_slug)
+    return render(request, 'product/detail.html', {'drug': drug,'cart_drug_form': cart_drug_form,'comment':comments})
+
+
+
+def Add_comment(request):
+    if request.method=="POST":
+        # age comment parrent dashte bashe be onvane child comment save mishe
+        if request.POST['parrent']:
+            if request.user.is_authenticated:
+                form=ChildCommentForm(request.POST)
+                if form.is_valid():
+                    post=form.save(commit=False)
+                    parrent=Comment.objects.get(pk=request.POST['parrent'])
+                    post.parrent=parrent
+                    post.user=request.user
+                    post.save()
+                else:
+                    return HttpResponse(form.errors)
+        else:
+            form=CommentForm(request.POST)
+            if form.is_valid():
+                post=form.save(commit=False)
+                if request.user.is_authenticated:
+                    post.user=request.user
+                post.save()
+            else:
+                return HttpResponse(form.errors)
+        return redirect(request.POST['redirect'])
+    else:
+        return HttpResponse('get')
+

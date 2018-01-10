@@ -5,6 +5,9 @@ app_name = 'product'
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
-    url (r'^(?P<drug_id>[0-9]+)/$', views.details, name= 'detail'),
+    url (r'^(?P<drug_slug>[-\w]+)/$', views.details, name= 'detail'),
+
+    # comment url
+    url(r'^comment/create-comment/', views.Add_comment, name='add-comment'),
 ]
 

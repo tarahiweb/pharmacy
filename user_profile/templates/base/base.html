@@ -48,7 +48,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="">
-            <a class="btn-success  test" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="{% url 'cart:cart_detail' %}">
+            <a class="btn-success  test" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="{% url 'cart:cart_detail' %}" data-toggle="popover">
             <i class="fa fa-shopping-basket" aria-hidden="true"></i> your cart:
               {% if cart.len > 0 %}
                   <span class="cart-lenght">{{ cart.len }}</span>
@@ -190,6 +190,9 @@
 
   </div>
 </div>
+<div style="display: none;" class="cartpopover">
+   <h1>hello</h1>
+</div>
 
 <script>
 
@@ -201,12 +204,13 @@
                     var lenght=e['len']
                     var status=e['status']
                     $('.cart-lenght').html(lenght)
-                    console.log(status)
                       if (status == false) {
-                        console.log('a')
+
                         $(".test").effect( "bounce",
 			                    {times:4}, 500 );
-                    }
+                    }else {
+                        console.log('asd')
+                      }
 
                 }
             })

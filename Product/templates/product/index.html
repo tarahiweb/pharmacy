@@ -1,5 +1,10 @@
 {% extends 'base/base.html' %}
 {% load static %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'product/product-list-style.css' %}">
+{% endblock %}
 {% block content %}
 
 {% if drugs %}
@@ -28,18 +33,29 @@
 
     <div style="width: 95%;margin: auto">
         {% for item in drugs %}
-                <div class="col-md-3 col-sm-6 col-xs-12" style="height: 320px;padding: 10px">
-                    <div style="height: 200px;border: 2px #f1f1f1 solid;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: cover">
-                    <div class="circle" style="position: absolute;top: 20px;left: 20px;height: 50px;width: 50px;border-radius: 100%;background-color: #1e7e34;align-items: center">
-                        <p class="text-center" style="color: white;margin: 15px 0">Free!</p>
+            <div class="col-md-3 col-sm-6 col-xs-12" style="height: 320px;padding: 10px">
+                    <div class="product-img" style="height: 200px;border: 2px #f1f1f1 solid;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: contain;background-repeat: no-repeat;background-position: center">
+                        <div class="circle" style="position: absolute;top: 20px;left: 20px;height: 50px;width: 50px;border-radius: 100%;background-color: #1e7e34;align-items: center">
+                            <p class="text-center" style="color: white;margin: 15px 0">Free!</p>
+                        </div>
+                        <div class="opa-0" >
+
+                                <div class="well" style="height: 150px;overflow: scroll;margin-bottom: 10px">
+                                    {{ item.description }}
+                                </div>
+                                <div class="text-center">
+                            <a class="btn btn-success" href="{% url 'product:detail' item.slug %}" style="vertical-align: middle"><i class="fa fa-search" aria-hidden="true" ></i></a>
+                            <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                                </div>
+                        </div>
                     </div>
-                    </div>
+
                     <div>
                         <h4 class="">{{ item.drug_name }}</h4>
                             <p >
                                 <span class="disabled" style="font-size: 17px">Free!!</span>
 
-                        <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" style="float: right" data-anijs="if: click, do: bounceIn animated, to: .anijis"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                        <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" style="float: right" > <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
 
                             </p>
 

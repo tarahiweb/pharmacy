@@ -8,7 +8,7 @@ class  Drug(models.Model):
     drug_pic = models.ImageField(blank=True)
     description  = models.TextField(blank=True)
     drug_usage = models.CharField(max_length=100)
-    price= models.DecimalField(max_digits=10,decimal_places=2)
+    price = models.DecimalField(max_digits=10,decimal_places=2)
     stock= models.PositiveIntegerField()
     available=models.BooleanField(default=True)
 

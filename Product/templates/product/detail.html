@@ -4,13 +4,20 @@
     {{ drug_name }}
 {% endblock %}
 {% block content %}
-    <div class="">
-            <img src="{% if drug.drug_pic%}{{ drug.drug_pic.url }}{% else %}{% static "" %}{% endif %}"
+    <div class="col-md-3 col-sm-6 col-xs-12">
+            {% if drug.drug_pic %}
+                    <a href="{{ drug.get.absolute_url }}">
+                        <img src="{{ drug.drug_pic.url }}" width="100px" height="100px">
+                    </a>
+                    {% else %}
+                        <img src="{% static 'icons/drugs.png' %}" alt="" width="100px" height="100px">
+            {% endif %}
             <h4>{{drug.drug_name}} {{drug.dose }}</h4>
             <h1>{{ drug.drug_company }}</h1>
             <p class="text-lg-right">${{ drug.price }}</p>
             {{ drug.description }}
         <a onclick="add_to_cart({{ drug.pk }})">add to cart</a>
+    </div>
 
       {#  drug  comment section#}
     <div class="comment-tabs" style="width: 95%;margin: auto;margin-bottom: 10px;background-color: rgba(231, 231, 231,0.7);padding: 0 10px 0 10px; border-radius: 10px"  >

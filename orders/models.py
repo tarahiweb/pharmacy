@@ -1,5 +1,6 @@
 from django.db import models
 from Product.models import Drug
+from user_profile.models import User
 
 class Order(models.Model):
     first_name = models.CharField(max_length=50)
@@ -12,7 +13,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
-
+    user = models.ForeignKey(User, blank=True, null=True)
     class Meta:
         ordering= ('-created',)
 

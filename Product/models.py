@@ -28,7 +28,7 @@ class Comment(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     drug_slug=models.SlugField(allow_unicode=True)
     def __str__(self):
-        return 'comment on '+ self.post_slug
+        return 'comment on '+ self.drug_slug
 
 class ChildComment(models.Model):
     parrent=models.ForeignKey(Comment,related_name='child')
@@ -38,4 +38,4 @@ class ChildComment(models.Model):
     drug_slug = models.SlugField(allow_unicode=True)
 
     def __str__(self):
-        return 'reply on ' + self.post_slug
+        return 'reply on ' + self.drug_slug

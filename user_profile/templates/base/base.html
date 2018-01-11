@@ -33,22 +33,10 @@
       <ul class="nav navbar-nav">
         <li><a href="{% url 'product:index' %}">Free products</a></li>
         <li><a href="{% url 'product:index' %}">consulting</a></li>
-{#        <li class="dropdown">#}
-{#          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>#}
-{#          <ul class="dropdown-menu">#}
-{#            <li><a href="#">Action</a></li>#}
-{#            <li><a href="#">Another action</a></li>#}
-{#            <li><a href="#">Something else here</a></li>#}
-{#            <li role="separator" class="divider"></li>#}
-{#            <li><a href="#">Separated link</a></li>#}
-{#            <li role="separator" class="divider"></li>#}
-{#            <li><a href="#">One more separated link</a></li>#}
-{#          </ul>#}
-{#        </li>#}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="">
-            <a class="btn-success  test" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="{% url 'cart:cart_detail' %}" data-toggle="popover">
+            <a class="btn-success  cart" href="{% url 'cart:cart_detail' %}" id="popoverbtn" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="" >
             <i class="fa fa-shopping-basket" aria-hidden="true"></i> your cart:
               {% if cart.len > 0 %}
                   <span class="cart-lenght">{{ cart.len }}</span>
@@ -57,18 +45,19 @@
               {% endif %}
          </a>
         </li>
+     {% if request.user.is_authenticated %}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
           <ul class="dropdown-menu">
-              {% if request.user.is_authenticated %}
-                <li><a href="">{{ request.user.username }}</a></li>
+
+                <li><a href="" >{{ request.user.username }}</a></li>
                 <li><a href="{% url 'user_profile:logout' %}">log Out</a></li>
-                {% else %}
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Sing up</a></li>
-              {% endif %}
           </ul>
         </li>
+                {% else %}
+                     <li><a href="" data-toggle="modal" data-target="#login">Login</a></li>
+              {% endif %}
+
       </ul>
     </div><!-- /.navbar-collapse -->
      <div>
@@ -111,90 +100,91 @@
     <div class="modal-dialog" style="margin-top: 70px;width: 90%">
 
     <!-- Modal content-->
-      <div class="modal-content" style="background-color: #253035;color: #f1f1f1">
+      <div class="modal-content" style="background-color: #f8f8f8;">
         <div class="modal-header" style="border: none">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">login</h4>
+          <h1 class="modal-title text-center">Tyson pharmacy</h1>
+            <hr>
+        </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 col-xs-12" style="">
+                <h1>register</h1>
+                <form class="" action="{% url 'user_profile:register' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-      </div>
-        <div class="modal-body">
-          <div class="row">
-    <div class="col-md-6 col-xs-12" style="">
-                  <h1>register</h1>
-                  <form class="form-signin text-center" action="{% url 'user_profile:register' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
-                          {% csrf_token %}
-                          <div class="form-group">
-                              <label for="teacher" class="col-sm-3 control-label">first_name:</label>
+                    <br>
+                    <div class="form-group">
+                        <label >First name</label>
+                        <input  class="form-control"  name="first_name" placeholder="Enter first name">
+                    </div>
+                    <div class="form-group">
+                        <label >last name</label>
+                        <input  class="form-control"  name="last_name" placeholder="Enter last name">
+                    </div>
+                    <div class="form-group">
+                        <label >Email</label>
+                        <input  class="form-control"  name="email" placeholder="Enter email adress">
+                    </div>
 
-                              <div class="col-sm-offset-2 col-sm-6">
-                                  <input  class="form-control"  value="" name="first_name">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label for="teacher" class="col-sm-3 control-label">last_name:</label>
 
-                              <div class="col-sm-offset-2 col-sm-6">
-                                  <input  class="form-control"  value="" name="last_name">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label  for="teacher" class="col-sm-3 control-label">email:</label>
-
-                              <div class="col-sm-offset-2 col-sm-6">
-                                  <input type="email" class="form-control"  value="" name="email">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label for="teacher" class="col-sm-3 control-label">password:</label>
-
-                              <div class="col-sm-offset-2 col-sm-6">
-                                  <input type="password" class="form-control"  value="" name="password">
-                              </div>
-                          </div>
-                          <br>
-                          <button class="btn btn-primary " type="submit" style="">submit</button>
-                      </form>
+                    <div class="form-group">
+                        <label >password:</label>
+                        <input type="password" class="form-control"  value="" name="password" placeholder="enter a password">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary " type="submit" style="">submit</button>
+                </form>
 
               </div>
-    <div class="col-md-6 col-xs-12" style="">
-        <h1>login form</h1>
-                          <form class="form-signin text-center" action="{% url 'user_profile:login' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
-                          {% csrf_token %}
-                          <div class="form-group">
-                              <label for="teacher" class="col-sm-3 control-label">email:</label>
-
-                              <div class="col-sm-offset-2 col-sm-6">
-                                  <input  class="form-control"  value="" name="email" type="email">
-                              </div>
-                          </div>
-
-                          <div class="form-group">
-                              <label for="teacher" class="col-sm-3 control-label">password:</label>
-
-                              <div class="col-sm-offset-2 col-sm-6">
-                                  <input type="password" class="form-control"  value="" name="password">
-                              </div>
-                          </div>
-                          <br>
-                          <button class="btn btn-primary " type="submit" style="">submit</button>
-                      </form>
-
-    </div>
-</div>
-      </div>
-        <div class="modal-footer" style="border: none">
-
-            <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
+                <div class="col-md-6 col-xs-12" style="">
+                    <h1>login form</h1>
+                    <form action="{% url 'user_profile:login' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label >Email address</label>
+                            <input type="email" class="form-control"  name="username" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label >Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+              </div>
+          </div>
         </div>
-    </div>
+          <div class="modal-footer" style="border: none">
 
-  </div>
+              <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
+          </div>
+      </div>
+
+    </div>
 </div>
-<div style="display: none;" class="cartpopover">
-   <h1>hello</h1>
-</div>
+
+
+
 
 <script>
+    $(document).ready(function() {
+     $('[data-toggle="popover"]').popover();
+  $('#popoverbtn').popover({
+    trigger: 'manual',
+    placement: 'bottom',
+    html: true,
+    content:  function() {
+      return '<p>this drug is already in your cart</p> <a href="#" class="bastan" data-dismiss="alert">got it!</a>'
+    },
+  });
+});
+
+
+$(document).ready(function() {
+  $(document).on("click", ".popover .bastan", function() {
+    $(this).parents(".popover").popover('hide');
+  });
+});
 
         function add_to_cart(id) {
             $.ajax({
@@ -206,10 +196,11 @@
                     $('.cart-lenght').html(lenght)
                       if (status == false) {
 
-                        $(".test").effect( "bounce",
-			                    {times:4}, 500 );
+                        $(".cart").effect( "bounce",
+			                    {times:6}, 500 );
                     }else {
-                        console.log('asd')
+                        console.log('false')
+                          $('#popoverbtn').popover('toggle');
                       }
 
                 }

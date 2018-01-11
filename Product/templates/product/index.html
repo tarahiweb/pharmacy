@@ -44,8 +44,8 @@
                                     {{ item.description }}
                                 </div>
                                 <div class="text-center">
-                            <a class="btn btn-success" href="{% url 'product:detail' item.slug %}" style="vertical-align: middle"><i class="fa fa-search" aria-hidden="true" ></i></a>
-                            <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                            <a class="btn btn-success" href="{% url 'product:detail' item.slug %}" data-toggle="popover" data-trigger="hover" data-content="more details" data-placement="left"><i class="fa fa-search" aria-hidden="true" ></i></a>
+                            <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" data-toggle="popover" data-trigger="hover" data-content="add to cart"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
                                 </div>
                         </div>
                     </div>
@@ -114,7 +114,6 @@
     </li>
   </ul>
 </div>
-<div class="div">click</div>
 
 
 </div>

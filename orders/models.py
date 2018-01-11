@@ -1,19 +1,13 @@
 from django.db import models
 from Product.models import Drug
-from user_profile.models import User
+from user_profile.models import UserInfo
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    address = models.CharField(max_length=200)
-    zip= models.CharField(max_length=20)
-    city = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
-    user = models.ForeignKey(User, blank=True, null=True)
+    info = models.ForeignKey(UserInfo,null=True)
     class Meta:
         ordering= ('-created',)
 

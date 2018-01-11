@@ -44,7 +44,7 @@ def details(request, drug_slug):
     drug = get_object_or_404(Drug, slug= drug_slug)
     cart_drug_form =CartADDDrugForm()
     comments=Comment.objects.filter(drug_slug=drug_slug)
-    return render(request, 'product/detail.html', {'drug': drug,'cart_drug_form': cart_drug_form,'comments':comments})
+    return render(request, 'product/detail.html', {'drug': drug,'cart_drug_form': cart_drug_form,'comment':comments})
 
 
 

@@ -4,6 +4,7 @@
     {{ drug_name }}
 {% endblock %}
 {% block content %}
+    <div class="container-fluid">
     <div class="col-md-3 col-sm-6 col-xs-12">
             {% if drug.drug_pic %}
                     <a href="{{ drug.get.absolute_url }}">
@@ -17,6 +18,7 @@
             <p class="text-lg-right">${{ drug.price }}</p>
             {{ drug.description }}
         <a onclick="add_to_cart({{ drug.pk }})">add to cart</a>
+    </div>
     </div>
 
       {#  drug  comment section#}

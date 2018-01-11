@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
-from .form import UserForm,LoginForm
+from .form import UserForm,LoginForm,UserInfoForm
 from django.contrib.auth import login as auth_login
 from django.views.generic import View
 
@@ -72,3 +72,11 @@ class LoginView(View):
 def Logout(request):
     logout(request)
     return redirect('home')
+
+def user_info(request):
+    form=UserInfoForm(data=request.POST)
+    if form.is_valid():
+        post=form.save(commit=False)
+        post.user=request.user
+        post.save()
+        return redirect(request.GET['next'])

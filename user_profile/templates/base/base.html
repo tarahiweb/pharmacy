@@ -112,8 +112,6 @@
                 <h1>register</h1>
                 <form class="" action="{% url 'user_profile:register' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-
-                    <br>
                     <div class="form-group">
                         <label >First name</label>
                         <input  class="form-control"  name="first_name" placeholder="Enter first name">

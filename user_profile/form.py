@@ -1,5 +1,5 @@
 
-from .models import User
+from .models import User,UserInfo
 from django import  forms
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -36,3 +36,8 @@ class LoginForm(AuthenticationForm):
 
         password_field.widget.attrs = {'class': 'inputA'}
         password_field.label = 'password'
+
+class UserInfoForm(forms.ModelForm):
+    class Meta:
+        model=UserInfo
+        fields=['address','zip','city']

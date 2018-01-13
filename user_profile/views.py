@@ -2,9 +2,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
-from .form import UserForm,LoginForm,UserInfoForm
+from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm
 from django.contrib.auth import login as auth_login
 from django.views.generic import View
+from django import forms
+from django.http import HttpResponse
+from .models import Question, Answer
 
 
 class UserFormView(View):
@@ -80,3 +83,41 @@ def user_info(request):
         post.user=request.user
         post.save()
         return redirect(request.GET['next'])
+    else:
+        return redirect(request.GET['next'])
+
+
+
+
+def consulting_detail(request):
+    questions = Question.objects.filter()
+    return render(request, 'consulting/consulting.html', {'question': questions})
+
+
+def Add_Question(request):
+    if request.method=="POST":
+        # age question parrent dashte bashe be onvane child question save mishe
+        if request.POST['parrent']:
+            if request.user.is_authenticated:
+                form=AnswerForm(request.POST)
+                if form.is_valid():
+                    post=form.save(commit=False)
+                    parrent=Question.objects.get(pk=request.POST['parrent'])
+                    post.parrent=parrent
+                    post.user=request.user
+                    post.save()
+                else:
+                    return HttpResponse(form.errors)
+        else:
+            form=QuestionForm(request.POST)
+            if form.is_valid():
+                post=form.save(commit=False)
+                if request.user.is_authenticated:
+                    post.user=request.user
+                post.save()
+            else:
+                return HttpResponse(form.errors)
+        return redirect(request.POST['redirect'])
+    else:
+        return HttpResponse('get')
+

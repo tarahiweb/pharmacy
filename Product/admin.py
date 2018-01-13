@@ -15,3 +15,4 @@ from .models import Drug,Comment
 admin.site.register(Drug,DrugAdmin)
 admin.site.register(Comment)
 
+

@@ -1,5 +1,5 @@
 
-from .models import User,UserInfo
+from .models import User,UserInfo, Question, Answer
 from django import  forms
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -41,3 +41,15 @@ class UserInfoForm(forms.ModelForm):
     class Meta:
         model=UserInfo
         fields=['address','zip','city']
+
+
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model=Question
+        fields = ['body']
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model=Answer
+        fields = ['body']

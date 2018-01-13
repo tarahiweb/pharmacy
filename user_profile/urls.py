@@ -10,6 +10,8 @@ urlpatterns = [
 
     # userinfo
     url(r'^create-info', views.user_info, name='create-userinfo'),
+    url(r'^consulting/', views.consulting_detail, name='consulting_detail'),
+    url(r'^consulting/add-question', views.Add_Question, name='add-question'),
 
 ]
 

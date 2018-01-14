@@ -53,3 +53,9 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model=Answer
         fields = ['body']
+
+
+#class UserProfileForm(forms.ModelForm):
+ #   class Meta:
+  #      model = UserProfile
+   #     exclude=('user',)

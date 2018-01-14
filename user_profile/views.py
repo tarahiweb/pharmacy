@@ -1,13 +1,16 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
 from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm
 from django.contrib.auth import login as auth_login
 from django.views.generic import View
 from django import forms
-from django.http import HttpResponse
-from .models import Question, Answer
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Question, Answer, User
+from django.contrib.auth.decorators import login_required
+
+
 
 
 class UserFormView(View):
@@ -120,4 +123,40 @@ def Add_Question(request):
         return redirect(request.POST['redirect'])
     else:
         return HttpResponse('get')
+
+
+@login_required
+def update_profile(request):
+    user = User.objects.get(id= request.user.id)
+    form = UserForm(initial={'email':user.email, 'first_name':user.first_name,'last_name': user.last_name })
+    return render_to_response('user_profile/update_profile.html', {'form':form})
+
+def profile(request):
+    #if profile_id =="0":
+        if request.user.is_authenticated:
+            user= User.objects.get(id=request.user.id)
+            return render_to_response('user_profile/profile.html', {'user': user})
+
+
+@login_required
+def send_update_profile(request):
+    if request.method=="POST":
+        form= UserForm(request.POST)
+        if form.is_valid():
+            user= User.objects.get(id=request.user.id)
+            email= form.cleaned_data['email']
+            user.email= email
+            first_name = form.cleaned_data['first_name']
+            user.first_name = first_name
+            last_name = form.cleaned_data['last_name']
+            user.last_name= last_name
+            user.save()
+            return redirect('https://www.google.com/')
+
+    else:
+        form= UserForm()
+        return redirect('/user/send_update_profile')
+
+
+
 

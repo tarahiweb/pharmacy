@@ -14,3 +14,4 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Question)
+#admin.site.register(UserProfile)

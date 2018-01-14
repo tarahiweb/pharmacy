@@ -1,0 +1,13 @@
+{% extends "base/base.html" %}
+
+{% block title %} {{ user.username }}{% endblock %}
+
+{% block content %}
+    <h1>{{ user.username }}</h1>
+    <div>{{ user.first_name }}</div>
+    <div>{{ user.email }}</div>
+    <div>{{ user.last_name }}</div>
+    <div class="well text-center" style="width: 60%;margin: 50px auto">
+            <a class="btn btn-success " href="{% url 'user_profile:update-profile' %}"><i class="fa fa-shopping-basket" aria-hidden="true"></i> update profile</a>
+        </div>
+{% endblock %}

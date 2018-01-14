@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% block content %}
+ <div class="container">
+    <h3>update yout informations</h3>
+    <form method="post" action="" class="form-horizontal">
+ {% csrf_token %}
+    {% for field in form %}
+              <div class="form-group">
+
+                <span>{{ field.errors }}</span>
+                <label>{{ field.label_tag }}</label>
+                <div class="">{{ field }}</div>
+              </div>
+        {% endfor %}
+
+        <br>
+        <button class="btn btn-lg btn-primary" type="submit" >Edit</button>
+
+</form>
+    </div>
+{% endblock %}

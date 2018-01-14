@@ -27,7 +27,7 @@
                                 <div class="row" style="width: 80%;margin: auto">
                                     <br>
                                     {% if request.user.is_authenticated  %}
-                                    <form action="{% url 'user_profile:add-question'%}" method="post" class="form-horizontal" role="form">
+                                    <form action="" method="post" class="form-horizontal" role="form">
                                         {% csrf_token %}
                                         <div class="col-lg-12">
                                             <div class="input-group">
@@ -58,7 +58,7 @@
 
                 <div class="tab-pane" id="add-question">
                     {% if request.user.is_authenticated %}
-                        <form action="{% url 'user_profile:add-question'%}" method="post" class="form-horizontal" role="form">
+                        <form action="" method="post" class="form-horizontal" role="form">
                             {% csrf_token %}
                             <p>{{ request.user.username }}</p>
                         <div class="form-group">

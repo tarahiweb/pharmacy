@@ -1,16 +1,26 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% block style %}
+    <style>
+    .hover-cours:hover{
+        cursor: hand;
+    }
+    </style>
+{% endblock %}
 {% block content %}
     <div class="container-fluid" style="">
     <div  style="width: 90%;margin: auto">
         <h1>chose your address</h1>
-        <div class="row">
-        <div class="col-sm-11 col-xs-11" style="height: 320px;overflow-x: scroll;">
-            <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;">
+              <form action="" method="post">
+  <div class="row">
+        <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
+
+            {% csrf_token %}
+            <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
 
                 {% for i in info %}
 
-                    <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;display: inline-block">
+                    <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
                         <div class="panel-heading">address</div>
                         <div class="panel-body">
                             <p style="height: 50px">address : {{ i.address }}</p>
@@ -20,80 +30,66 @@
                             <p>Zip : {{ i.zip }}</p>
                         </div>
                         <div class="panel-footer text-center">
-                            <input type="radio" name="gender" value="{{ i.pk }}"> chose this address
+                            <input type="radio" name="info" value="{{ i.pk }}"> chose this address
                         </div>
                     </div>
                 {% endfor %}
-                                    <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;display: inline-block">
-                        <div class="panel-heading">Add new address</div>
-                        <div class="panel-body">
-                            <form action="">
 
-                            </form>
-                            <p style="height: 50px">address : {{ i.address }}</p>
-                            <hr>
-                            <p>City : {{ i.city }}</p>
-                            <p>State : {{ i.city }}</p>
-                            <p>Zip : {{ i.zip }}</p>
-                        </div>
-                        <div class="panel-footer text-center">
-                            <button>asd</button>
-                        </div>
+                    <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#login" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                        <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
                     </div>
 
-
-
             </div>
-         </div>
+
+        </div>
+
+
         <div class="col-sm-1 col-xs-1" style="background-color: #1e7e34">
             asd
         </div>
         </div>
+         <button type="submit">subnit</button>
+         </form>
+
+
     </div>
     </div>
 
 
-{#        </div>#}
-{#        </div>#}
-{#      #}
-{#            <div>#}
-{#                    <form action="{% url 'user_profile:create-userinfo' %}?next={{ request.path }}" method="post">#}
-{#                        {% csrf_token %}#}
-{#                        <div class="form-group">#}
-{#                            <lable>address</lable>#}
-{#                            <input type="text" name="address">#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <lable>city</lable>#}
-{#                            <input type="text" name="city">#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <lable>zip</lable>#}
-{#                            <input type="text" name="zip">#}
-{#                        </div>#}
-                        {#                <input type="hidden" name="next" value="{{ request.path }}">#}
-{#                        <button type="submit">submit</button>#}
-{#                    </form>#}
-{#                </div>#}
-{#        <br>#}
-{#        <h1>adres</h1>#}
-{#        <form action="{% url 'orders:order_create'%}" method="post">#}
-{#        {% csrf_token %}#}
-{#            <div class="form-group">#}
-{#                <lable>address</lable>#}
-{#                <select name="info" id="">#}
-{#                    {% for i in info %}#}
-{#                    <option value="{{ i.pk }}">{{ i.pk }}</option>#}
-{#                    {% endfor %}#}
-{#                </select>#}
-{#            </div>#}
-{#            <button type="submit">okey</button>#}
-{#        </form>#}
-{##}
-{#    <button>asd</button>#}
-{#    <button>asd</button>#}
-{#    <button>asd</button>#}
-{#    <button>asd</button>#}
-{#</div>#}
-{#    </div>#}
+<div id="login" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="margin-top: 70px;width: 90%">
+
+<div class="modal-content" style="background-color: #f8f8f8;">
+        <div class="modal-header" style="border: none">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h1 class="modal-title text-center">add nre address</h1>
+            <hr>
+        </div>
+          <div class="modal-body">
+            <form action="{% url 'user_profile:create-userinfo' %}?next={{ request.path }}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <lable>address</lable>
+                            <input class="form-control" type="text" name="address">
+                        </div>
+                        <div class="form-group">
+                            <lable>city</lable>
+                            <input class="form-control" type="text" name="city">
+                        </div>
+                        <div class="form-group">
+                            <lable>zip</lable>
+                            <input class="form-control" type="text" name="zip">
+                        </div>
+                                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button class="form-control btn-success" type="submit">submit</button>
+                    </form>
+
+        </div>
+          <div class="modal-footer" style="border: none">
+
+              <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
+          </div>
+      </div>
+    </div>
+</div>
 {% endblock %}

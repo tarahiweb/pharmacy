@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
@@ -9,6 +8,9 @@ from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Question, Answer, User
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.urlresolvers import reverse_lazy
 
 
 
@@ -79,6 +81,7 @@ def Logout(request):
     logout(request)
     return redirect('home')
 
+@login_required(login_url='user_profile:login')
 def user_info(request):
     form=UserInfoForm(data=request.POST)
     if form.is_valid():
@@ -87,19 +90,15 @@ def user_info(request):
         post.save()
         return redirect(request.GET['next'])
     else:
+        return HttpResponse(form.errors)
         return redirect(request.GET['next'])
 
-
-
-
+@login_required(login_url='user_profile:login')
 def consulting_detail(request):
-    questions = Question.objects.filter()
-    return render(request, 'consulting/consulting.html', {'question': questions})
-
-
-def Add_Question(request):
-    if request.method=="POST":
-        # age question parrent dashte bashe be onvane child question save mishe
+    if request.method=='GET':
+        questions = Question.objects.all()
+        return render(request, 'consulting/consulting.html', {'question': questions})
+    else:
         if request.POST['parrent']:
             if request.user.is_authenticated:
                 form=AnswerForm(request.POST)
@@ -111,6 +110,7 @@ def Add_Question(request):
                     post.save()
                 else:
                     return HttpResponse(form.errors)
+            return HttpResponse('ok')
         else:
             form=QuestionForm(request.POST)
             if form.is_valid():
@@ -120,17 +120,11 @@ def Add_Question(request):
                 post.save()
             else:
                 return HttpResponse(form.errors)
-        return redirect(request.POST['redirect'])
-    else:
-        return HttpResponse('get')
+        return HttpResponse('ok')
 
 
-@login_required
-def update_profile(request):
-    user = User.objects.get(id= request.user.id)
-    form = UserForm(initial={'email':user.email, 'first_name':user.first_name,'last_name': user.last_name })
-    return render_to_response('user_profile/update_profile.html', {'form':form})
 
+@login_required(login_url='user_profile:login')
 def profile(request):
     #if profile_id =="0":
         if request.user.is_authenticated:
@@ -138,25 +132,13 @@ def profile(request):
             return render_to_response('user_profile/profile.html', {'user': user})
 
 
-@login_required
-def send_update_profile(request):
-    if request.method=="POST":
-        form= UserForm(request.POST)
-        if form.is_valid():
-            user= User.objects.get(id=request.user.id)
-            email= form.cleaned_data['email']
-            user.email= email
-            first_name = form.cleaned_data['first_name']
-            user.first_name = first_name
-            last_name = form.cleaned_data['last_name']
-            user.last_name= last_name
-            user.save()
-            return redirect('https://www.google.com/')
+class EditView(LoginRequiredMixin, UpdateView):
+    login_url = 'user_profile:login'
+    model = User
+    template_name = 'user_profile/form.html'
+    fields = ['first_name', 'last_name', 'email']
+    def get_object(self, queryset=None):
+        return self.request.user
 
-    else:
-        form= UserForm()
-        return redirect('/user/send_update_profile')
-
-
-
+    success_url = reverse_lazy('home')
 

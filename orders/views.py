@@ -10,7 +10,16 @@ def order_info(request):
     info=UserInfo.objects.filter(user=request.user)
     cart = Cart(request)
     if request.method=='POST':
-        pass
+        info = UserInfo.objects.get(pk=request.POST['info'])
+        order = Order.objects.create(info=info)
+        for item in cart:
+            OrderItem.objects.create(order=order,
+                                     drug=item['drug'],
+                                     # price=item['price'],
+                                     quantity=item['quantity'])
+
+            cart.clear()
+            return render(request, 'orders/created.html', {'order': order})
     else:
         return render(request,'orders/info-chek.html',{'info':info,'cart':cart})
 

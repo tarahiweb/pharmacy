@@ -7,7 +7,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
-    info = models.ForeignKey(UserInfo,null=True)
+    info = models.ForeignKey(UserInfo,null=True,related_name='info')
     class Meta:
         ordering= ('-created',)
 

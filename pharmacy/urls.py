@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^orders/', include('orders.urls', namespace='orders')),
     url(r'^product/', include('Product.urls')),
     url(r'^cart/', include('cart.urls', namespace='cart')),
+    url(r'^refill/', include('refill.urls', namespace='refill')),
     url(r'^user/', include('user_profile.urls')),
 
 ]

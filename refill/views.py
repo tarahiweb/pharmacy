@@ -9,9 +9,9 @@ def refill_info(request):
     info=UserInfo.objects.filter(user=request.user)
     user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
-        info = UserInfo.objects.get(pk=request.POST['infouser'])
-        user = User.objects.get(pk= request.POST['refill'])
-        refill = Refill.objects.create(info=info,user=user)
+        info = UserInfo.objects.get(pk=request.POST['info'])
+        user = User.objects.get(pk= request.POST['user.id'])
+        refill = Refill.objects.create(info=info, user=user)
 
         return render(request, 'refill_submited.html', {'refill':refill})
     else:

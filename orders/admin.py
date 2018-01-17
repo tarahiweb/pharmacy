@@ -17,4 +17,5 @@ class OrderAdmin(admin.ModelAdmin):
         return obj.info.user.email
     get_info.short_description = 'address'
     get_info.admin_order_field = 'info__address'
+
 admin.site.register(Order,OrderAdmin)

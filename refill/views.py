@@ -7,12 +7,16 @@ from .forms import RefillCreateForm
 
 def refill_info(request):
     info=UserInfo.objects.filter(user=request.user)
-    user= User.objects.filter(pk=request.user.id)
+    #user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
-        info = UserInfo.objects.get(pk=request.POST['info'])
-        user = User.objects.get(pk= request.POST['user.id'])
-        refill = Refill.objects.create(info=info, user=user)
+        form = RefillCreateForm(request.POST)
+        if form.is_valid():
+            refil=form.save()
+            info = UserInfo.objects.get(pk=request.POST['info'])
+            #user = User.objects.get(pk= request.POST['user.id'])
+            refill = Refill.objects.create(info=info)
 
-        return render(request, 'refill_submited.html', {'refill':refill})
+            return render(request, 'refill_submited.html', {'refill':refill, 'refil':refil})
     else:
-        return render(request,'refill_info_check.html',{'info':info,'user':user})
+        form = RefillCreateForm()
+        return render(request,'refill_info_check.html',{'info':info,'form':form})

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Order, OrderItem
-from user_profile.models import UserInfo
+from user_profile.models import User, UserInfo
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
@@ -17,5 +17,4 @@ class OrderAdmin(admin.ModelAdmin):
         return obj.info.user.email
     get_info.short_description = 'address'
     get_info.admin_order_field = 'info__address'
-
 admin.site.register(Order,OrderAdmin)

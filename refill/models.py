@@ -2,7 +2,7 @@ from django.db import models
 from user_profile.models import UserInfo, User
 
 class Refill(models.Model):
-    user = models.ForeignKey(User, related_name='refill')
+    #user = models.ForeignKey(User, related_name='refill')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)

@@ -23,7 +23,7 @@ def Create_profile(sender, instance, created, **kwargs):
 
 
 class UserInfo(models.Model):
-    user=models.ForeignKey(User,related_name='info')
+    user= models.ForeignKey(User,related_name='info')
     address = models.CharField( max_length=200)
     zip = models.CharField(max_length=20)
     city = models.CharField(max_length=50)
@@ -42,7 +42,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     parrent=models.ForeignKey(Question, related_name='child')
-    user = models.ForeignKey(User, blank=True)
+    user= models.ForeignKey(User, blank=True)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 

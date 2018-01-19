@@ -24,22 +24,5 @@ def order_info(request):
         return render(request,'orders/info-chek.html',{'info':info,'cart':cart})
 
 
-def order_create(request):
-    cart =Cart(request)
-    if request.method == 'POST' :
-            info=UserInfo.objects.get(pk=request.POST['info'])
-            order=Order.objects.create(info=info)
-            for item in cart :
-                OrderItem.objects.create(order= order,
-                                         drug=item['drug'],
-                                         #price=item['price'],
-                                         quantity=item['quantity'])
 
-
-                cart.clear()
-                return render(request, 'orders/created.html', {'order':order})
-
-    else:
-        form = OrderCreateForm()
-        return render(request, 'orders/create.html', {'cart': cart, 'form': form} )
 

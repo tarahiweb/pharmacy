@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'pagedown',
     'cart',
     'orders',
+    'refill',
+    'emergency',
 
 ]
 

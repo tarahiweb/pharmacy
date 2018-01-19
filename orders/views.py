@@ -22,7 +22,3 @@ def order_info(request):
             return render(request, 'orders/created.html', {'order': order})
     else:
         return render(request,'orders/info-chek.html',{'info':info,'cart':cart})
-
-
-
-

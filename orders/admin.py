@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Order, OrderItem
-from user_profile.models import UserInfo
+from user_profile.models import User, UserInfo
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem

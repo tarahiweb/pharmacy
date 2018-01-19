@@ -10,12 +10,40 @@
 {% block content %}
     <div class="container-fluid" style="">
     <div  style="width: 90%;margin: auto">
+
+        <h1>drug information</h1>
+            <form action="{% url 'emergency:emergency-info' %}"  method="post" class="form-horizontal">
+                {% csrf_token %}
+                {% for i in form %}
+                    <div class="form-group">
+
+                 <lable>{{ i.label }}</lable>
+                 <input class="form-control" type="text" name="{{ i.name }}">
+             </div>
+                {% endfor %}
+                <input type="hidden" value="1" name="drug_num">
+                 <div class="form-group">
+
+                 <lable>drug name 1</lable>
+                 <input class="form-control" type="text" name="drug_name_1">
+             </div>
+                <div class="form-group" >
+
+                 <lable>drug dose 1</lable>
+                 <input class="form-control" type="text" name="drug_dose_1">
+             </div>
+<a id="add-another">add another drug</a>
+                <input type="text" name="drug_name_1" placeholder="name 1">
+                <input type="text" name="drug_dose_1" placeholder="name 1">
+                 <input type="text" name="drug_name_2" placeholder="name 2">
+                <input type="text" name="drug_dose_2" placeholder="name 2">
+
         <h1>choose your address</h1>
-              <form action="" method="post">
+
   <div class="row">
         <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
 
-            {% csrf_token %}
+
             <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
 
                 {% for i in info %}
@@ -30,7 +58,7 @@
                             <p>Zip : {{ i.zip }}</p>
                         </div>
                         <div class="panel-footer text-center">
-                            <input type="radio" name="info" value="{{ i.pk }}"> choose this address
+                            <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> choose this address
                         </div>
                     </div>
                 {% endfor %}
@@ -92,11 +120,27 @@
       </div>
     </div>
 </div>
-<form action="{% url 'emergency:emergency-info' %}" method="post" class="form-horizontal">
-<div class="col-sm-offset-2 col-sm-10">
-        {{ form.as_p }}
-       <p><input type="submit" value="place emergency medicine order"></p>
-    {% csrf_token %}
-</form>
+
 </div>
+
+     <script>
+    $(document).ready(function () {
+         $('input[id=info1]').attr('checked','checked');
+    })
+
+{#    add another drug#}
+form_count = Number($("[name=drug_num]").val());
+$("#add-another").click(function() {
+    form_count ++;
+    console.log(form_count)
+     element = $('<input type="text"/>');
+    element.attr('name', 'extra_field_' + form_count);
+    $("#forms").append('<h1>hi</h1>');
+    // build element and append it to our forms container
+
+    $("[name=drug_num]").val(form_count);
+    // increment form count so our view knows to populate
+    // that many fields for validation
+})
+</script>
 {% endblock %}

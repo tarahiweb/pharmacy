@@ -5,17 +5,38 @@
     .hover-cours:hover{
         cursor: hand;
     }
+    .rotate {
+
+/* Safari */
+-webkit-transform: rotate(-90deg);
+
+/* Firefox */
+-moz-transform: rotate(-90deg);
+
+/* IE */
+-ms-transform: rotate(-90deg);
+
+/* Opera */
+-o-transform: rotate(-90deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
     </style>
 {% endblock %}
 {% block content %}
     <div class="container-fluid" style="">
     <div  style="width: 90%;margin: auto">
-        <h1>chose your address</h1>
+        <h1>chose your address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
+            <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+
               <form action="" method="post">
   <div class="row">
         <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
 
             {% csrf_token %}
+            {% if info %}
             <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
 
                 {% for i in info %}
@@ -30,25 +51,33 @@
                             <p>Zip : {{ i.zip }}</p>
                         </div>
                         <div class="panel-footer text-center">
-                            <input type="radio" name="info" value="{{ i.pk }}"> chose this address
+                            <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> chose this address
                         </div>
                     </div>
                 {% endfor %}
 
-                    <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#login" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
-                        <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
-                    </div>
-
+                <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                    <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                </div>
             </div>
+        {% else %}
+         <div style="width: 300px;height: 301px;margin-bottom:0;display: flex">
+                 <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#login" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                    <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                </div>
+         </div>
+        {% endif %}
 
         </div>
 
 
-        <div class="col-sm-1 col-xs-1" style="background-color: #1e7e34">
-            asd
+        <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f1f1f1;height: 301px;padding: 0">
+            <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
         </div>
         </div>
+              {% if info %}
          <button type="submit">subnit</button>
+              {% endif %}
          </form>
 
 
@@ -56,7 +85,7 @@
     </div>
 
 
-<div id="login" class="modal fade" role="dialog">
+<div id="address" class="modal fade" role="dialog">
     <div class="modal-dialog" style="margin-top: 70px;width: 90%">
 
 <div class="modal-content" style="background-color: #f8f8f8;">
@@ -92,4 +121,9 @@
       </div>
     </div>
 </div>
+    <script>
+    $(document).ready(function () {
+         $('input[id=info1]').attr('checked','checked');
+    })
+    </script>
 {% endblock %}

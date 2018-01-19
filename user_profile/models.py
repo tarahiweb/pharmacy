@@ -13,13 +13,6 @@ class User(AbstractUser):
     # def __unicode__(self):
     #   return self.user.username
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-@receiver(post_save, sender=User)
-def Create_profile(sender, instance, created, **kwargs):
-    if created:
-        profile, new = User.objects.get_or_create(user=instance)
 
 
 class UserInfo(models.Model):
@@ -48,25 +41,4 @@ class Answer(models.Model):
 
     def __str__(self):
         return 'reply on : ' + self.body
-
-
-#class UserProfile(models.Model):
-    #user = models.OneToOneField(User)
-    #first_name = User.first_name
-    #last_name = User.last_name
-    #email = User.email
-    #def __unicode__(self):
-     #   return self.user.username
-
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-@receiver(post_save, sender= User)
-def Create_profile(sender, instance, created, **kwargs):
-    if created:
-        profile, new = User.objects.get_or_create(user = instance)
-
-
-
-
 

@@ -32,11 +32,9 @@
                  <lable>drug dose 1</lable>
                  <input class="form-control" type="text" name="drug_dose_1">
              </div>
+            <div id="forms"></div>
 <a id="add-another">add another drug</a>
-                <input type="text" name="drug_name_1" placeholder="name 1">
-                <input type="text" name="drug_dose_1" placeholder="name 1">
-                 <input type="text" name="drug_name_2" placeholder="name 2">
-                <input type="text" name="drug_dose_2" placeholder="name 2">
+
 
         <h1>choose your address</h1>
 
@@ -132,10 +130,20 @@
 form_count = Number($("[name=drug_num]").val());
 $("#add-another").click(function() {
     form_count ++;
-    console.log(form_count)
-     element = $('<input type="text"/>');
-    element.attr('name', 'extra_field_' + form_count);
-    $("#forms").append('<h1>hi</h1>');
+
+     element = $('     <div class="form-group">\n' +
+         '\n' +
+         '                 <lable>drug name '+form_count+'</lable>\n' +
+         '                 <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
+         '             </div>\n' +
+         '                <div class="form-group" >\n' +
+         '\n' +
+         '                 <lable>drug dose '+form_count+'</lable>\n' +
+         '                 <input class="form-control" type="text" name="drug_dose_'+form_count+'">\n' +
+         '             </div>');
+    an=$('<input type="text" name="drug_dose_2" placeholder="name 2">' +
+        '<input type="text" name="drug_dose_5" placeholder="name '+form_count+'">')
+    $("#forms").append(element);
     // build element and append it to our forms container
 
     $("[name=drug_num]").val(form_count);

@@ -16,4 +16,4 @@ class DrugAdmin(admin.ModelAdmin):
     inlines = [DrugInline]
 
 admin.site.register(Emergency_Med,DrugAdmin)
-admin.site.register(Drug)
+

@@ -10,7 +10,7 @@ urlpatterns = [
 
     url(r'^privacy-and-policy$',Privacy , name='privacy'),
     url(r'^Terms-and-conditions$', Terms, name='terms'),
-
+    url(r'^emergency/', include('emergency.urls', namespace='emergency')),
     url(r'^orders/', include('orders.urls', namespace='orders')),
     url(r'^product/', include('Product.urls')),
     url(r'^cart/', include('cart.urls', namespace='cart')),

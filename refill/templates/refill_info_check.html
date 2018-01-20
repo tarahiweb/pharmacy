@@ -10,6 +10,27 @@
 {% block content %}
     <div class="container-fluid" style="">
     <div  style="width: 90%;margin: auto">
+
+     <h1>drug information</h1>
+            <form action="{% url 'refill:refill-info' %}"  method="post" class="form-horizontal">
+                {% csrf_token %}
+                    {{ form.as_p  }}
+                <input type="hidden" value="1" name="drug_num">
+                 <div class="form-group">
+
+                 <lable>drug name 1</lable>
+                 <input class="form-control" type="text" name="drug_name_1">
+             </div>
+                <div class="form-group" >
+
+                 <lable>drug dose 1</lable>
+                 <input class="form-control" type="text" name="drug_dose_1">
+             </div>
+            <div id="forms"></div>
+<a id="add-another">add another drug</a>
+
+
+
         <h1>choose your address</h1>
               <form action="" method="post">
   <div class="row">
@@ -91,12 +112,4 @@
           </div>
       </div>
     </div>
-</div>
-<form action="{% url 'refill:refill-info' %}" method="post" class="form-horizontal">
-<div class="col-sm-offset-2 col-sm-10">
-        {{ form.as_p }}
-       <p><input type="submit" value="place refill order"></p>
-    {% csrf_token %}
-    </form>
-</div>
 {% endblock %}

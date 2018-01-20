@@ -13,8 +13,8 @@ class Refill(models.Model):
     Dr_adrress = models.CharField(max_length=100)
     last_pharmacy = models.CharField(max_length=100)
     last_pharmacy_adrress = models.CharField(max_length=100)
-    drug_name= models.CharField(max_length=100)
-    drug_dose  = models.CharField(max_length=20)
+    #drug_name= models.CharField(max_length=100)
+    #drug_dose  = models.CharField(max_length=20)
     prescription = models.ImageField(blank=True)
     more_refill = models.BooleanField(default=False)
     more_refill_number = models.CharField(max_length=20, blank=True)
@@ -29,15 +29,19 @@ class Refill(models.Model):
     def __str__(self):
         return 'Refill{}'.format(self.id)
 
-    def userinfo_address(self):
-        return self.info.address
-    userinfo_address.short_description = 'user Address'
+    #def userinfo_address(self):
+     #   return self.info.address
+    #userinfo_address.short_description = 'user Address'
 
-    def userinfo_city(self):
-        return self.info.city
-    userinfo_city.short_description = 'user City'
+    #def userinfo_city(self):
+     #   return self.info.city
+    #userinfo_city.short_description = 'user City'
 
-    def userinfo_zip(self):
-        return self.info.zip
-    userinfo_zip.short_description = 'user zip'
+    #def userinfo_zip(self):
+        #return self.info.zip
+    #userinfo_zip.short_description = 'user zip'
 
+class Drug(models.Model):
+    med=models.ForeignKey(Refill,null=True)
+    drug_name = models.CharField(max_length=100)
+    drug_dose = models.CharField(max_length=20)

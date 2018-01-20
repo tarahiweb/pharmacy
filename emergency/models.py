@@ -31,19 +31,19 @@ class Emergency_Med(models.Model):
 
 
     def __str__(self):
-        return 'Refill{}'.format(self.id)
+        return 'Emergency{}'.format(self.id)
 
-    # def userinfo_address(self):
+   # def userinfo_address(self):
     #     return self.info.address
-    # userinfo_address.short_description = 'user Address'
-    #
-    # def userinfo_city(self):
-    #     return self.info.city
-    # userinfo_city.short_description = 'user City'
-    #
-    # def userinfo_zip(self):
-    #     return self.info.zip
-    # userinfo_zip.short_description = 'user zip'
+    #userinfo_address.short_description = 'user Address'
+
+    #def userinfo_city(self):
+     #    return self.info.city
+    #userinfo_city.short_description = 'user City'
+
+    #def userinfo_zip(self):
+     #    return self.info.zip
+    #userinfo_zip.short_description = 'user zip'
 
     class Meta:
         ordering= ('-created',)

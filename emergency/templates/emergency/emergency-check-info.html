@@ -22,18 +22,29 @@
              </div>
                 {% endfor %}
                 <input type="hidden" value="1" name="drug_num">
-                 <div class="form-group">
-
-                 <lable>drug name 1</lable>
-                 <input class="form-control" type="text" name="drug_name_1">
-             </div>
+                 <div class="well">
+            <h2>what do you need?</h2>
+        <div class="row">
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <lable class="col-xs-2">drug name 1</lable>
+                        <div class="col-xs-10">
+                            <input class="form-control" type="text" name="drug_name_1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
                 <div class="form-group" >
-
-                 <lable>drug dose 1</lable>
-                 <input class="form-control" type="text" name="drug_dose_1">
-             </div>
+                    <lable class="col-xs-2">drug dose 1</lable>
+                    <div class="col-xs-10">
+                        <input class="form-control col-xs-10" type="text" name="drug_dose_1">
+                    </div>
+                </div>
+                </div>
+                </div>
             <div id="forms"></div>
-<a id="add-another">add another drug</a>
+            <a id="add-another">add another drug</a>
+        </div>
 
 
         <h1>choose your address</h1>
@@ -131,18 +142,25 @@ form_count = Number($("[name=drug_num]").val());
 $("#add-another").click(function() {
     form_count ++;
 
-     element = $('     <div class="form-group">\n' +
-         '\n' +
-         '                 <lable>drug name '+form_count+'</lable>\n' +
-         '                 <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
-         '             </div>\n' +
+     element = $('<hr><div class="row">\n' +
+         '                <div class="col-xs-4">\n' +
+         '                    <div class="form-group">\n' +
+         '                        <lable class="col-xs-2">drug name '+form_count+'</lable>\n' +
+         '                        <div class="col-xs-10">\n' +
+         '                            <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
+         '                        </div>\n' +
+         '                    </div>\n' +
+         '                </div>\n' +
+         '                <div class="col-xs-4">\n' +
          '                <div class="form-group" >\n' +
-         '\n' +
-         '                 <lable>drug dose '+form_count+'</lable>\n' +
-         '                 <input class="form-control" type="text" name="drug_dose_'+form_count+'">\n' +
-         '             </div>');
-    an=$('<input type="text" name="drug_dose_2" placeholder="name 2">' +
-        '<input type="text" name="drug_dose_5" placeholder="name '+form_count+'">')
+         '                    <lable class="col-xs-2">drug dose '+form_count+'</lable>\n' +
+         '                    <div class="col-xs-10">\n' +
+         '                        <input class="form-control col-xs-10" type="text" name="drug_dose_'+form_count+'">\n' +
+         '                    </div>\n' +
+         '                </div>\n' +
+         '                </div>\n' +
+         '                </div>');
+
     $("#forms").append(element);
     // build element and append it to our forms container
 

@@ -11,8 +11,37 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from emergency.models import Emergency_Med
+from refill.models import Refill
+from orders.models import Order
+@login_required(login_url='user_profile:login')
+def profile(request):
+    current_user= request.user
 
+    # emergency
+    eme_all=Emergency_Med.objects.filter(info__user=current_user)
+    eme_verified=eme_all.filter(verified=True)
 
+    # refill
+    refill_all=Refill.objects.filter(info__user=current_user)
+    refill_verfied=refill_all.filter(verified=True)
+
+    # free product order
+    free_product_all=Order.objects.filter(info__user=current_user)
+    free_product_verified=free_product_all.filter(verified=True)
+    context={
+        'user': current_user,
+        # emergency
+        'eme_all': eme_all,
+        'eme_verified':eme_verified,
+        # refil
+        'refill_all':refill_all,
+        'refill_verfied':refill_verfied,
+        # free product
+        'free_all':free_product_all,
+        'free_verified':free_product_verified
+    }
+    return render_to_response('user_profile/profile.html', context)
 
 
 class UserFormView(View):
@@ -123,12 +152,6 @@ def consulting_detail(request):
         return HttpResponse('ok')
 
 
-
-@login_required(login_url='user_profile:login')
-def profile(request):
-        if request.user.is_authenticated:
-            user= User.objects.get(id=request.user.id)
-            return render_to_response('user_profile/profile.html', {'user': user})
 
 
 class EditView(LoginRequiredMixin, UpdateView):

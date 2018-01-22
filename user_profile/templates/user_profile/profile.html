@@ -1,13 +1,68 @@
 {% extends "base/profile-base.html" %}
 
 {% block title %} {{ user.username }}{% endblock %}
-
+{% block style %}
+    <style>
+    p{
+        font-size: 20px;
+    }
+    </style>
+{% endblock %}
 {% block content %}
-    <h1>{{ user.username }}</h1>
-    <div>{{ user.first_name }}</div>
-    <div>{{ user.email }}</div>
-    <div>{{ user.last_name }}</div>
-    <div class="well text-center" style="width: 60%;margin: 50px auto">
-            <a class="btn btn-success " href=""><i class="fa fa-shopping-basket" aria-hidden="true"></i> update profile</a>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-xs-12">
+            <div class="text-center" style="border-radius: 5px;background-color: #f1f1f1;height: 250px;padding: 5px;margin-bottom: 10px;box-shadow:10px 10px 10px #c6c6c6;">
+                <h3>Emergency orders</h3><br>
+                {% if not eme_all %}
+                    <p class="text-center">you didn't order any emergency medicine</p>
+                    <a class=" btn btn-success" style="margin: auto" href="">order now</a>
+                {% else %}
+                    <p>all orders: {{ eme_all.count }}</p>
+                    <p>verified orders: {{ eme_verified.count }}</p>
+                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
+
+                {% endif %}
+            </div>
         </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="text-center" style="border-radius: 5px;background-color: #f1f1f1;height: 250px;padding: 5px;margin-bottom: 10px;box-shadow:10px 10px 10px #c6c6c6;">
+                <h3>Refill orders</h3><br>
+                {% if not refill_all %}
+                    <p class="text-center">you didn't order any refill medicine</p>
+                    <a class=" btn btn-success" style="margin: auto" href="">order now</a>
+                {% else %}
+                    <p>all orders: {{ refill_all.count }}</p>
+                    <p>verified orders: {{ refill_verfied.count }}</p>
+                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
+
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="text-center" style="border-radius: 5px;background-color: #f1f1f1;height: 250px;padding: 5px;margin-bottom: 10px;box-shadow:10px 10px 10px #c6c6c6;">
+                <h3>free product orders</h3><br>
+                {% if not free_all %}
+                    <p class="text-center">you didn't order any free product medicine</p>
+                    <a class=" btn btn-success" style="margin: auto" href="">order now</a>
+                {% else %}
+                    <p>all orders: {{ free_all.count }}</p>
+                    <p>verified orders: {{ free_verified.count }}</p>
+                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        <br>
+    <div class="row">
+    <div class="col-xs-12" >
+        <div class="text-center" style="border-radius: 5px;background-color: #f1f1f1;height: 250px;padding: 5px;margin-bottom: 10px;box-shadow:10px 10px 10px #c6c6c6;">
+            <h1 >you can ask any quetion, we're here to answer</h1>
+            <br>
+            <a class=" btn btn-success" href="{% url 'user_profile:consulting_detail' %}">ask you're question now!</a>
+        </div>
+    </div>
+    </div>
+    </div>
 {% endblock %}

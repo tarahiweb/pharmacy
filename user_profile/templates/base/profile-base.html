@@ -13,7 +13,7 @@
     <script src="{% static 'cmd/jquery-3.1.1.js' %}"></script>
     <script src="{% static 'cmd/bootstrap.js' %}"></script>
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
-    {% block head %}{% endblock %}
+    {% block style %}{% endblock %}
   <style>
     .row.content {height: 550px}
 
@@ -63,13 +63,13 @@
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs" style="padding: 0">
-        <div class="affix" style=" height: 100%;width: inherit;padding: 10px;border-radius: 10px;background-color: #f1f1f1">
+        <div class="affix" style=" height: 100%;width: inherit;padding: 10px;background-color: #f1f1f1">
       <a href="{% url 'home' %}" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black">tyson pharmacy</a>
       <ul class="nav nav-pills nav-stacked">
         <li class="name text-center" ><a href="{% url 'user_profile:profile' %}" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
-        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
+        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span> dashboard</span></a></li>
         <li class="" name="dashboard"><a href="{% url 'user_profile:consulting_detail' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span> consulting</span></a></li>
-        <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>setting <span class="caret"></span></span></a>
+        <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span> setting<span class="caret"></span></span></a>
             <ul class="dropdown-menu">
                  <li><a href="{% url 'user_profile:update' %}">information</a></li>
                  <li><a href="">change password</a></li>

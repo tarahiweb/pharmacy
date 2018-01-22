@@ -1,6 +1,6 @@
-{% extends 'base/base.html' %}
+{% extends 'base/profile-base.html' %}
 {% block content %}
- <div class="container">
+ <div class="container-fluid">
     <h3>update yout informations</h3>
     <form method="post" action="" class="form-horizontal">
  {% csrf_token %}
@@ -9,7 +9,8 @@
 
                 <span>{{ field.errors }}</span>
                 <label>{{ field.label_tag }}</label>
-                <div class="">{{ field }}</div>
+{#                <div class="">{{ field }}</div>#}
+              <input class="form-control" type="text" name="{{ field.name }}">
               </div>
         {% endfor %}
 

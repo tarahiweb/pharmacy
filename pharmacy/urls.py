@@ -7,7 +7,6 @@ from .views import Home, Privacy, Terms
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', Home,name='home'),
-    url(r'^compound-info/', include('medicalspa.url', namespace='compound-info' )),
     url(r'^privacy-and-policy$',Privacy , name='privacy'),
     url(r'^Terms-and-conditions$', Terms, name='terms'),
     url(r'^medical-spa/', include('medicalspa.urls', namespace='medicalspa')),

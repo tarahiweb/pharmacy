@@ -12,8 +12,8 @@ def refill_info(request):
         form = RefillCreateForm(request.POST)
         if form.is_valid():
             refill = form.save(commit=False)
-            info = UserInfo.objects.get(pk=request.POST['info'])
-            refill.info = info
+            information = UserInfo.objects.get(pk=request.POST['info'])
+            refill.info = information
             refill.save()
             for i in range(int(request.POST['drug_num'])):
                 drug = Drug.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],

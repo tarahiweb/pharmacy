@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+      <meta name="description" content="">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+{#    <link rel="stylesheet" href="{% static 'cmd/bootstrap.min.css' %}">#}
+    <script src="{% static 'cmd/jquery-3.1.1.js' %}"></script>
+    <script src="{% static 'cmd/bootstrap.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    {% block head %}{% endblock %}
+  <style>
+    .row.content {height: 550px}
+
+    .sidenav {
+
+      height: 100vh;
+    }
+
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs ">
+  <div class="container-fluid">
+    <div class="navbar-header"   >
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="{% url 'home' %}" class="navbar-brand" style="font-family: 'Arial Black'text-decoration: none;font-size: 30px;color: black">tyson pharmacy</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav" >
+        <li class="name text-center" ><a href="{% url 'user_profile:profile' %}" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
+        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
+       <li class="" name="dashboard"><a href="{% url 'user_profile:consulting_detail' %}"><i class="fa fa-question" aria-hidden="true"></i><span>consulting</span></a></li>
+
+        <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>setting <span class="caret"></span></span></a>
+            <ul class="dropdown-menu">
+                 <li><a href="{% url 'user_profile:update' %}">information</a></li>
+                 <li><a href="">change password</a></li>
+                <li><a href="">add delivery info</a></li>
+            </ul>
+        </li>
+
+        <li><a href="{% url 'user_profile:logout' %}"><i class="fa fa-fw fa-sign-out"></i><span>log out</span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs" style="padding: 0">
+        <div class="affix" style=" height: 100%;width: inherit;padding: 10px;border-radius: 10px;background-color: #f1f1f1">
+      <a href="{% url 'home' %}" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black">tyson pharmacy</a>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="name text-center" ><a href="{% url 'user_profile:profile' %}" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
+        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
+        <li class="" name="dashboard"><a href="{% url 'user_profile:consulting_detail' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span> consulting</span></a></li>
+        <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>setting <span class="caret"></span></span></a>
+            <ul class="dropdown-menu">
+                 <li><a href="{% url 'user_profile:update' %}">information</a></li>
+                 <li><a href="">change password</a></li>
+                <li><a href="">add delivery info</a></li>
+            </ul>
+        </li>
+
+        <li><a href="{% url 'user_profile:logout' %}"><i class="fa fa-fw fa-sign-out"></i><span>log out</span></a></li>
+      </ul><br>
+        </div>
+    </div>
+    <br>
+
+    <div class="col-sm-9" >
+        {% block content %}{% endblock %}
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

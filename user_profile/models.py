@@ -5,14 +5,6 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     phone_number = models.IntegerField(null=True)
 
-    # class UserProfile(models.Model):
-    # user = models.OneToOneField(User)
-    # first_name = User.first_name
-    # last_name = User.last_name
-    # email = User.email
-    # def __unicode__(self):
-    #   return self.user.username
-
 
 
 class UserInfo(models.Model):
@@ -35,7 +27,6 @@ class Question(models.Model):
 
 class Answer(models.Model):
     parrent=models.ForeignKey(Question, related_name='child')
-    user= models.ForeignKey(User, blank=True)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 

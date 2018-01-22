@@ -32,11 +32,11 @@
 
 
         <h1>choose your address</h1>
-              <form action="" method="post">
+
   <div class="row">
         <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
 
-            {% csrf_token %}
+
             <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
 
                 {% for i in info %}
@@ -51,7 +51,7 @@
                             <p>Zip : {{ i.zip }}</p>
                         </div>
                         <div class="panel-footer text-center">
-                            <input type="radio" name="info" value="{{ i.pk }}"> choose this address
+                            <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> choose this address
                         </div>
                     </div>
                 {% endfor %}
@@ -75,6 +75,7 @@
 
     </div>
     </div>
+
 
 
 <div id="login" class="modal fade" role="dialog">
@@ -112,4 +113,35 @@
           </div>
       </div>
     </div>
+</div>
+    <script>
+    $(document).ready(function () {
+         $('input[id=info1]').attr('checked','checked');
+    })
+
+{#    add another drug#}
+form_count = Number($("[name=drug_num]").val());
+$("#add-another").click(function() {
+    form_count ++;
+
+     element = $('     <div class="form-group">\n' +
+         '\n' +
+         '                 <lable>drug name '+form_count+'</lable>\n' +
+         '                 <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
+         '             </div>\n' +
+         '                <div class="form-group" >\n' +
+         '\n' +
+         '                 <lable>drug dose '+form_count+'</lable>\n' +
+         '                 <input class="form-control" type="text" name="drug_dose_'+form_count+'">\n' +
+         '             </div>');
+    an=$('<input type="text" name="drug_dose_2" placeholder="name 2">' +
+        '<input type="text" name="drug_dose_5" placeholder="name '+form_count+'">')
+    $("#forms").append(element);
+    // build element and append it to our forms container
+
+    $("[name=drug_num]").val(form_count);
+    // increment form count so our view knows to populate
+    // that many fields for validation
+})
+</script>
 {% endblock %}

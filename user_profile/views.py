@@ -126,7 +126,6 @@ def consulting_detail(request):
 
 @login_required(login_url='user_profile:login')
 def profile(request):
-    #if profile_id =="0":
         if request.user.is_authenticated:
             user= User.objects.get(id=request.user.id)
             return render_to_response('user_profile/profile.html', {'user': user})

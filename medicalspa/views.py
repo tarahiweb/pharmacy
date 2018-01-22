@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from user_profile.models import UserInfo, User
 from .forms import CompoundCreateForm
 from django.http import HttpResponse
-from .models import Drug,Comment, Compound
+from .models import Drug,Comment, Compound,Compound_Drug
 from django.shortcuts import render, get_object_or_404,redirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -87,11 +87,11 @@ def compound_info(request):
         form = CompoundCreateForm(request.POST)
         if form.is_valid():
             compound = form.save(commit=False)
-            info = UserInfo.objects.get(pk=request.POST['info'])
-            compound.info = info
+            information = UserInfo.objects.get(pk=request.POST['info'])
+            compound.info = information
             compound.save()
             for i in range(int(request.POST['drug_num'])):
-                drug = Drug.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
+                drug = Compound_Drug.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
                                            drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=compound)
 
             return render(request, 'medicalspa/compound-submited.html', {'refill':compound})

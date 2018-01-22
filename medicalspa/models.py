@@ -60,7 +60,7 @@ class Compound(models.Model):
         ordering= ('-created',)
 
     def __str__(self):
-        return 'Compound'.format(self.id)
+        return 'Compound{}'.format(self.id)
 
     #def userinfo_address(self):
      #   return self.info.address

@@ -12,7 +12,7 @@
     <div  style="width: 90%;margin: auto">
 
      <h1>drug information</h1>
-            <form action="{% url '' %}"  method="post" class="form-horizontal">
+            <form action=""  method="post" class="form-horizontal">
                 {% csrf_token %}
                     {{ form.as_p  }}
                 <input type="hidden" value="1" name="drug_num">
@@ -26,6 +26,10 @@
                  <lable>drug dose 1</lable>
                  <input class="form-control" type="text" name="drug_dose_1">
              </div>
+                <div class="form-group" >
+                    <lable>drug percentage 1</lable>
+                    <input class="form-control" type="text" name="drug_percentage_1">
+                </div>
             <div id="forms"></div>
 <a id="add-another">add another drug</a>
 

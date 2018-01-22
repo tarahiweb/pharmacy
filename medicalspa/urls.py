@@ -9,6 +9,7 @@ urlpatterns = [
     # comment url
     url(r'^comment/create-comment/', views.Add_comment, name='add-comment'),
     #compound info
-    url(r'^compound-info/$', views.compound_info, name='compound-info'),
+
 ]
+
 

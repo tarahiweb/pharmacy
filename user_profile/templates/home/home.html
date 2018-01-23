@@ -1,16 +1,178 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block style %}
+    <style>
+        .paddingtop{
+            padding-top: 10%;
+        }
+        .landingbtn{
+            margin-bottom: 5px;
+            background-color: #371795a3;
+            color: white;
+{#            width: 100%;#}
+{#            border: 1px solid white;#}
+            font-size: 17px;
+        }
+        .landingbtn:hover{
+            background-color: white;
+            border: 1px solid #371795a3 ;
+        }
+        .navbar-default{
+  background-color:transparent ;
+            border: none;
+}
+    .navbar-fixed-top.scrolled {
+  background-color: #ffffff !important;
+        border-bottom: 2px solid #371795a3;
+  transition: background-color 200ms linear;
+}
+.quote {
+    color: #45801b;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+#fade-quote-carousel.carousel {
+  padding-bottom: 60px;
+}
+#fade-quote-carousel.carousel .carousel-inner .item {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+      -ms-transition-property: opacity;
+          transition-property: opacity;
+}
+#fade-quote-carousel.carousel .carousel-inner .active {
+  opacity: 1;
+  -webkit-transition-property: opacity;
+      -ms-transition-property: opacity;
+          transition-property: opacity;
+}
+#fade-quote-carousel.carousel .carousel-indicators {
+  bottom: 10px;
+}
+#fade-quote-carousel.carousel .carousel-indicators > li {
+  background-color:  #45801b;
+  border: none;
+}
+#fade-quote-carousel blockquote {
+    text-align: center;
+    border: none;
+}
+#fade-quote-carousel .profile-circle {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 100px;
+}
+
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="container-fluid">
-<h1>home page</h1>
-{% if request.user.is_authenticated %}
-<p>user is authenticated</p>
-    <a href="{% url 'user_profile:logout' %}">log out</a>
-{% else %}
-<p>user is not authenticated</p>
-    <a type="button" href="" data-toggle="modal" data-target="#login" style="">log in</a>
-{% endif %}
-        <br>
-        <a href="{% url 'product:index' %}">free products list</a>
+    <div class="row" style="background-image: url('{% static 'home/pharmacy.jpg'%}');background-size: cover;min-height: 100vh;">
+
+        <div class="col-sm-6 col-xs-12 paddingtop text-center" style="height: 100%">
+            <h1  style="color: #45801b;font-size: 60px">Tyson Pharmacy</h1>
+            <h2 >refill your RX easy as cake</h2>
+            <p><a class="btn  landingbtn">order emergency refill fast </a> <a class="btn  landingbtn">order refill RX</a></p>
+{#            <ul style="list-style: none;padding: 0">#}
+{#                <li ><a class="btn  landingbtn">order emergency refill fast </a></li>#}
+{#                <li ><a class="btn  landingbtn">order refill RX</a></li>#}
+{#                <li ><a class="btn  landingbtn">order free products </a></li>#}
+{#            </ul>#}
+            <br>
+            <hr>
+            <h1>ready to talk?!</h1>
+            <a href="" class="btn landingbtn">just click me!!</a>
+        </div>
+
+
+        <div class="col-sm-6 col-xs-12"> </div>
+    </div>
+    <div class="row text-center">
+        <h1 style="color: #45801b ">Download Our Free Mobile App</h1>
+        <div class="col-sm-6 col-md-3 col-xs-12">
+            <img src="{% static 'home/drug.png' %}" alt="" style="background-color:  #45801b;width: 120px">
+            <br>
+            <p style="color: #45801b">Refill on-the-go</p>
+            <p>Refill your medications 24/7 without logging into your profile.</p>
+        </div> 
+        <div class="col-sm-6 col-md-3  col-xs-12">
+            <img src="{% static 'home/pill.png' %}" alt="" style="background-color:  #45801b;width: 120px">
+            <br>
+            <p style="color: #45801b">Pill and Refill Reminders</p>
+            <p>Refill your medications 24/7 without logging into your profile.</p>
+        </div>
+        <div class="col-sm-6 col-md-3  col-xs-12">
+            <img src="{% static 'home/profile.png' %}" alt="" style="background-color:  #45801b;width: 120px">
+            <br>
+            <p style="color: #45801b">User Profiles</p>
+            <p>Refill your medications 24/7 without logging into your profile.</p>
+        </div>
+        <div class="col-sm-6 col-md-3  col-xs-12">
+            <img src="{% static 'home/delivery.png' %}" alt="" style="background-color:  #45801b;width: 120px">
+            <br>
+            <p style="color: #45801b">Delivery Options</p>
+            <p>Refill your medications 24/7 without logging into your profile.</p>
+        </div>
+    </div>
+        <div class="row" style="background-color: #f1f1f1">
+            <br>
+
+			<div class="col-md-8 col-md-offset-2">
+                <div class="quote"><i class="fa fa-quote-left fa-4x"></i></div>
+				<div class="carousel slide" id="fade-quote-carousel" data-ride="carousel" data-interval="3000">
+				  <!-- Carousel indicators -->
+                  <ol class="carousel-indicators">
+				    <li data-target="#fade-quote-carousel" data-slide-to="0"></li>
+				    <li data-target="#fade-quote-carousel" data-slide-to="1" class="active"></li>
+				    <li data-target="#fade-quote-carousel" data-slide-to="2" ></li>
+
+				  </ol>
+				  <!-- Carousel items -->
+				  <div class="carousel-inner">
+				    <div class="item">
+				    	<blockquote>
+				    		<p>"Super friendly staff, extremely fast service. And their pricing is competitive"</p>
+				    	</blockquote>
+                        <p class="text-center">- A 5-Star Google Review</p>
+				    </div>
+				    <div class="item">
+				    	<blockquote>
+				    		<p>One of the best pharmacies around.</p>
+				    	</blockquote>
+                        <p class="text-center">- A 5-Star Google Review</p>
+				    </div>
+				    <div class="active item">
+				    	<blockquote>
+				    		<p>Very well informed and much more interested in you than big companies.</p>
+				    	</blockquote>
+                        <p class="text-center">- A 5-Star Google Review</p>
+				    </div>
+
+				  </div>
+				</div>
+			</div>
+
+
+        </div>
+    <div class="row text-center" style="background-color: #abdde5;height: 300px">
+        <h1>under construction</h1>
+    </div>
     </div>
 
+
+
+    <script>
+    $(function () {
+  $(document).scroll(function () {
+	  var $nav = $(".navbar-fixed-top");
+      console.log($nav.height())
+      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+	});
+});
+    </script>
 {% endblock %}

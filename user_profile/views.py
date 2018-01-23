@@ -14,6 +14,8 @@ from django.core.urlresolvers import reverse_lazy
 from emergency.models import Emergency_Med
 from refill.models import Refill
 from orders.models import Order
+from refill.views import refill_info
+
 @login_required(login_url='user_profile:login')
 def profile(request):
     current_user= request.user
@@ -163,4 +165,12 @@ class EditView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     success_url = reverse_lazy('home')
+
+
+def RefillList(request):
+        current_user= request.user
+        refilllist = Refill.objects.filter(info__user=current_user)
+        refil_num= len(refilllist)
+        return render(request, 'user_profile/profile_your_orders.html', {'refilllist':refilllist, 'refil_num':refil_num})
+
 

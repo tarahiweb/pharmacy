@@ -16,6 +16,7 @@ urlpatterns = [
     #profile
     url(r'^$', views.profile, name='profile'),
     url(r'^update', views.EditView.as_view(), name='update'),
+    url(r'^your-orders', views.RefillList, name='your-order')
 
 
 

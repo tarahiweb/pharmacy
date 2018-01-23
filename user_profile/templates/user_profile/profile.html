@@ -34,7 +34,7 @@
                 {% else %}
                     <p>all orders: {{ refill_all.count }}</p>
                     <p>verified orders: {{ refill_verfied.count }}</p>
-                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:your-order' %}">more details</a>
 
                 {% endif %}
             </div>

@@ -16,11 +16,11 @@
                 <h3>Emergency orders</h3><br>
                 {% if not eme_all %}
                     <p class="text-center">you didn't order any emergency medicine</p>
-                    <a class=" btn btn-success" style="margin: auto" href="">order now</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'emergency:emergency-info' %}">order now</a>
                 {% else %}
                     <p>all orders: {{ eme_all.count }}</p>
                     <p>verified orders: {{ eme_verified.count }}</p>
-                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:emergency-order' %}">more details</a>
 
                 {% endif %}
             </div>
@@ -30,11 +30,11 @@
                 <h3>Refill orders</h3><br>
                 {% if not refill_all %}
                     <p class="text-center">you didn't order any refill medicine</p>
-                    <a class=" btn btn-success" style="margin: auto" href="">order now</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'refill:refill-info' %}">order now</a>
                 {% else %}
                     <p>all orders: {{ refill_all.count }}</p>
                     <p>verified orders: {{ refill_verfied.count }}</p>
-                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:your-order' %}">more details</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:refill-order' %}">more details</a>
 
                 {% endif %}
             </div>
@@ -44,11 +44,11 @@
                 <h3>free product orders</h3><br>
                 {% if not free_all %}
                     <p class="text-center">you didn't order any free product medicine</p>
-                    <a class=" btn btn-success" style="margin: auto" href="">order now</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'product:index' %}">order now</a>
                 {% else %}
                     <p>all orders: {{ free_all.count }}</p>
                     <p>verified orders: {{ free_verified.count }}</p>
-                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:Free-Products-orders' %}">more details</a>
 
                 {% endif %}
             </div>

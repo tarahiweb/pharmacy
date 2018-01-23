@@ -171,6 +171,18 @@ def RefillList(request):
         current_user= request.user
         refilllist = Refill.objects.filter(info__user=current_user)
         refil_num= len(refilllist)
-        return render(request, 'user_profile/profile_your_orders.html', {'refilllist':refilllist, 'refil_num':refil_num})
+        return render(request, 'user_profile/profile_refill_orders.html', {'refilllist':refilllist, 'refil_num':refil_num})
+
+def Emergencylist(request):
+    current_user = request.user
+    emergencylist= Emergency_Med.objects.filter(info__user=current_user)
+    emergency_len= len(emergencylist)
+    return render (request, 'user_profile/profile_emergency-orders.html', {'emergencylist': emergencylist, 'emergency_len':emergency_len})
 
 
+
+def Freeorderlist(request):
+    current_user=request.user
+    freeorderlist= Order.objects.filter(info__user=current_user)
+    freeproducts_len = len(freeorderlist)
+    return render(request, 'user_profile/profile_freeproducts-orders.html', {'freeorderlist':freeorderlist, 'freeproducts_len':freeproducts_len})

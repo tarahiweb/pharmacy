@@ -1,0 +1,72 @@
+{% extends "base/profile-base.html" %}
+
+{% block title %} {{ user.username }} orders{% endblock %}
+{% block style %}
+    <style>
+    p{
+        font-size: 20px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+
+    <h1 class="text-center">your orders</h1>
+    <p class="text-center" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;margin: auto"></p>
+        <br>
+<div class="" style="width: 80%;margin: auto">
+{% if refil_num > 0 %}
+    <table class="table table-striped">
+
+        <thead class="thead-dark">
+            <tr>
+                <th>order</th>
+                <th>date</th>
+                <th>verified</th>
+                <th>payment status</th>
+                <th>cancel</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for item in refilllist %}
+            <tr>
+                <td>{{ item}}</td>
+                <td>{{ item.created }}</td>
+                <td>{% if item.verified %}
+                        verified
+                    {% else %}
+                        in process
+                {% endif %}
+                </td>
+                <td>{% if item.verified %}
+                        {% if item.paid %}
+                            payment successful
+                        {% else %}
+                        proceed to payment gateway
+                        {% endif %}
+
+                    {% else %}
+                        wait
+                    {% endif %}
+               </td>
+                <td>
+                   {% now "Y-m-d" as todays_date %}
+                    {% if todays_date == item.created|date:"Y-m-d" %}
+                        {% if item.verified == False %}
+                            {% if item.paid == False%}
+                                 <a class="btn btn-danger" href=""><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                            {% endif %}
+                        {% endif %}
+                    {% else%}
+                    ...
+            {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h1>you have no orders submited by now</h1>
+{% endif %}
+
+{% endblock %}

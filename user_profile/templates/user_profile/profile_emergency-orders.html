@@ -15,7 +15,7 @@
     <p class="text-center" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;margin: auto"></p>
         <br>
 <div class="" style="width: 80%;margin: auto">
-{% if refil_num > 0 %}
+{% if emergency_len > 0 %}
     <table class="table table-striped">
 
         <thead class="thead-dark">
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
 
-        {% for item in refilllist %}
+        {% for item in emergencylist %}
             <tr>
                 <td>{{ item}}</td>
                 <td>{{ item.created }}</td>
@@ -39,11 +39,16 @@
                         in process
                 {% endif %}
                 </td>
-               <td>{% if item.paid %}
-                        payment successful
-                   {% else %}
-                   proceed to payment gateway
-               {% endif %}
+               <td>{% if item.verified %}
+                        {% if item.paid %}
+                            payment successful
+                        {% else %}
+                        proceed to payment gateway
+                        {% endif %}
+
+                    {% else %}
+                        wait
+                    {% endif %}
                </td>
 
 

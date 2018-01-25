@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from user_profile.form import LoginForm
 def Home(request):
     return render(request,'home/home.html')
 
@@ -10,3 +10,7 @@ def Privacy(request):
 
 def Terms(request):
     return render(request, 'home/terms.html')
+
+def test(request):
+    form=LoginForm()
+    return render(request,'password_reset/password_reset_complete.html',{'form':form})

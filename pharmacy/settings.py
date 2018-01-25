@@ -129,6 +129,11 @@ AUTHENTICATION_BACKENDS = ['user_profile.backends.EmailBackend']
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/Users/mehrad/scorize/env/'
+
+
+
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')

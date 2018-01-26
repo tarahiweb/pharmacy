@@ -3,7 +3,27 @@ from django.core.urlresolvers import reverse
 from user_profile.models import User
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, db_index=True)
+    slug =models.SlugField(max_length=100, db_index=True, unique=True)
+
+    class Meta:
+        ordering = ('name', )
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('product:product_list_by_category', args=[self.slug])
+
+
+
+
+
 class  Drug(models.Model):
+    category= models.ForeignKey(Category,null=True , related_name='products')
     drug_name = models.CharField(max_length=100)
     dose = models.CharField(max_length=100)
     drug_company = models.CharField(max_length=100)
@@ -14,6 +34,14 @@ class  Drug(models.Model):
     stock= models.PositiveIntegerField()
     available=models.BooleanField(default=True)
     slug = models.SlugField(unique=True, allow_unicode=True,null=True)
+    drug_type=models.CharField(max_length=100, blank=True)
+    over_the_counter = models.BooleanField(default=False)
+    drug_ingredient = models.CharField(max_length=200, blank=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+
+    class Meta :
+        ordering = ('created', )
+
 
     def __str__(self):
         return self.drug_name+ ' , ' + self.dose

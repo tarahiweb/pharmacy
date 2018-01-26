@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .models import Drug,Comment
+from .models import Drug,Comment, Category
 from django.shortcuts import render, get_object_or_404,redirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -7,9 +7,13 @@ from cart.forms import CartADDDrugForm
 from .forms import CommentForm,ChildCommentForm
 
 
-def index(request):
+def index(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
     queryset_list = Drug.objects.all().order_by('-id')
-
+    if category_slug:
+        category= get_object_or_404(Category, slug=category_slug)
+        queryset_list = queryset_list.filter(category=category)
     query = request.GET.get("q")
     if query:
         queryset_list = queryset_list.filter(
@@ -31,10 +35,11 @@ def index(request):
         queryset = paginator.page(paginator.num_pages)
 
     context = {
-        "drugs": queryset,
+        "drugs": queryset_list,
 
         "page_request_var": page_request_var,
-
+        'categories': categories,
+        'category': category,
     }
     return render(request, "product/index.html", context)
 

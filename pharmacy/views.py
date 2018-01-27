@@ -13,4 +13,4 @@ def Terms(request):
 
 def test(request):
     form=LoginForm()
-    return render(request,'password_reset/password_reset_complete.html',{'form':form})
+    return render(request,'home/test.html')

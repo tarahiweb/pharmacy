@@ -9,6 +9,7 @@
         .landingbtn{
             margin-bottom: 5px;
             background-color: #371795a3;
+
             color: white;
 {#            width: 100%;#}
 {#            border: 1px solid white;#}
@@ -66,6 +67,54 @@
     margin: 0 auto;
     border-radius: 100px;
 }
+    .service{
+         padding: 20px;
+          -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+        height: 350px;
+    }
+    .biger{
+          padding: 5px;
+            height: 400px;
+    }
+    .servicecard{
+        border-radius: 5px;
+    }
+    .card1{
+        background: #5967C3;
+  background: -webkit-linear-gradient(left top, #5967C3, #83cedc);
+  background: linear-gradient(to bottom right, #5967C3, #83cedc);
+    }
+    .card2{
+        background: #ffaec2;
+  background: -webkit-linear-gradient(left top, #ffaec2, #7e4aaf);
+  background: linear-gradient(to bottom right, #ffaec2, #7e4aaf);
+    }
+    .card3{
+          background: #CA619C;
+  background: -webkit-linear-gradient(left top, #CA619C, #DBC084);
+  background: linear-gradient(to bottom right, #CA619C, #DBC084);
+    }
+    p{
+        font-size: 17px;
+    }
+    .servicebtn{
+       background-color: white;border-radius: 30px;position: absolute;bottom: 30px;right: 25%;
+        font-weight: bold;
+        color: #89879d;
+        display: none;
+         -webkit-transition: all 0.6s ease;
+  -moz-transition: all 0.6s ease;
+  -ms-transition: all 0.6s ease;
+  -o-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+    }
+    .servicebtnshow{
+        display: inherit;
+    }
 
     </style>
 {% endblock %}
@@ -92,7 +141,62 @@
 
         <div class="col-sm-6 col-xs-12"> </div>
     </div>
-    <div class="row text-center">
+        <div class="row" style="background: #3C385C;background: -webkit-linear-gradient(to right, #3C385C, #6c6896);background: linear-gradient(to right, #3C385C, #6c6896);height: 500px">
+            <h1 class="text-center" style="color: white">Our services</h1>
+            <div class="col-md-4 col-xs-12 service">
+                <div class="servicecard card1 text-center" style="background-color: red;height: 100%;width: 100%">
+                    <p class="text-center" style="color: white;font-size: 40px">online drug store</p>
+                    <p>hajme kami az tozihat ke man hich idea nadaram</p>
+                    <a class="btn servicebtn" style="background-color: white;border-radius: 30px;position: absolute;bottom: 30px;right: 25%">order emergency refill fast </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12 service biger">
+                 <div class="servicecard card2 text-center" style="background-color: red;height: 100%;width: 100%">
+                     <p class="text-center" style="color: white;font-size: 40px">RX refill and emergencu refill</p>
+                     <p>hajme kami az tozihat ke man hich idea nadaram</p>
+                     <a class="btn servicebtn servicebtnshow" style="">order emergency refill fast </a>
+                 </div>
+            </div>
+            <div class="col-md-4 col-xs-12 service">
+                 <div class="servicecard card3 text-center" style="background-color: red;height: 100%;width: 100%">
+                     <p class="text-center" style="color: white;font-size: 40px">consulting</p>
+                     <p>hajme kami az tozihat ke man hich idea nadaram</p>
+                     <a class="btn servicebtn" style="">order emergency refill fast </a>
+                 </div>
+            </div>
+
+        </div>
+        <div class="row" style="background-color: #73a8d3">
+            <div class="col-md-5 col-xs-12">
+                <img src="{% static 'home/doctor.png' %}" alt="" width="100%">
+
+            </div>
+            <div class="col-md-7 col-xs-12" style="">
+                <h1 class="text-center">our mission</h1>
+                <div class="row text-center">
+                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
+                        <span class="glyphicon glyphicon-cog" style="font-size: 30px;color: #52b0ff"></span>
+                        <p>yek sery mision o cherto pert</p>
+                    </div>
+                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
+                        <span class="glyphicon glyphicon-cog" style="font-size: 30px;color: #52b0ff"></span>
+                        <p>yek sery mision o cherto pert</p>
+                    </div>
+                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
+                        <span class="glyphicon glyphicon-cog" style="font-size: 30px;color: #52b0ff"></span>
+                        <p>yek sery mision o cherto pert</p>
+                    </div>
+                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
+                        <span class="glyphicon glyphicon-cog" style="font-size: 30px;color: #52b0ff"></span>
+                        <p>yek sery mision o cherto pert</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    <div class="row text-center" style="">
         <h1 style="color: #45801b ">Download Our Free Mobile App</h1>
         <div class="col-sm-6 col-md-3 col-xs-12">
             <img src="{% static 'home/drug.png' %}" alt="" style="background-color:  #45801b;width: 120px">
@@ -159,7 +263,7 @@
 
 
         </div>
-    <div class="row text-center" style="background-color: #abdde5;height: 300px">
+    <div class="row text-center" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 300px;background-attachment: fixed;background-position: right;background-size: cover">
         <h1>under construction</h1>
     </div>
     </div>
@@ -174,5 +278,14 @@
       $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
 	});
 });
+
+    $(".service").click(function(){
+  $(".service").removeClass("biger");
+  $('.servicebtn').removeClass('servicebtnshow')
+        var btn = $( "a.servicebtn" );
+  $(this).addClass("biger");
+  $(this).find(btn).addClass('servicebtnshow')
+});
     </script>
+
 {% endblock %}

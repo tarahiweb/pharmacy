@@ -28,7 +28,9 @@
 
   </style>
 </head>
-<body>
+<body style="background-color: #eeeeee">
+
+
 
 <nav class="navbar navbar-inverse visible-xs ">
   <div class="container-fluid">
@@ -63,7 +65,7 @@
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs" style="padding: 0">
-        <div class="affix" style=" height: 100%;width: inherit;padding: 10px;background-color: #f1f1f1">
+        <div class="affix" style=" height: 100%;width: inherit;padding: 10px;background-color: #fff;box-shadow:10px 10px 10px #c6c6c6;">
       <a href="{% url 'home' %}" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black">tyson pharmacy</a>
       <ul class="nav nav-pills nav-stacked">
         <li class="name text-center" ><a href="{% url 'user_profile:profile' %}" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
@@ -84,6 +86,20 @@
     <br>
 
     <div class="col-sm-9" >
+  <div class="container-fluid">
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'home' %}">tyson pharmacy</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li class=""><a href="">{{ user.get_full_name}}</a> </li>
+          <li><a href="" data-toggle="modal" data-target="#login">Log out</a></li>
+      </ul>
+    </div>
+
+  </div>
+
         {% block content %}{% endblock %}
 
     </div>

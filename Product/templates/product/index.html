@@ -11,107 +11,103 @@
 {% block content %}
     <br>
     <br>
+
+<div class="container-fluid" style="background-color: #f1f1f1">
+    <br>
     <br>
 
-<div class="container-fluid">
-    <div class="col-sm-2 sidenav hidden-xs" style="padding: 0">
-    <h3>Categories</h3>
-    <ul>
-        <li {% if not category %}class="selected"{% endif %}>
+
+
+<div class="row">
+<div class="col-sm-3  hidden-xs" style="padding: 10px;">
+        <div class="affix" style="height: 200px;margin: auto;width: inherit ">
+            <div style="background-color: #fff;margin-bottom: 10px;padding: 5px;">
+                <h3>categouries</h3>
+                <ul class="nav nav-pills nav-stacked">
+
+        <li {% if not category %}class="active"{% endif %}>
             <a href="{% url 'product:index' %}">All</a>
         </li>
-    {% for item in categories %}
-        <li {% if category.slug == item.slug %}class="selected" {% endif %}>
-            <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
-        </li>
-    {% endfor %}
+        {% for item in categories %}
+            <li {% if category.slug == item.slug %}class="active" {% endif %}>
+                <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+            </li>
+        {% endfor %}
     </ul>
-</div>
-{% if drugs %}
-    <div class="col-sm-10">
-    <form class="navbar-form" method='GET' action='' >
-        <div class="input-group">
-            <input class="form-control" placeholder="search" name="q" type="text" value='{{ request.GET.q }}'>
-            <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+
+            </div>
+            <div style="background-color: #fff;padding: 5px">
+                <h3>search in products</h3>
+                <form class="navbar-form" method='GET' action='' >
+                    <div class="input-group">
+                        <input class="form-control" placeholder="search" name="q" type="text" value='{{ request.GET.q }}'>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
-<div class=''>
-<div class="text-center row">
 
-    <h1 style="color: #951768;">products</h1>
 </div>
-
-<br>
-
-
-<div class="row" style="">
+<div class="col-sm-9" style="padding:10px 20px">
+{% if drugs %}
 
 
-    <div style="width: 95%;margin: auto">
-        {% for item in drugs %}
-            <div class="col-md-3 col-sm-6 col-xs-12" style="height: 320px;padding: 10px">
+<div class='' style="background-color: #fff; padding: 5px">
+    <div class="text-center row">
+
+        <h1 style="color: #951768;">products</h1>
+    </div>
+
+    <br>
+
+
+    <div class="row" style="">
+
+
+        <div style="width: 95%;margin: auto">
+            {% for item in drugs %}
+                <div class="col-md-3 col-sm-6 col-xs-12" style="height: 320px;padding: 10px">
                     <div class="product-img" style="height: 200px;border: 2px #f1f1f1 solid;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: contain;background-repeat: no-repeat;background-position: center">
+                        {% if item.price == 0 %}
                         <div class="circle" style="position: absolute;top: 20px;left: 20px;height: 50px;width: 50px;border-radius: 100%;background-color: #1e7e34;align-items: center">
                             <p class="text-center" style="color: white;margin: 15px 0">Free!</p>
                         </div>
+                        {% endif %}
                         <div class="opa-0" >
 
-                                <div class="well" style="height: 150px;overflow: scroll;margin-bottom: 10px">
-                                    {{ item.description }}
-                                </div>
-                                <div class="text-center">
-                            <a class="btn btn-success" href="{% url 'product:detail' item.slug %}" data-toggle="popover" data-trigger="hover" data-content="more details" data-placement="left"><i class="fa fa-search" aria-hidden="true" ></i></a>
-                            <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" data-toggle="popover" data-trigger="hover" data-content="add to cart"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
-                                </div>
+                            <div class="well" style="height: 150px;overflow: scroll;margin-bottom: 10px">
+                                {{ item.description }}
+                            </div>
+                            <div class="text-center">
+                                <a class="btn btn-success" href="{% url 'product:detail' item.slug %}" data-toggle="popover" data-trigger="hover" data-content="more details" data-placement="left"><i class="fa fa-search" aria-hidden="true" ></i></a>
+                                <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" data-toggle="popover" data-trigger="hover" data-content="add to cart"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                            </div>
                         </div>
                     </div>
 
                     <div>
                         <h4 class="">{{ item.drug_name }}</h4>
-                            <p >
-                                <span class="disabled" style="font-size: 17px">Free!!</span>
+                        <p >
+                            {% if item.price == 0 %}
+                            <span class="disabled" style="font-size: 17px">Free!!</span>
+                            {% else %}
+                            <span class="disabled" style="font-size: 17px">{{ item.price }}</span>
+                            {% endif %}
+                            <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" style="float: right" > <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
 
-                        <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" style="float: right" > <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
-
-                            </p>
+                        </p>
 
                     </div>
                 </div>
             {% endfor %}
-    </div>
-</div>
-<div class="row" style="background-color: #f8f8f8">
-
-{% for obj in drugs %}
-  <div class="col-sm-4 post-item" style="padding: 20px;border: 1px solid #d0d0d0;height: 300px; color: #8c8c8c;overflow: hidden;text-overflow: ellipsis;">
-    <a style='position:absolute;top:0px;left:0px;width:100%;height:100%;display:inline;' href="{{ obj.get_absolute_url }}"></a>
-      {% if obj.drug_pic %}
-      <div class="row" style="background-image: url('{{ obj.drug_pic.url }}');width: 100%;margin: auto;height: 120px;background-size: cover;background-repeat: no-repeat">
-
         </div>
-
-        {% endif %}
-      <div class="">
-        <h3><a href='{{ obj.get_absolute_url }}' style="text-decoration: none;color: black">{{ obj.drug_name }}</a></h3>
-        {% if obj.user.get_full_name %}
-            <p>Author: {{ obj.user.get_full_name }}</p>
-        {% endif %}
-        <div class="post-image-res" >{{ obj.get_markdown|truncatechars_html:60 }}</div>
+    </div>
 
 
-      </div>
-
-  </div>
-
-
-{% endfor %}
-</div>
-
-
-<div class="row text-center">
-    <ul class="pagination">
+    <div class="row text-center">
+        <ul class="pagination">
    <li>
         {% if drugs.has_previous %}
             <a href="?{{ page_request_var }}={{ drugs.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
@@ -131,14 +127,21 @@
         {% endif %}
     </li>
   </ul>
-</div>
-
-
-</div>
-</div>
     </div>
-{% else %}
-    <h3>you don't have any product</h3>
-{% endif %}
 
+
+</div>
+
+
+
+{% else %}
+    <div style="height: 60vh;background-color: #fff">
+    <div style="background-color: #fff">
+    <h3 class="text-center">oops this categoury is empty</h3>
+    </div>
+    </div>
+{% endif %}
+</div>
+</div>
+</div>
 {% endblock %}

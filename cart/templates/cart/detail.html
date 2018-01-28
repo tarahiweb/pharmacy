@@ -64,7 +64,7 @@
         {% endfor %}
         <tr class="total">
             <td>Total</td>
-            <td colspan="4">00.0</td>
+            <td colspan="4" id="sum"></td>
         </tr>
         </tbody>
     </table>
@@ -85,4 +85,17 @@
     {% endif %}
     </div>
     </div>
+
+    <script>
+
+        $(document).ready(function () {
+            var sum=0
+             {% for item in cart %}
+                  {% with drug=item.drug %}
+                    sum=sum+{{ drug.price }}
+                  {% endwith %}
+             {% endfor %}
+            $('#sum').html(sum)
+        })
+    </script>
 {% endblock %}

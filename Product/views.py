@@ -35,8 +35,7 @@ def index(request, category_slug=None):
         queryset = paginator.page(paginator.num_pages)
 
     context = {
-        "drugs": queryset_list,
-
+        "drugs": queryset,
         "page_request_var": page_request_var,
         'categories': categories,
         'category': category,

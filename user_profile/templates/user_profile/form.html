@@ -10,7 +10,7 @@
                 <span>{{ field.errors }}</span>
                 <label>{{ field.label_tag }}</label>
 {#                <div class="">{{ field }}</div>#}
-              <input class="form-control" type="text" name="{{ field.name }}">
+              <input class="form-control" type="text" name="{{ field.name }}" value="{{ field.initial }}">
               </div>
         {% endfor %}
 

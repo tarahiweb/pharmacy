@@ -179,7 +179,7 @@
     placement: 'bottom',
     html: true,
     content:  function() {
-      return '<p>this drug is already in your cart</p> <a href="#" class="bastan" data-dismiss="alert">got it!</a>'
+      return '<p>this drug is in your cart</p> <a href="#" class="bastan" data-dismiss="alert">got it!</a>'
     },
   });
 });
@@ -202,7 +202,8 @@ $(document).ready(function() {
                       if (status == false) {
 
                         $(".cart").effect( "bounce",
-			                    {times:6}, 500 );
+			                    {times:100}, 10000 );
+                        $('#popoverbtn').popover('toggle');
                     }else {
                         console.log('false')
                           $('#popoverbtn').popover('toggle');

@@ -127,7 +127,7 @@ def user_info(request):
 @login_required(login_url='user_profile:login')
 def consulting_detail(request):
     if request.method=='GET':
-        questions = Question.objects.all()
+        questions = Question.objects.filter(user=request.user)
         return render(request, 'consulting/consulting.html', {'question': questions})
     else:
         if request.POST['parrent']:

@@ -14,96 +14,179 @@
     <br>
     <div class="container-fluid" style="">
         <div  style="width: 90%;margin: auto">
-
-        <h1>drug information</h1>
-        <form action="{% url 'refill:refill-info' %}"  method="post" class="form-horizontal">
+            {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                    <h4>Please fix the following errors</h4>
+                    {{ form.non_field_errors }}
+                    </div>
+            {% endif %}
+            <h1>drug information</h1>
+            <form action="{% url 'refill:refill-info' %}"  method="post" class="form-horizontal">
                 {% csrf_token %}
-                    {{ form.as_p  }}
+            {{ form.as_p }}
+{#                <div class="form-group">#}
+{#                    {% if form.Dr_name.errors %}#}
+{#                        {% for error in form.Dr_name.errors %}#}
+{#                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                    <label>Your Dr name:</label>#}
+{#                    <input type="text" class="form-control" name="dr_name">#}
+{#                </div>#}
+{#<div class="form-group">#}
+{#                    {% if form.Dr_Phone_number.errors %}#}
+{#                        {% for error in form.Dr_Phone_number.errors %}#}
+{#                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                    <label>Your Dr phone No.:</label>#}
+{#                    <input type="text" class="form-control" name="Dr_Phone_number">#}
+{#                </div>#}
+{#<div class="form-group">#}
+{#                    {% if form.Dr_adrress.errors %}#}
+{#                        {% for error in form.Dr_adrress.errors %}#}
+{#                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                    <label>Your Dr address:</label>#}
+{#                    <input type="text" class="form-control" name="Dr_adrress">#}
+{#                </div>#}
+{#<div class="form-group">#}
+{#                    {% if form.last_pharmacy.errors %}#}
+{#                        {% for error in form.last_pharmacy.errors %}#}
+{#                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                    <label>Your last pharmacy:</label>#}
+{#                    <input type="text" class="form-control" name="last_pharmacy">#}
+{#                </div>#}
+{#<div class="form-group">#}
+{#                    {% if form.last_pharmacy_adrress.errors %}#}
+{#                        {% for error in form.last_pharmacy_adrress.errors %}#}
+{#                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                    <label>Your last pharmacy address:</label>#}
+{#                    <input type="text" class="form-control" name="last_pharmacy_adrress">#}
+{#                </div>#}
+{#                {% for i in form %}#}
+{#                    {{ i.name }}#}
+{#                    <div class="form-group">#}
+{#                        {% if i.errors %}#}
+{#                            {% for error in i.errors %}#}
+{#                                <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>#}
+{#                            {% endfor %}#}
+{#                        {% endif %}#}
+{#                        <lable>{{ i.label }}</lable>#}
+{#                        <input class="form-control" type="text" name="{{ i.name }}">#}
+{#                    </div>#}
+{#                {% endfor %}#}
                 <input type="hidden" value="1" name="drug_num">
-        <div class="well">
-            <h2>what do you need?</h2>
-        <div class="row">
-                <div class="col-xs-4">
-                    <div class="form-group">
-                        <lable class="col-xs-2">drug name 1</lable>
-                        <div class="col-xs-10">
-                            <input class="form-control" type="text" name="drug_name_1">
+                <div class="well">
+                    <h2>what do you need?</h2>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <lable class="col-xs-2">drug name 1</lable>
+                                <div class="col-xs-10">
+                                    <input class="form-control" type="text" name="drug_name_1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group" >
+                                <lable class="col-xs-2">drug dose 1</lable>
+                                <div class="col-xs-10">
+                                    <input class="form-control col-xs-10" type="text" name="drug_dose_1">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div id="forms"></div>
+                    <a id="add-another">add another drug</a>
                 </div>
-                <div class="col-xs-4">
-                <div class="form-group" >
-                    <lable class="col-xs-2">drug dose 1</lable>
-                    <div class="col-xs-10">
-                        <input class="form-control col-xs-10" type="text" name="drug_dose_1">
-                    </div>
-                </div>
-                </div>
-                </div>
-            <div id="forms"></div>
-            <a id="add-another">add another drug</a>
-        </div>
 
 
+                <div  style="width: 90%;margin: auto">
+                    <h1>chose your address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
+                    <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
 
-                <h1>choose your address</h1>
+                    <div class="row">
+                        <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
 
-                <div class="row">
-                    <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
+                            {% if info %}
+                                <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
 
+                                    {% for i in info %}
+                                        <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
+                                            <div class="panel-heading">address</div>
+                                            <div class="panel-body">
+                                                <p style="height: 50px">address : {{ i.address }}</p>
+                                                <hr>
+                                                <p>City : {{ i.city }}</p>
+                                                <p>State : {{ i.city }}</p>
+                                                <p>Zip : {{ i.zip }}</p>
+                                            </div>
+                                            <div class="panel-footer text-center">
+                                                <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> chose this address
+                                            </div>
+                                        </div>
+                                    {% endfor %}
 
-                        <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
-
-                            {% for i in info %}
-
-                                <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
-                                    <div class="panel-heading">address</div>
-                                    <div class="panel-body">
-                                        <p style="height: 50px">address : {{ i.address }}</p>
-                                        <hr>
-                                        <p>City : {{ i.city }}</p>
-                                        <p>State : {{ i.city }}</p>
-                                        <p>Zip : {{ i.zip }}</p>
-                                    </div>
-                                    <div class="panel-footer text-center">
-                                        <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> choose this address
+                                    <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                                        <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
                                     </div>
                                 </div>
-                            {% endfor %}
-
-                            <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#login" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
-                                <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
-                            </div>
+                            {% else %}
+                                <div style="width: 300px;height: 301px;margin-bottom:0;display: flex">
+                                    <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                                        <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                                    </div>
+                                </div>
+                            {% endif %}
 
                         </div>
 
+
+                        <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f1f1f1;height: 301px;padding: 0">
+                            <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                        </div>
                     </div>
+                    {% if info %}
+                        <button type="submit">subnit</button>
+                    {% endif %}
 
 
-                    <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f1f1f1;height: 301px;padding: 0">
-            <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </div>
                 </div>
-                <button type="submit">submit</button>
+
+
+                {% if info %}
+                    <button class="btn btn-warning" style="float: right" type="submit" >submit <i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+
+                {% else %}
+                    <a class="btn btn-warning" style="float: right" disabled="" >for subimt please add an address information <i class="fa fa-info" aria-hidden="true"></i></a>
+                    <br>
+                {% endif %}
+
             </form>
 
-
+            <br>
+        </div>
     </div>
-    </div>
 
 
 
-    <div id="login" class="modal fade" role="dialog">
+    <div id="address" class="modal fade" role="dialog">
         <div class="modal-dialog" style="margin-top: 70px;width: 90%">
 
-<div class="modal-content" style="background-color: #f8f8f8;">
-        <div class="modal-header" style="border: none">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h1 class="modal-title text-center">add your address</h1>
-            <hr>
-        </div>
-          <div class="modal-body">
-            <form action="{% url 'user_profile:create-userinfo' %}?next={{ request.path }}" method="post">
+            <div class="modal-content" style="background-color: #f8f8f8;">
+                <div class="modal-header" style="border: none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h1 class="modal-title text-center">add your address</h1>
+                    <hr>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'user_profile:create-userinfo' %}?next={{ request.path }}" method="post">
                         {% csrf_token %}
                         <div class="form-group">
                             <lable>address</lable>
@@ -117,53 +200,56 @@
                             <lable>zip</lable>
                             <input class="form-control" type="text" name="zip">
                         </div>
-                                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <input type="hidden" name="next" value="{{ request.path }}">
                         <button class="form-control btn-success" type="submit">submit</button>
                     </form>
 
-        </div>
-          <div class="modal-footer" style="border: none">
+                </div>
+                <div class="modal-footer" style="border: none">
 
-              <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
-          </div>
-      </div>
+                    <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-    <script>
+
+
+
+<script>
     $(document).ready(function () {
-         $('input[id=info1]').attr('checked','checked');
+        $('input[id=info1]').attr('checked','checked');
     })
 
-{#    add another drug#}
-form_count = Number($("[name=drug_num]").val());
-$("#add-another").click(function() {
-    form_count ++;
+    {#    add another drug#}
+    form_count = Number($("[name=drug_num]").val());
+    $("#add-another").click(function() {
+        form_count ++;
 
-     element = $('<hr><div class="row">\n' +
-         '                <div class="col-xs-4">\n' +
-         '                    <div class="form-group">\n' +
-         '                        <lable class="col-xs-2">drug name '+form_count+'</lable>\n' +
-         '                        <div class="col-xs-10">\n' +
-         '                            <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
-         '                        </div>\n' +
-         '                    </div>\n' +
-         '                </div>\n' +
-         '                <div class="col-xs-4">\n' +
-         '                <div class="form-group" >\n' +
-         '                    <lable class="col-xs-2">drug dose '+form_count+'</lable>\n' +
-         '                    <div class="col-xs-10">\n' +
-         '                        <input class="form-control col-xs-10" type="text" name="drug_dose_'+form_count+'">\n' +
-         '                    </div>\n' +
-         '                </div>\n' +
-         '                </div>\n' +
-         '                </div>');
+        element = $('<hr><div class="row">\n' +
+            '                <div class="col-xs-4">\n' +
+            '                    <div class="form-group">\n' +
+            '                        <lable class="col-xs-2">drug name '+form_count+'</lable>\n' +
+            '                        <div class="col-xs-10">\n' +
+            '                            <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '                <div class="col-xs-4">\n' +
+            '                <div class="form-group" >\n' +
+            '                    <lable class="col-xs-2">drug dose '+form_count+'</lable>\n' +
+            '                    <div class="col-xs-10">\n' +
+            '                        <input class="form-control col-xs-10" type="text" name="drug_dose_'+form_count+'">\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '                </div>\n' +
+            '                </div>');
 
-    $("#forms").append(element);
-    // build element and append it to our forms container
+        $("#forms").append(element);
+        // build element and append it to our forms container
 
-    $("[name=drug_num]").val(form_count);
-    // increment form count so our view knows to populate
-    // that many fields for validation
-})
+        $("[name=drug_num]").val(form_count);
+        // increment form count so our view knows to populate
+        // that many fields for validation
+    })
 </script>
 {% endblock %}

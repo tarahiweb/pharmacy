@@ -20,7 +20,7 @@ def refill_info(request):
                                            drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=refill)
 
             return render(request, 'refill_submited.html', {'refill':refill})
-        return HttpResponse(form.errors)
+        return render(request, 'refill_info_check.html', {'info': info, 'form': form})
     else:
         form = RefillCreateForm()
         return render(request,'refill_info_check.html',{'info':info,'form':form})

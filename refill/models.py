@@ -1,5 +1,6 @@
 from django.db import models
 from user_profile.models import UserInfo, User
+from refill.api import Fda_search
 
 class Refill(models.Model):
     #user = models.ForeignKey(User, related_name='refill')
@@ -44,4 +45,5 @@ class Refill(models.Model):
 class Drug(models.Model):
     med=models.ForeignKey(Refill,null=True)
     drug_name = models.CharField(max_length=100)
+    drug_otc = Fda_search(str(drug_name))
     drug_dose = models.CharField(max_length=20)

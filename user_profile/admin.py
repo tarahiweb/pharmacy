@@ -16,7 +16,9 @@ class QuestionInline(admin.TabularInline):
     raw_id_fields = ['parrent']
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionInline]
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Question,QuestionAdmin)
-admin.site.register(Answer)
+
 #admin.site.register(UserProfile)

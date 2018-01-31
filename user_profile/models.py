@@ -28,8 +28,8 @@ class Question(models.Model):
 class Answer(models.Model):
     parrent=models.ForeignKey(Question, related_name='child')
     body = models.TextField()
+    user=models.ForeignKey(User,blank=True,null=True)
     date = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return 'reply on : ' + self.body
+
 

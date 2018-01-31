@@ -11,7 +11,9 @@ urlpatterns = [
     # userinfo
     url(r'^create-info', views.user_info, name='create-userinfo'),
     #consulting
-    url(r'^consulting/', views.consulting_detail, name='consulting_detail'),
+    url(r'^consulting/ask', views.consulting_ask, name='consulting_ask'),
+    url(r'^consulting/show/(?P<pk>[0-9]+)/$', views.consulting_show, name='consulting-show'),
+    url(r'^consulting/$', views.consulting, name='consulting'),
 
     #profile
     url(r'^$', views.profile, name='profile'),

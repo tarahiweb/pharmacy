@@ -1,0 +1,23 @@
+{% extends 'base/profile-base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <h3 class="text-center">ask your question we are here to talk</h3>
+            <div class="" style="background-color: white;padding: 40px;width: 95%;margin: auto;overflow: scroll ">
+                <form action="" method="post" class="form-horizontal" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="comment">Type here:</label>
+                        <textarea class="form-control" rows="5" name="body" placeholder="your question...."></textarea>
+                    </div>
+
+
+                    <button class="btn btn-success" type="submit">submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

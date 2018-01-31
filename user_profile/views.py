@@ -124,36 +124,6 @@ def user_info(request):
         return HttpResponse(form.errors)
         return redirect(request.GET['next'])
 
-@login_required(login_url='user_profile:login')
-def consulting_detail(request):
-    if request.method=='GET':
-        questions = Question.objects.filter(user=request.user)
-        return render(request, 'consulting/consulting.html', {'question': questions})
-    else:
-        if request.POST['parrent']:
-            if request.user.is_authenticated:
-                form=AnswerForm(request.POST)
-                if form.is_valid():
-                    post=form.save(commit=False)
-                    parrent=Question.objects.get(pk=request.POST['parrent'])
-                    post.parrent=parrent
-                    post.user=request.user
-                    post.save()
-                else:
-                    return HttpResponse(form.errors)
-            return HttpResponse('ok')
-        else:
-            form=QuestionForm(request.POST)
-            if form.is_valid():
-                post=form.save(commit=False)
-                if request.user.is_authenticated:
-                    post.user=request.user
-                post.save()
-            else:
-                return HttpResponse(form.errors)
-        return HttpResponse('ok')
-
-
 
 
 class EditView(LoginRequiredMixin, UpdateView):
@@ -186,3 +156,42 @@ def Freeorderlist(request):
     freeorderlist= Order.objects.filter(info__user=current_user)
     freeproducts_len = len(freeorderlist)
     return render(request, 'user_profile/profile_freeproducts-orders.html', {'freeorderlist':freeorderlist, 'freeproducts_len':freeproducts_len})
+
+
+
+@login_required(login_url='user_profile:login')
+def consulting_ask(request):
+    if request.method=='GET':
+        return render(request, 'consulting/consulting-ask.html')
+    else:
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('user_profile:consulting-show', pk=post.pk)
+        else:
+            return HttpResponse(form.errors)
+
+
+def consulting(request):
+    question=Question.objects.filter(user=request.user)
+    return render(request,'consulting/consulting.html',{'question':question})
+
+def consulting_show(request,pk):
+    if request.method == 'GET':
+        question=Question.objects.filter(user=request.user)
+        question_show=Question.objects.get(pk=pk)
+        answer=Answer.objects.filter(parrent=question_show)
+        return render(request, 'consulting/consulting-show.html', {'question': question,'question_show':question_show,'answer':answer})
+    else:
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            parrent = Question.objects.get(pk=pk)
+            post.parrent = parrent
+            post.user = request.user
+            post.save()
+            return redirect('user_profile:consulting-show', pk=pk)
+        else:
+            return HttpResponse(form.errors)

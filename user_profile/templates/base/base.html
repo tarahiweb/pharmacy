@@ -31,7 +31,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="{% url 'product:index' %}">Free products</a></li>
-        <li><a href="{% url 'user_profile:consulting_detail' %}">consulting</a></li>
+        <li><a href="{% url 'user_profile:consulting' %}">consulting</a></li>
           {% if request.user.is_authenticated %}
           <li><a href="{% url 'refill:refill-info' %}">Refill</a></li>
           <li><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>

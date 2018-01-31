@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from user_profile.models import UserInfo, User
 from .models import Refill, Drug
 from .forms import RefillCreateForm
-
+from .report import Create_report
 
 
 def refill_info(request):
@@ -19,8 +19,12 @@ def refill_info(request):
                 drug = Drug.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
                                            drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=refill)
 
+            Create_report(refill.pk)
             return render(request, 'refill_submited.html', {'refill':refill})
         return render(request, 'refill_info_check.html', {'info': info, 'form': form})
     else:
         form = RefillCreateForm()
         return render(request,'refill_info_check.html',{'info':info,'form':form})
+
+
+

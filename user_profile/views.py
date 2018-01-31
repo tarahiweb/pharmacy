@@ -136,7 +136,6 @@ class EditView(LoginRequiredMixin, UpdateView):
 
     success_url = reverse_lazy('user_profile:profile')
 
-
 def RefillList(request):
         current_user= request.user
         refilllist = Refill.objects.filter(info__user=current_user)

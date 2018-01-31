@@ -131,7 +131,7 @@ AUTHENTICATION_BACKENDS = ['user_profile.backends.EmailBackend']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '/Users/mehrad/pharmacy'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR,'email')
 
 
 

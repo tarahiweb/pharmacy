@@ -1,6 +1,8 @@
 from django.db import models
 from user_profile.models import UserInfo, User
 from refill.api import Fda_search
+from django.conf import settings
+from django.core.mail import send_mail
 
 class Refill(models.Model):
     #user = models.ForeignKey(User, related_name='refill')
@@ -30,6 +32,13 @@ class Refill(models.Model):
     def __str__(self):
         return 'Refill{}'.format(self.id)
 
+    def save(self):
+        if self.verified==True:
+            send_mail('verified', 'verified',
+                      settings.EMAIL_BACKEND, ['abedi.mehrad@yahoo.com'], fail_silently=False),
+        super(Refill, self).save()
+
+
     #def userinfo_address(self):
      #   return self.info.address
     #userinfo_address.short_description = 'user Address'
@@ -45,5 +54,4 @@ class Refill(models.Model):
 class Drug(models.Model):
     med=models.ForeignKey(Refill,null=True)
     drug_name = models.CharField(max_length=100)
-    drug_otc = Fda_search(str(drug_name))
     drug_dose = models.CharField(max_length=20)

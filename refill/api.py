@@ -18,5 +18,3 @@ def Fda_search(query):
     for item in data['results']:
         return item['term']
 
-
-

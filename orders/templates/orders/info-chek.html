@@ -31,6 +31,29 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     <br>
     <div class="container-fluid" style="">
     <div  style="width: 90%;margin: auto">
+        <h1>chek your informations</h1>
+        <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <table class="table ">
+                    <tr>
+                        <td>First name:</td>
+                        <td>{{ user.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td>
+                        <td>{{ user.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <a href="{% url 'user_profile:update' %}" class="btn btn-warning">if any of this information are wrong please change theme here then come back</a>
+    </div>
+    <div  style="width: 90%;margin: auto">
         <h1>chose your address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
 
@@ -74,17 +97,19 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
         </div>
 
 
-        <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f1f1f1;height: 301px;padding: 0">
-            <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-        </div>
+
+            <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f7f7f7;height: 301px;padding: 0;border-radius: 10px">
+                <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+            </div>
         </div>
               {% if info %}
-         <button type="submit">subnit</button>
+         <button type="submit" class="btn btn-success" style="float: right">submit <i class="fa fa-check"></i></button>
 
 
               {% endif %}
+                  <br>
          </form>
-
+        <br>
 
     </div>
     </div>
@@ -117,7 +142,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                                         <input type="hidden" name="next" value="{{ request.path }}">
                         <button class="form-control btn-success" type="submit">submit</button>
                     </form>
-
+              <br>
         </div>
           <div class="modal-footer" style="border: none">
 

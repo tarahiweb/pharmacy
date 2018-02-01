@@ -13,6 +13,7 @@ def cart_add(request, drug_id):
         form = CartADDDrugForm(request.POST)
         if form.is_valid():
             cart.add(drug=drug, quantity=request.POST['quantity'], update_quantity=True)
+        return redirect('cart:cart_detail')
     else:
         cart.add(drug = drug, quantity= 1, update_quantity= False)
     status={

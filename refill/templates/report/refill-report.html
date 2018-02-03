@@ -7,62 +7,44 @@
                  font-weight: 200;
                  font-size: 14px;
              }
-             .header {
-                 font-size: 20px;
-                 font-weight: 100;
-                 text-align: center;
-                 color: #007cae;
+             td,th {
+                 padding: 5px;
              }
-             .title {
-                 font-size: 22px;
-                 font-weight: 100;
-                /* text-align: right;*/
-                padding: 10px 20px 0px 20px;
+             th{
+                 background-color: #f4f4f4;
              }
-             .title span {
-                 color: #007cae;
+             table{
+                 border: 1px solid black;
              }
-             .details {
-                 padding: 10px 20px 0px 20px;
-                 text-align: left !important;
-                 /*margin-left: 40%;*/
-             }
-             .hrItem {
-                 border: none;
-                 height: 1px;
-                 /* Set the hr color */
-                 color: #333; /* old IE */
-                 background-color: #fff; /* Modern Browsers */
-             }
+
          </style>
      </head>
      <body>
-         <div class='wrapper'>
-             <div class='header'>
-                 <p class='title'>refill number= {{ refill.pk }} </p>
-             </div>
+         <div class=''>
+             <p class='' style="font-size: 40px;margin-bottom: 20px">Tyson pharmacy</p>
+             <hr>
          <div>
-         <div class='details'>
-                <h1>INFORMATION</h1>
-             <table>
+         <div class=''>
+                <h1>costumer information</h1>
+             <table style="border: 1px solid black">
                  <tr>
-                     <td>first name</td>
+                     <td>First name:</td>
                      <td>{{ refill.info.user.first_name }}</td>
                  </tr>
                  <tr>
-                     <td>last name</td>
+                     <td>Last name:</td>
                      <td>{{ refill.info.user.last_name }}</td>
                  </tr>
                  <tr>
-                     <td>email address</td>
+                     <td>Email address:</td>
                      <td>{{ refill.info.user.email }}</td>
                  </tr>
                  <tr>
-                     <td>address</td>
+                     <td>Address:</td>
                      <td>{{ refill.info.address }}</td>
                  </tr>
                  <tr>
-                     <td>last name</td>
+                     <td>Last name</td>
                      <td>{{ refill.info.zip }}</td>
                  </tr>
                  <tr>
@@ -71,17 +53,70 @@
                  </tr>
              </table>
              <hr>
-            <h1>drugs</h1>
-             {% for i in drug %}
-                <table>
 
+            <h1>drugs order</h1>
+         <table style="border: 1px solid black">
+         <tr>
+             <th >drug name</th>
+             <th>drug dose</th>
+         </tr>
+             {% for i in drug %}
                     <tr>
                         <td>{{ i.drug_name }}</td>
                         <td>{{ i.drug_dose }}</td>
                     </tr>
-                </table>
              {% endfor %}
+         </table>
+             <hr>
+            <h1>doctor information</h1>
+            <table>
+                <tr>
+                    <td>doctor name:</td>
+                    <td>{{ refill.Dr_name }}</td>
+                </tr>
+                <tr>
+                    <td>doctor phone number:</td>
+                    <td>{{ refill.Dr_Phone_number }}</td>
+                </tr>
+                <tr>
+                    <td>doctor address:</td>
+                    <td>{{ refill.Dr_adrress }}</td>
+                </tr>
+                <tr>
+                    <td>last pharmacy:</td>
+                    <td>{{ refill.last_pharmacy }}</td>
+                </tr>
+                {% if refill.last_pharmacy_address %}
+                <tr>
+                    <td>doctor address:</td>
+                    <td>{{ refill.last_pharmacy_address }}</td>
+                </tr>
+                {% endif %}
+            </table>
+             <hr>
+            <h1>delivery information</h1>
+         <table>
+             <tr>
+                     <td>Address:</td>
+                     <td>{{ refill.info.address }}</td>
+                 </tr>
+                 <tr>
+                     <td>Last name</td>
+                     <td>{{ refill.info.zip }}</td>
+                 </tr>
+                 <tr>
+                     <td>last name</td>
+                     <td>{{ refill.info.city }}</td>
+                 </tr>
+                {% if refill.info.phone_number %}
+                <tr>
+                     <td>phone number</td>
+                     <td>{{ refill.info.phone_number }}</td>
+                 </tr>
+             {% endif %}
+         </table>
          </div>
+
      </div>
          </div>
      </body>

@@ -4,7 +4,7 @@ from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
 from .forms import RefillCreateForm
 from .models import Refill, Drug
-
+from django.forms import forms
 
 def refill_info(request):
     info=UserInfo.objects.filter(user=request.user)
@@ -45,3 +45,4 @@ def report(request):
     }
     pdf=render_to_pdf('report/refill-report.html',contect)
     return HttpResponse(pdf,content_type='application/pdf')
+

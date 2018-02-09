@@ -3,6 +3,11 @@ from user_profile.models import UserInfo, User
 from refill.api import Fda_search
 from django.conf import settings
 from django.core.mail import send_mail
+from phonenumber_field.modelfields import PhoneNumberField
+
+
+
+
 
 class Refill(models.Model):
     #user = models.ForeignKey(User, related_name='refill')
@@ -11,13 +16,14 @@ class Refill(models.Model):
     paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
     info = models.ForeignKey(UserInfo,null=True,related_name='infouser')
-    Dr_name=models.CharField(max_length=50)
-    Dr_Phone_number=models.IntegerField(null=True)
-    Dr_adrress = models.CharField(max_length=100)
-    last_pharmacy = models.CharField(max_length=100)
-    last_pharmacy_adrress = models.CharField(max_length=100)
-    #drug_name= models.CharField(max_length=100)
-    #drug_dose  = models.CharField(max_length=20)
+    verify_with_DR= models.BooleanField(default=False)
+    Dr_name=models.CharField(max_length=50, help_text="only required if verifying with dr is selected", blank=True)
+    Dr_Phone_number=PhoneNumberField(blank=True)
+    Dr_adrress = models.CharField(max_length=100, blank=True)
+    vedrify_with_Pharmacy = models.BooleanField(default=False)
+    last_pharmacy = models.CharField(max_length=100, blank=True)
+    last_pharmacy_adrress = models.CharField(max_length=100, blank=True)
+    verify_with_prescription = models.BooleanField(default=False)
     prescription = models.ImageField(blank=True)
     more_refill = models.BooleanField(default=False)
     more_refill_number = models.CharField(max_length=20, blank=True)
@@ -25,7 +31,7 @@ class Refill(models.Model):
         ('p','pick-up'),
         ('d','deliver'),
     )
-    choose_your_shipment_method= models.CharField(max_length=1, choices=delivery_choice,default='p')
+    choose_your_shipment_method= models.CharField(max_length=1, choices=delivery_choice,default='d')
     class Meta:
         ordering= ('-created',)
 
@@ -55,3 +61,6 @@ class Drug(models.Model):
     med=models.ForeignKey(Refill,null=True)
     drug_name = models.CharField(max_length=100)
     drug_dose = models.CharField(max_length=20)
+
+
+

@@ -54,8 +54,3 @@ class AnswerForm(forms.ModelForm):
         model=Answer
         fields = ['body']
 
-
-#class UserProfileForm(forms.ModelForm):
- #   class Meta:
-  #      model = UserProfile
-   #     exclude=('user',)

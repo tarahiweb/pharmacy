@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
-from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm
+from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm,PhoneForm
 from django.contrib.auth import login as auth_login
 from django.views.generic import View
 from django import forms
@@ -12,9 +12,11 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from emergency.models import Emergency_Med
-from refill.models import Refill
+from refill.models import NewRx
 from orders.models import Order
-from refill.views import refill_info
+from refill.views import new_rx
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -25,7 +27,7 @@ def profile(request):
     eme_verified=eme_all.filter(verified=True)
 
     # refill
-    refill_all=Refill.objects.filter(info__user=current_user)
+    refill_all=NewRx.objects.filter(info__user=current_user)
     refill_verfied=refill_all.filter(verified=True)
 
     # free product order
@@ -138,7 +140,7 @@ class EditView(LoginRequiredMixin, UpdateView):
 
 def RefillList(request):
         current_user= request.user
-        refilllist = Refill.objects.filter(info__user=current_user)
+        refilllist = NewRx.objects.filter(info__user=current_user)
         refil_num= len(refilllist)
         return render(request, 'user_profile/profile_refill_orders.html', {'refilllist':refilllist, 'refil_num':refil_num})
 
@@ -194,3 +196,22 @@ def consulting_show(request,pk):
             return redirect('user_profile:consulting-show', pk=pk)
         else:
             return HttpResponse(form.errors)
+
+@csrf_exempt
+def add_phone(request):
+    if request.method == 'POST':
+        form=PhoneForm(request.POST)
+        if form.is_valid():
+            post=form.save(commit=False)
+            user=request.user
+            user.phone_number=post.phone_number
+            user.save()
+            res='okkk'
+        res=form.errors
+        result={
+            'result':res
+        }
+        return JsonResponse(result)
+    else:
+        form = PhoneForm({'add_phone':request.user.phone_number})
+        return render(request,'user_profile/form.html',{'form':form})

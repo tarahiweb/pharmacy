@@ -54,3 +54,7 @@ class AnswerForm(forms.ModelForm):
         model=Answer
         fields = ['body']
 
+class PhoneForm(forms.ModelForm):
+    class Meta:
+        model=User
+        fields=['phone_number']

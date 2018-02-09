@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Refill, Drug
+from .models import Refill, Drug,NewRx
 
 from user_profile.models import User, UserInfo
 
@@ -17,6 +17,6 @@ class DrugAdmin(admin.ModelAdmin):
     #list_filter = ['paid', 'created', 'updated']
     inlines = [DrugInline]
 
-admin.site.register(Refill,DrugAdmin)
+admin.site.register(NewRx,DrugAdmin)
 
 

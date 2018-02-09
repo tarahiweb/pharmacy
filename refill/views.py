@@ -2,15 +2,16 @@ from django.shortcuts import render, HttpResponse
 
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
-from .forms import RefillCreateForm
+from .forms import NewRxForm
 from .models import Refill, Drug
 from django.forms import forms
-
-def refill_info(request):
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+def new_rx(request):
     info=UserInfo.objects.filter(user=request.user)
     #user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
-        form = RefillCreateForm(request.POST)
+        form = NewRxForm(request.POST,request.FILES)
         if form.is_valid():
             refill = form.save(commit=False)
             information = UserInfo.objects.get(pk=request.POST['info'])
@@ -25,14 +26,15 @@ def refill_info(request):
                 'refill': refill,
                 'drug': drugs,
             }
+            return HttpResponse(refill.verify_optin)
             pdf = render_to_pdf('report/refill-report.html', contect)
             return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill_submited.html', {'refill':refill})
-
-        return render(request, 'refill_info_check.html', {'info': info, 'form': form})
+        return HttpResponse(form.errors)
+        return render(request, 'new_rx.html', {'info': info, 'form': form})
     else:
-        form = RefillCreateForm()
-        return render(request,'refill_info_check.html',{'info':info,'form':form})
+        form = NewRxForm()
+        return render(request, 'new_rx.html', {'info':info, 'form':form})
 
 
 
@@ -46,3 +48,16 @@ def report(request):
     pdf=render_to_pdf('report/refill-report.html',contect)
     return HttpResponse(pdf,content_type='application/pdf')
 
+
+@csrf_exempt
+def ajax(request):
+
+    if request.method=='POST':
+        reserve = {
+            'days': 'ok',
+        }
+    else:
+        reserve = {
+            'days': 'not',
+        }
+    return JsonResponse(reserve)

@@ -33,7 +33,7 @@
                 <h3>Refill orders</h3><br>
                 {% if not refill_all %}
                     <p class="text-center">you didn't order any refill medicine</p>
-                    <a class=" btn btn-success" style="margin: auto" href="{% url 'refill:refill-info' %}">order now</a>
+                    <a class=" btn btn-success" style="margin: auto" href="{% url 'refill:new-rx' %}">order now</a>
                 {% else %}
                     <p>all orders: {{ refill_all.count }}</p>
                     <p>verified orders: {{ refill_verfied.count }}</p>

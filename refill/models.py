@@ -14,7 +14,9 @@ class NewRx(models.Model):
     first_name=models.CharField(max_length=50,null=True)
     last_name=models.CharField(max_length=50,null=True)
     # user = models.ForeignKey(User, related_name='refill')
+    Date_of_Birth= models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
+    delivered=models.BooleanField(default=False)
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
@@ -39,12 +41,6 @@ class NewRx(models.Model):
     )
     verify_optin=models.CharField(max_length=2, choices=verify_choice, default='d',blank=False)
 
-    delivery_choice = (
-        ('p', 'pick-up'),
-        ('d', 'deliver'),
-    )
-    choose_your_shipment_method = models.CharField(max_length=1, choices=delivery_choice, default='d')
-
     class Meta:
         ordering = ('-created',)
 
@@ -57,31 +53,27 @@ class NewRx(models.Model):
                       settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
         super(NewRx, self).save()
 
+class Drug(models.Model):
+    med=models.ForeignKey(NewRx,null=True)
+    drug_name = models.CharField(max_length=100)
+    drug_dose = models.CharField(max_length=20)
+
 
 
 class Refill(models.Model):
-    #user = models.ForeignKey(User, related_name='refill')
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
+    Date_of_Birth = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
+    delivered= models.BooleanField(default=False)
     info = models.ForeignKey(UserInfo,null=True,related_name='infouser')
-    verify_with_DR= models.BooleanField(default=False)
-    Dr_name=models.CharField(max_length=50, help_text="only required if verifying with dr is selected", blank=True)
-    Dr_Phone_number=PhoneNumberField(blank=True)
-    Dr_adrress = models.CharField(max_length=100, blank=True)
-    vedrify_with_Pharmacy = models.BooleanField(default=False)
-    last_pharmacy = models.CharField(max_length=100, blank=True)
-    last_pharmacy_adrress = models.CharField(max_length=100, blank=True)
-    verify_with_prescription = models.BooleanField(default=False)
-    prescription = models.ImageField(blank=True)
+    RX_number= models.CharField(max_length=20, blank=True, help_text="optional")
     more_refill = models.BooleanField(default=False)
     more_refill_number = models.CharField(max_length=20, blank=True)
-    delivery_choice= (
-        ('p','pick-up'),
-        ('d','deliver'),
-    )
-    choose_your_shipment_method= models.CharField(max_length=1, choices=delivery_choice,default='d')
+
     class Meta:
         ordering= ('-created',)
 
@@ -94,23 +86,9 @@ class Refill(models.Model):
                       settings.EMAIL_BACKEND, ['abedi.mehrad@yahoo.com'], fail_silently=False),
         super(Refill, self).save()
 
-
-    #def userinfo_address(self):
-     #   return self.info.address
-    #userinfo_address.short_description = 'user Address'
-
-    #def userinfo_city(self):
-     #   return self.info.city
-    #userinfo_city.short_description = 'user City'
-
-    #def userinfo_zip(self):
-        #return self.info.zip
-    #userinfo_zip.short_description = 'user zip'
-
-
-class Drug(models.Model):
-    med=models.ForeignKey(NewRx,null=True)
-    drug_name = models.CharField(max_length=100)
-    drug_dose = models.CharField(max_length=20)
+class Drug_refill(models.Model):
+    med=models.ForeignKey(Refill,null=True)
+    drug_name = models.CharField(max_length=50, blank=True)
+    drug_dose = models.CharField(max_length=20, blank=True)
 
 

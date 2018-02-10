@@ -39,7 +39,7 @@
         <div  style="width: 90%;margin: auto">
             <h1>Please check you information  </h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-        <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
+        <form action="{% url 'refill:refill' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
         <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <table class="table ">
@@ -59,93 +59,23 @@
                         </form>
                         </td>
                 </table>
-            </div>
-        </div>
+                      <div>
+                          <input type="radio" id="mr" name="more_refill" value= > do you need more refill
+
+                          <div id="mr-panel" style="display: none">
+                            <div class="form-group">
+                                {% if form.more_refill_number.errors %}
+                                    {% for error in form.more_refill_number.errors %}
+                                        <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>
+                                    {% endfor %}
+                                {% endif %}
+                                <label>Please specify the number of refill</label>
+                                <input type="text" class="form-control" name="more_refill_number">
+                            </div>
+                          </div>
+                      </div>
+
 {#        <a href="{% url 'user_profile:update' %}" class="btn btn-warning">if any of this information are wrong please change theme here then come back</a>#}
-
-            <h1>verify option</h1>
-             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-
-            {% if form.non_field_errors %}
-                    <div class="alert alert-danger">
-                    <h4>Please fix the following errors</h4>
-                    {{ form.non_field_errors }}
-                    </div>
-            {% endif %}
-
-                {% csrf_token %}
-{#            {{ form.as_p }}#}
-                 <input type="radio" id="dr" name="verify_optin"  value="d"> do you want us to contact your Dr,
-                 <input type="radio" id="pharmacy" name="verify_optin"  value="p"> pharmacy
-                 <input type="radio" id="prescription" name="verify_optin"  value="pr"> prescription
-            <div id="dr-panel" style="display: none">
-                <div class="form-group">
-                    {% if form.Dr_name.errors %}
-                        {% for error in form.Dr_name.errors %}
-                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>
-                        {% endfor %}
-                    {% endif %}
-                    <label>Your Dr name:</label>
-                    <input type="text" class="form-control" name="dr_name">
-                </div>
-                <div class="form-group">
-                    {% if form.Dr_Phone_number.errors %}
-                        {% for error in form.Dr_Phone_number.errors %}
-                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>
-                        {% endfor %}
-                    {% endif %}
-                    <label>Your Dr phone No.:</label>
-                    <input type="text" class="form-control" name="Dr_Phone_number">
-                </div>
-                <div class="form-group">
-
-                    {% if form.Dr_adrress.errors %}
-                        {% for error in form.Dr_adrress.errors %}
-                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>
-                        {% endfor %}
-                    {% endif %}
-                    <label>Your Dr address:</label>
-                    <input type="text" class="form-control" name="Dr_adrress">
-                </div>
-            </div>
-            <div id="pharmacy-panel" style="display: none">
-                <div class="form-group">
-                    {% if form.last_pharmacy.errors %}
-                        {% for error in form.last_pharmacy.errors %}
-                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>
-                        {% endfor %}
-                    {% endif %}
-                    <label>Your last pharmacy:</label>
-                    <input type="text" class="form-control" name="last_pharmacy">
-                </div>
-                <div class="form-group">
-                    {% if form.last_pharmacy_adrress.errors %}
-                        {% for error in form.last_pharmacy_adrress.errors %}
-                            <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>
-                        {% endfor %}
-                    {% endif %}
-                    <label>Your last pharmacy address:</label>
-                    <input type="text" class="form-control" name="last_pharmacy_adrress">
-                </div>
-            </div>
-            <div id="prescription-panel" style="display: none">
-           <div class="container">
-                <div class="col-md-6">
-    <div class="form-group">
-        <label>Upload Image</label>
-        <div class="input-group">
-            <span class="input-group-btn">
-                <span class="btn btn-default btn-file">
-                    Browse… <input type="file" id="imgInp">
-                </span>
-            </span>
-            <input type="text" class="form-control" readonly>
-        </div>
-        <img id='img-upload'/>
-    </div>
-</div>
-           </div>
-</div>
 {#                {% for i in form %}#}
 {#                    {{ i.name }}#}
 {#                    <div class="form-group">#}
@@ -292,7 +222,7 @@
     </div>
     {% if not user.phone_number %}
         <div class="alert-danger" style="position:fixed;bottom: 5px;right: 5px;border: 2px solid #f29994;border-radius: 5px;padding: 10px ">
-            <h4 style="margin-top: 0">add your phone number to get payment notification</h4>
+            <h4 style="margin-top: 0">Hi, we do not have your number. Would you like to provide us with your number, we would be able to communicate faster</h4>
             <form method='post' id ='test'>
                 {% csrf_token %}
                 <input name="phone_number" type="tel" value="">

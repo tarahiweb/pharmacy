@@ -49,14 +49,14 @@
                     </tr>
                     <tr>
                         <td>Last name:</td>
-                        <td><input name="first_name" class="form-control" value="{{ user.last_name }}"></td>
+                        <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
 
                     </tr>
                     <tr>
                         <td>Date of Birth:</td>
-                        <td><form action="" method="post">{% csrf_token %}
-                            {{form.Date_of_Birth.as_widget}}
-                        </form>
+                        <td>
+                            <input type="date" class="form-control" name="Date_of_Birth">
+
                         </td>
                 </table>
             </div>
@@ -86,7 +86,7 @@
                         {% endfor %}
                     {% endif %}
                     <label>Your Dr name:</label>
-                    <input type="text" class="form-control" name="dr_name">
+                    <input type="text" class="form-control" name="Dr_name">
                 </div>
                 <div class="form-group">
                     {% if form.Dr_Phone_number.errors %}
@@ -95,7 +95,7 @@
                         {% endfor %}
                     {% endif %}
                     <label>Your Dr phone No.:</label>
-                    <input type="text" class="form-control" name="Dr_Phone_number">
+                    <input type="text" class="form-control" name="dr_phone_number">
                 </div>
                 <div class="form-group">
 

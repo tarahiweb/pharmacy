@@ -1,6 +1,6 @@
 from django import forms
 from .models import NewRx, Refill
-from bootstrap3_datetime.widgets import DateTimePicker
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -9,7 +9,7 @@ class DateInput(forms.DateInput):
 class NewRxForm(forms.ModelForm):
     class Meta:
          model = NewRx
-         fields = ['first_name','last_name','Date_of_Birth', 'verify_optin','Dr_Phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
+         fields = ['first_name','last_name','Date_of_Birth', 'verify_optin','dr_phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
               'prescription','more_refill', 'more_refill_number',]
 
          widgets = {
@@ -21,7 +21,7 @@ class NewRxForm(forms.ModelForm):
         verify_option = cleaned_data.get("verify_optin")
 
         if verify_option=='d':
-            if cleaned_data.get("Dr_adrress")=='' or cleaned_data.get("Dr_name")=='' or cleaned_data.get("Dr_Phone_number")=='':
+            if cleaned_data.get("Dr_adrress")=='' or cleaned_data.get("Dr_name")=='' or cleaned_data.get("dr_phone_number")=='':
                 raise forms.ValidationError(
                  "dr info required "
                 )

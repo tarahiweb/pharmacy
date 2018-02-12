@@ -25,6 +25,7 @@ def new_rx(request):
                                            drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=refill)
 
             drugs = Drug.objects.filter(med=refill)
+            drugs = Drug.objects.filter(med=refill)
             contect = {
                 'refill': refill,
                 'drug': drugs,
@@ -33,7 +34,8 @@ def new_rx(request):
             pdf = render_to_pdf('report/refill-report.html', contect)
             return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill_submited.html', {'refill':refill})
-        return HttpResponse(form.errors)
+        print(form.errors)
+
         return render(request, 'new_rx.html', {'info': info, 'form': form})
     else:
         form = NewRxForm()

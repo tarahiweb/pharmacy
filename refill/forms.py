@@ -1,12 +1,20 @@
 from django import forms
-from .models import NewRx
-from django.utils.translation import ugettext_lazy as _
+from .models import NewRx, Refill
+from bootstrap3_datetime.widgets import DateTimePicker
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 
 class NewRxForm(forms.ModelForm):
     class Meta:
          model = NewRx
-         fields = ['first_name','last_name','verify_optin','Dr_Phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
-              'prescription','more_refill', 'more_refill_number', ]
+         fields = ['first_name','last_name','Date_of_Birth', 'verify_optin','Dr_Phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
+              'prescription','more_refill', 'more_refill_number',]
+
+         widgets = {
+            'Date_of_Birth': DateInput(),
+         }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -27,3 +35,26 @@ class NewRxForm(forms.ModelForm):
                 raise forms.ValidationError(
                     "upload the prescription "
                 )
+        more_refill = cleaned_data.get("more_refill")
+        if more_refill:
+            if cleaned_data.get("more_refill_number") == '':
+                raise forms.ValidationError("please specify the number of refills you need")
+
+
+
+
+
+class RefillForm(forms.ModelForm):
+    class Meta:
+         model = Refill
+         fields = ['first_name','last_name','Date_of_Birth','RX_number', 'more_refill', 'more_refill_number',]
+         widgets = {
+            'Date_of_Birth': DateInput(),
+         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        more_refill = cleaned_data.get("more_refill")
+        if more_refill:
+            if cleaned_data.get("more_refill_number") == '':
+                raise forms.ValidationError("please specify the number of refills you need")

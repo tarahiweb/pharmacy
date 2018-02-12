@@ -18,5 +18,6 @@ class DrugAdmin(admin.ModelAdmin):
     inlines = [DrugInline]
 
 admin.site.register(NewRx,DrugAdmin)
+admin.site.register(Refill)
 
 

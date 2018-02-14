@@ -3,6 +3,7 @@ from .models import User,UserInfo,Question,Answer
 
 
 
+
 class UserInfoInline(admin.TabularInline):
     model = UserInfo
     raw_id_fields = ['user']

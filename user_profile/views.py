@@ -215,3 +215,8 @@ def add_phone(request):
     else:
         form = PhoneForm({'add_phone':request.user.phone_number})
         return render(request,'user_profile/form.html',{'form':form})
+
+
+def one_click_refill(request):
+    order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
+    return render(request,'user_profile/one_click_refill.html',{'order':order})

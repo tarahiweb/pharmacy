@@ -20,9 +20,13 @@ urlpatterns = [
     url(r'^update', views.EditView.as_view(), name='update'),
     url(r'^refill-orders', views.RefillList, name='refill-order'),
     url(r'^emergency-orders', views.Emergencylist, name='emergency-order'),
-    url(r'^Free-Products-orders', views.Freeorderlist, name='Free-Products-orders'),
+    url(r'^free-Products-orders', views.Freeorderlist, name='Free-Products-orders'),
+    url(r'^one-click-refill', views.one_click_refill, name='one-click-refill'),
+
 
     # add phone
     url(r'^add-phone', views.add_phone, name='add-phone'),
+
 ]
+
 

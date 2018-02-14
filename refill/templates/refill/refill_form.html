@@ -36,10 +36,12 @@
     <br>
     <br>
     <div class="container-fluid" style="">
+
         <div  style="width: 90%;margin: auto">
             <h1>Please check you information  </h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-        <form action="{% url 'refill:refill' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
+        <form action="" method="post" class="form-horizontal" enctype='multipart/form-data'>
+        {% csrf_token %}
         <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <table class="table ">
@@ -49,16 +51,22 @@
                     </tr>
                     <tr>
                         <td>Last name:</td>
-                        <td><input name="first_name" class="form-control" value="{{ user.last_name }}"></td>
+                        <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
 
                     </tr>
                     <tr>
                         <td>Date of Birth:</td>
-                        <td><form action="" method="post">{% csrf_token %}
-                            {{form.Date_of_Birth.as_widget}}
-                        </form>
+                        <td>
+                            {% if form.Date_of_Birth.errors %}
+                                {% for error in form.Date_of_Birth %}
+                                    <li><span class="error " style="color: #9d0000">This field is required.</span></li>
+                                {% endfor %}
+                            {% endif %}
+                            <input type="date" class="form-control" name="Date_of_Birth">
                         </td>
                 </table>
+            </div>
+        </div>
                       <div>
                           <input type="radio" id="mr" name="more_refill" value= > do you need more refill
 

@@ -33,13 +33,13 @@ def new_rx(request):
             return HttpResponse(refill.verify_optin)
             pdf = render_to_pdf('report/refill-report.html', contect)
             return HttpResponse(pdf, content_type='application/pdf')
-            return render(request, 'refill_submited.html', {'refill':refill})
+            return render(request, 'refill/refill_submited.html', {'refill':refill})
         print(form.errors)
 
-        return render(request, 'new_rx.html', {'info': info, 'form': form})
+        return render(request, 'refill/new_rx.html', {'info': info, 'form': form})
     else:
         form = NewRxForm()
-        return render(request, 'new_rx.html', {'info':info, 'form':form})
+        return render(request, 'refill/new_rx.html', {'info':info, 'form':form})
 
 
 
@@ -68,8 +68,10 @@ def ajax(request):
     return JsonResponse(reserve)
 
 
-
 def refill(request):
+    return render(request, 'refill/refill.html')
+
+def refill_form(request):
     info=UserInfo.objects.filter(user=request.user)
     #user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
@@ -88,12 +90,11 @@ def refill(request):
                 'refill': refill,
                 'drug': drugs,
             }
-            return HttpResponse(refill.verify_optin)
+
             pdf = render_to_pdf('report/refill-report.html', contect)
             return HttpResponse(pdf, content_type='application/pdf')
-            return render(request, 'refill_submited.html', {'refill':refill})
-        return HttpResponse(form.errors)
-        return render(request, 'new_rx.html', {'info': info, 'form': form})
+            return render(request, 'refill/refill_submited.html', {'refill':refill})
+        return render(request, 'refill/refill_form.html', {'info': info, 'form': form})
     else:
         form = RefillForm()
-        return render(request, 'Refill.html', {'info':info, 'form':form})
+        return render(request, 'refill/refill_form.html', {'info':info, 'form':form})

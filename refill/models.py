@@ -59,8 +59,8 @@ class NewRx(models.Model):
 
 class Drug(models.Model):
     med=models.ForeignKey(NewRx,null=True)
-    drug_name = models.CharField(max_length=100)
-    drug_dose = models.CharField(max_length=20)
+    drug_name = models.CharField(max_length=100,blank=True)
+    drug_dose = models.CharField(max_length=20,blank=True)
 
 
 

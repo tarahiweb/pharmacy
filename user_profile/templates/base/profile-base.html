@@ -15,43 +15,84 @@
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     {% block style %}{% endblock %}
   <style>
+    @font-face {
+        font-family: 'IRANSans';
+        src: url('{% static 'font/IRANSans.ttf' %}') format('truetype');
+        font-weight: normal;
+        font-size: 17px;
+        font-style: normal;
+        }
     .row.content {height: 550px}
+    *{
+        font-family: IRANSans, tahoma, verdana, sans-serif;
+
+    }
 
     .sidenav {
 
       height: 100vh;
+
     }
+
 
     @media screen and (max-width: 767px) {
       .row.content {height: auto;}
     }
 
+    .pf-section{
+        background-image: linear-gradient(-135deg,#21254e,#232c58 19%,#232c58 0,#232c58 0,#232d5a 23%,#232d5a 0,#24305d 40%,#24305d 0,#24305d 0,#2b4a83 87%);
+    text-align: center;
+    position: relative;
+    top: -73px;
+    width: 100%;
+    height: 260px;
+    margin-right: -20%;
+    margin-bottom: -50px;
+    padding-top: 65px;
+    border-radius: 700px/251px;
+    }
+    .sidenavlist>li>a{
+        color: #474747;
+        transition: 0.5s;
+    }
+      .sidenavlist>li.active>a{
+          background-color: silver;
+          color: black;
+      }
+      .sidenavlist>li.active>a:hover{
+          background-color: silver;
+          color: black;
+      }
+      .top-nav>ul>li>a{
+          color: white;
+      }
+      .top-nav>ul>li>a:hover{
+          color: black;
+      }
   </style>
 </head>
 <body style="background-color: #eeeeee">
 
 
 
-<nav class="navbar navbar-inverse visible-xs ">
+<nav class="navbar navbar-inverse visible-xs " style="background-color: white;border: none">
   <div class="container-fluid">
-    <div class="navbar-header ">
+    <div class="navbar-header " style="color: #951768">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <i class="fa fa-bars"></i>
       </button>
-      <a href="{% url 'home' %}" class="navbar-brand" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black;">tyson pharmacy</a>
+      <a href="{% url 'home' %}" class="navbar-brand" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black;">Sco<span style="color: #951768">rize</span></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav" >
-        <li class="name text-center" ><a href="{% url 'user_profile:profile' %}" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
-        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
-       <li class="" name="dashboard"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i><span>consulting</span></a></li>
+        <li class="name text-center" ><a href="" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
+        <li class="active" name="dashboard"><a href=""><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
+       <li class="" name="dashboard"><a href=""><i class="fa fa-question" aria-hidden="true"></i><span>consulting</span></a></li>
 
         <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>setting <span class="caret"></span></span></a>
             <ul class="dropdown-menu">
-                 <li><a href="{% url 'user_profile:update' %}">information</a></li>
-                 <li><a href="{% url 'user_profile:add-phone' %}">Edit phone number</a></li>
+                 <li><a href="">information</a></li>
+                 <li><a href="">Edit phone number</a></li>
                  <li><a href="">change password</a></li>
                 <li><a href="">add delivery info</a></li>
             </ul>
@@ -66,23 +107,29 @@
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs" style="padding: 0">
-        <div class="affix" style=" height: 100%;width: inherit;padding: 10px;background-color: #fff;box-shadow:10px 10px 10px #c6c6c6;">
-      <a href="{% url 'home' %}" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black">tyson pharmacy</a>
-      <ul class="nav nav-pills nav-stacked">
-        <li class="name text-center" ><a href="{% url 'user_profile:profile' %}" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
-        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span> dashboard</span></a></li>
-        <li class="" name="dashboard"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span> consulting</span></a></li>
+        <div class="affix" style=" height: 100%;width: inherit;background-color: #fff;box-shadow:10px 10px 10px #c6c6c6;overflow: hidden">
+      <div class="pf-section" >
+          <br>
+          <img src="{% static 'user_profile/user.png' %}" width="100px" alt="">
+          <h3 style="color: white">{{ user.get_full_name }}</h3>
+      </div>
+        <div style="padding: 10px">
+      <ul class="nav nav-pills nav-stacked sidenavlist">
+
+        <li class="active" name="dashboard"><a href=""><i class="fa fa-fw fa-dashboard"></i><span> dashboard</span></a></li>
+        <li class="" name="dashboard"><a href=""><i class="fa fa-question" aria-hidden="true"></i></i><span> consulting</span></a></li>
         <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span> setting<span class="caret"></span></span></a>
             <ul class="dropdown-menu">
-                 <li><a href="{% url 'user_profile:update' %}">information</a></li>
-                <li><a href="{% url 'user_profile:add-phone' %}">Edit phone number</a></li>
+                 <li><a href="">information</a></li>
+                <li><a href="">Edit phone number</a></li>
                  <li><a href="">change password</a></li>
                 <li><a href="">add delivery info</a></li>
             </ul>
         </li>
 
-        <li><a href="{% url 'user_profile:logout' %}"><i class="fa fa-fw fa-sign-out"></i><span>log out</span></a></li>
+
       </ul><br>
+            </div>
         </div>
     </div>
 
@@ -90,13 +137,13 @@
     <div class="col-sm-9" style="padding: 0">
   <div class="container-fluid " id="nav" style="background-color: #5c5d70">
 
-    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1" >
+    <div class="collapse navbar-collapse top-nav" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav">
-        <li><a href="{% url 'home' %}" style="color: white">tyson pharmacy</a></li>
+        <li><a href="{% url 'home' %}" style="font-family: 'Arial black';font-size: 30px">ExpressMed</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          <li class=""><a href="" style="color: white">{{ user.get_full_name}}</a> </li>
-          <li><a href="{% url 'user_profile:logout' %}" style="color: white">Log out</a></li>
+          <li class=""><a href="" style="">{{ user.get_full_name}}</a> </li>
+          <li><a href="{% url 'user_profile:logout' %}" style="">Log out</a></li>
       </ul>
     </div>
 

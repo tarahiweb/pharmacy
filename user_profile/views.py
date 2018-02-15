@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
 from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm,PhoneForm
@@ -6,7 +6,7 @@ from django.contrib.auth import login as auth_login
 from django.views.generic import View
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Question, Answer, User
+from .models import Question, Answer, User,UserInfo
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,6 +17,7 @@ from orders.models import Order
 from refill.views import new_rx
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -220,3 +221,17 @@ def add_phone(request):
 def one_click_refill(request):
     order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
     return render(request,'user_profile/one_click_refill.html',{'order':order})
+
+def one_click_refill_submit(request,pk):
+    if request.method=='GET':
+        info = UserInfo.objects.filter(user=request.user)
+        rx=get_object_or_404(NewRx,pk=pk)
+        current_user=request.user
+        if not current_user==rx.info.user:
+            messages.info(request,'you are not allow here')
+            return render(request, 'user_profile/user-message.html')
+        else:
+            if rx.verified!=True:
+                messages.info(request,'this order is not verified yet')
+                return render(request, 'user_profile/user-message.html')
+            return render(request,'user_profile/one_click_refill_submit.html',{'rx':rx,'info':info})

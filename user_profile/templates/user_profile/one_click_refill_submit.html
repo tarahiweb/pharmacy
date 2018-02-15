@@ -1,0 +1,290 @@
+{% extends 'base/profile-base.html' %}
+{% load static %}
+{% block style %}
+    <style>
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+
+#img-upload{
+    width: 100%;
+}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <br>
+    <br>
+    <div style="width: 90%;margin: auto">
+    <h2 style="color: #848484">Are you sure you want to refill this order</h2>
+
+    <div style="width: 100%;background-color: white;border-radius: 5px;padding: 10px;color: #0000008a">
+        <br>
+        <table class="table table-striped">
+
+        <thead class="thead-dark">
+            <tr>
+                <th>First name:</th>
+                <th><input type="text" class="form-control" name="first_name" value="{{ rx.first_name }}"></th>
+            </tr>
+            <tr>
+                <th>Last name:</th>
+                <th><input type="text" class="form-control" name="last_name" value="{{ rx.last_name}}"></th>
+            </tr>
+            <tr>
+                <th>Date of birth:</th>
+                <th><input type="date" class="form-control" name="Date_of_Birth" value="{{ rx.Date_of_Birth|date:"Y-m-d" }}"></th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+
+        </tbody>
+    </table>
+        <br>
+        
+        <div class="form-group">
+            <lable>Dr name:</lable>
+            <input type="text" class="form-control" name="Dr_name" value="{{ rx.Dr_name }}">
+        </div>
+        <div class="form-group">
+            <lable>Dr phone number:</lable>
+            <input type="number" class="form-control" name="dr_phone_number" value="{{ rx.dr_phone_number }}">
+        </div>
+        <div class="form-group">
+            <lable>Dr address:</lable>
+            <textarea type="text" class="form-control" name="Dr_adrress" value="{{ rx.Dr_adrress }}">{{ rx.Dr_adrress }}</textarea>
+        </div>
+        <hr>
+
+        <div class="form-group">
+            <lable>Last pharmacy:</lable>
+            <input type="text" class="form-control" name="last_pharmacy" value="{{ rx.last_pharmacy }}">
+        </div>
+        <div class="form-group">
+            <lable>Last pharmacy adrress:</lable>
+            <textarea type="text" class="form-control" name="last_pharmacy_adrress" value="{{ rx.last_pharmacy_adrress }}">{{ rx.last_pharmacy_adrress }}</textarea>
+        </div>
+        <hr>
+        {% if rx.prescription %}
+        <div class="container">
+                   <div class="col-md-6">
+                       <div class="form-group">
+                           <label>Upload Image</label>
+                           <div class="input-group">
+                               <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file">
+                                        Browse… <input type="file" id="imgInp" name="prescription">
+                                    </span>
+                                </span>
+                               <input type="text" class="form-control" readonly value="{{ rx.prescription.name }}">
+                           </div>
+                           <img id='img-upload' src="{{ rx.prescription.url }}"/>
+                       </div>
+                   </div>
+        </div>
+        {% else%}
+        <div class="container">
+                   <div class="col-md-6">
+                       <div class="form-group">
+                           <label>Upload Image</label>
+                           <div class="input-group">
+                               <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file">
+                                        Browse… <input type="file" id="imgInp" name="prescription">
+                                    </span>
+                                </span>
+                               <input type="text" class="form-control" readonly value="">
+                           </div>
+                           <img id='img-upload' src=""/>
+                       </div>
+                   </div>
+        </div>
+        {% endif %}
+    <h3>do you want to delete any drug from refill order</h3>
+                    <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+
+        <table class="table table-striped">
+
+        <thead class="thead-dark">
+            <tr>
+                <th>drug name</th>
+                <th>drug dose</th>
+                <th>delete</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for item in rx.drug_set.all %}
+            <tr id="drug{{ forloop.counter }}">
+                <td><input type="text" value="{{ item.drug_name}}" readonly class="form-control"></td>
+                <td><input type="text" value="{{ item.drug_dose}}" readonly class="form-control"></td>
+                <td>
+                    <a class="btn btn-danger" onclick="deletefunc({{ forloop.counter }})"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h3>which address do you want us to deliver <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 13px">add another address</a></h3>
+                    <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+
+
+    <div class="row" style="width: 100%">
+                        <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
+
+                            {% if info %}
+                                <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
+
+                                    {% for i in info %}
+                                        <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
+                                            <div class="panel-heading">address</div>
+                                            <div class="panel-body">
+                                                <p style="height: 50px">address : {{ i.address }}</p>
+                                                <hr>
+                                                <p>City : {{ i.city }}</p>
+                                                <p>State : {{ i.city }}</p>
+                                                <p>Zip : {{ i.zip }}</p>
+                                            </div>
+                                            <div class="panel-footer text-center">
+                                                <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> chose this address
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                    <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                                        <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div style="width: 300px;height: 301px;margin-bottom:0;display: flex">
+                                    <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                                        <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f7f7f7;height: 301px;padding: 0;border-radius: 10px">
+                            <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+    {% if info %}
+                    <button class="btn btn-warning" style="float: right" type="submit" >submit <i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+
+                {% else %}
+                    <a class="btn btn-warning" style="float: right" disabled="" >for subimt please add an address information <i class="fa fa-info" aria-hidden="true"></i></a>
+                    <br>
+                {% endif %}
+        <br>
+        <br>
+
+    </div>
+    </div>
+
+{#    modal#}
+    <div id="address" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="margin-top: 70px;width: 90%">
+
+            <div class="modal-content" style="background-color: #f8f8f8;">
+                <div class="modal-header" style="border: none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h1 class="modal-title text-center">add your address</h1>
+                    <hr>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'user_profile:create-userinfo' %}?next={{ request.path }}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <lable>address</lable>
+                            <input class="form-control" type="text" name="address">
+                        </div>
+                        <div class="form-group">
+                            <lable>city</lable>
+                            <input class="form-control" type="text" name="city">
+                        </div>
+                        <div class="form-group">
+                            <lable>zip</lable>
+                            <input class="form-control" type="text" name="zip">
+                        </div>
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button class="form-control btn-success" type="submit">submit</button>
+                    </form>
+
+                </div>
+                <div class="modal-footer" style="border: none">
+
+                    <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+    $(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) alert(log);
+		    }
+
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#imgInp").change(function(){
+		    readURL(this);
+		});
+	});
+    $(document).ready(function () {
+        $('input[value={{ rx.info.pk }}]').attr('checked','checked');
+    })
+    var deletefunc=function (e) {
+        console.log(e)
+        $('#drug'+e+'').remove()
+    }
+
+    </script>
+{% endblock %}

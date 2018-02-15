@@ -13,7 +13,7 @@ urlpatterns= [
     url(r'^ajax/$', views.ajax, name='ajax'),
 
     url(r'^refill/$', views.refill_form, name='refill-form'),
-    url(r'^$', views.refill),
+    url(r'^$', views.refill, name='refill'),
 
 
 

@@ -6,6 +6,7 @@
     <div class="container-fluid">
             <div class="col-sm-10 col-sm-offset-1 col-xs-12" style="background-color: white;padding: 10px;border-radius: 5px">
                 <h3>chose one of your previous order to refill</h3>
+                <hr>
                 {% for i in order%}
                     <div class="row">
                         <div class="col-sm-6 col-xs-12">
@@ -17,7 +18,7 @@
                             <p>{{ i.updated }}</p>
                         </div>
                         <div class="col-sm-3 col-xs-6">
-                            <a href="" class="btn btn-success">refill this</a>
+                            <a href="{% url 'user_profile:one-click-refill-submit' i.pk %}" class="btn btn-success">refill this</a>
                         </div>
                     </div>
                     <hr>

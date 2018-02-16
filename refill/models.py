@@ -38,12 +38,7 @@ class NewRx(models.Model):
     more_refill = models.BooleanField(default=False)
     more_refill_number = models.CharField(max_length=20, blank=True)
 
-    verify_choice = (
-        ('d', 'doctor'),
-        ('p', 'pharmacy'),
-        ('pr', 'prescription')
-    )
-    verify_optin=models.CharField(max_length=2, choices=verify_choice, default='d',blank=False)
+
 
     class Meta:
         ordering = ('-created',)

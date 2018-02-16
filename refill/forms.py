@@ -9,7 +9,7 @@ class DateInput(forms.DateInput):
 class NewRxForm(forms.ModelForm):
     class Meta:
          model = NewRx
-         fields = ['first_name','last_name','Date_of_Birth', 'verify_optin','dr_phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
+         fields = ['first_name','last_name','Date_of_Birth', 'dr_phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
               'prescription','more_refill', 'more_refill_number',]
 
          widgets = {

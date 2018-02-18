@@ -140,3 +140,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 CART_SESSION_ID = 'cart'
+
+BRAINTREE_PRODUCTION = False
+BRAINTREE_MERCHANT_ID = 'ggq27xkfrr5vdty2'
+BRAINTREE_PUBLIC_KEY = '9z4v5wfpmzhxg8k2'
+BRAINTREE_PRIVATE_KEY = '7aebd8431a861c7cc62efbfe2db3b8a9'

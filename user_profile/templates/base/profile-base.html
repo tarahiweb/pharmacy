@@ -81,13 +81,13 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <i class="fa fa-bars"></i>
       </button>
-      <a href="{% url 'home' %}" class="navbar-brand" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black;">Sco<span style="color: #951768">rize</span></a>
+      <a href="{% url 'home' %}" class="navbar-brand" style="font-family: 'Arial Black';text-decoration: none;font-size: 30px;color: black;">express<span style="color: #951768">Med</span></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav" >
         <li class="name text-center" ><a href="" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
-        <li class="active" name="dashboard"><a href=""><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
-       <li class="" name="dashboard"><a href=""><i class="fa fa-question" aria-hidden="true"></i><span>consulting</span></a></li>
+        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
+       <li class="" name="dashboard"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i><span> consulting</span></a></li>
 
         <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>setting <span class="caret"></span></span></a>
             <ul class="dropdown-menu">
@@ -116,8 +116,8 @@
         <div style="padding: 10px">
       <ul class="nav nav-pills nav-stacked sidenavlist">
 
-        <li class="active" name="dashboard"><a href=""><i class="fa fa-fw fa-dashboard"></i><span> dashboard</span></a></li>
-        <li class="" name="dashboard"><a href=""><i class="fa fa-question" aria-hidden="true"></i></i><span> consulting</span></a></li>
+        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span> dashboard</span></a></li>
+        <li class="" name="dashboard"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span>  consulting</span></a></li>
         <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span> setting<span class="caret"></span></span></a>
             <ul class="dropdown-menu">
                  <li><a href="">information</a></li>

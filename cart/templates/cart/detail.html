@@ -92,7 +92,7 @@
             var sum=0
              {% for item in cart %}
                   {% with drug=item.drug %}
-                    sum=sum+{{ drug.price }}
+                    sum=sum+({{ drug.price}}*{{item.quantity }})
                   {% endwith %}
              {% endfor %}
             $('#sum').html(sum)

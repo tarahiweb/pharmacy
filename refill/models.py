@@ -56,7 +56,7 @@ class Drug(models.Model):
     med=models.ForeignKey(NewRx,null=True)
     drug_name = models.CharField(max_length=100,blank=True)
     drug_dose = models.CharField(max_length=20,blank=True)
-
+    drug_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
 
 class Refill(models.Model):
@@ -89,5 +89,5 @@ class Drug_refill(models.Model):
     med=models.ForeignKey(Refill,null=True)
     drug_name = models.CharField(max_length=50, blank=True)
     drug_dose = models.CharField(max_length=20, blank=True)
-
+    drug_price= models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 

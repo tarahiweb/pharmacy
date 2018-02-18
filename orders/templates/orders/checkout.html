@@ -1,43 +1,11 @@
-<script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
 
-{% block m %}
-  <form method="post" action="." autocomplete="off">
-    {% csrf_token %}
-    <p>Payments are safely processed with <a href='https://www.braintreepayments.com/' target='_blank'>Braintree</a>.</p>
-    {% if braintree_error %}
-      <div class="alert alert-danger fade in">
-          <button class="close" data-dismiss="alert">&times;</button>
-          {{ braintree_error|safe }}
-      </div>
-    {% endif %}
-    <div class="braintree-notifications"></div>
-    <div id="braintree-dropin"></div>
-    <input class="btn btn-success btn-lg btn-block" type="submit" value="Pay now!" />
-  </form>
-{% endblock %}
-
-<script>
-    // Remember? You generated the client token in your view.
-    var braintree_client_token = "{{ braintree_client_token }}";
-
-    requirejs(['jquery', 'jsi18n', 'https://js.braintreegateway.com/js/braintree-2.28.0.min.js'], function($, jsi18n, braintree) {
-        function braintreeSetup() {
-            // Here you tell Braintree to add the drop-in to your division above
-            braintree.setup(braintree_client_token, "dropin", {
-                container: "braintree-dropin"
-                ,onError: function (obj) {
-                    // Errors will be added to the html code
-                    $('[type=submit]').prop('disabled', false);
-                    $('.braintree-notifications').html('<p class="alert alert-danger">' + obj.message + '</p>');
-                }
-            });
-        }
-        braintreeSetup();
-
-        $('form').submit(function () {
-            $('[type=submit]').prop('disabled', true);
-            $('.braintree-notifications').html('');
-        });
-    });
-</script>
-
+<form id="payment-form" action="" method="POST">
+{% csrf_token %}
+      <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"
+       data-braintree-dropin-authorization="{{ braintree_client_token }}"
+       data-paypal.flow="checkout"
+       data-paypal.amount="{{ total }}"
+       data-paypal.currency="USD"
+      ></script>
+      <input type="submit" value="Purchase">
+</form>

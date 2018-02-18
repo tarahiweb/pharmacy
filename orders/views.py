@@ -179,3 +179,11 @@ class CheckoutView(generic.FormView):
     def get_success_url(self):
         # Add your preferred success url
         return reverse('foo')
+
+    def total_amount(request):
+        total=0
+        cart = Cart(request)
+        for item in cart:
+            total +=(item['price'] * item['quantity'])
+        return total
+

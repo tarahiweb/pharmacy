@@ -30,7 +30,7 @@ def new_rx(request):
                 'refill': refill,
                 'drug': drugs,
             }
-            
+
             pdf = render_to_pdf('report/refill-report.html', contect)
             return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':refill})

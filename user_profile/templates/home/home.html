@@ -220,15 +220,27 @@
 }
 
 
+
+
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row" style="background-image: url('{% static 'home/pharmacy.jpg'%}');background-size: cover;min-height: 100vh;background-attachment: fixed">
+    <div class="row">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
 
-        <div class="col-sm-6 col-xs-12 paddingtop text-center" style="height: 100%">
-            <h1  style="color: #45801b;font-size: 60px">expressMed</h1>
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 100vh;background-size: cover;padding: 20px">
+         <div class="col-sm-6 col-xs-12 paddingtop text-center" style="height: 100%">
+            <h1  style="color: #45801b;font-size: 60px">ExpressMed</h1>
             <h2 >refill your RX easy as cake</h2>
             <p><a class="btn  landingbtn">order emergency refill fast </a> <a class="btn  landingbtn">order refill RX</a></p>
 {#            <ul style="list-style: none;padding: 0">#}
@@ -241,10 +253,39 @@
             <h1>ready to talk?!</h1>
             <a href="" class="btn landingbtn">just click me!!</a>
         </div>
-
-
-        <div class="col-sm-6 col-xs-12"> </div>
     </div>
+
+    <div class="item" style="background-image: url('{% static 'home/Pill-bottle-spilling.jpg' %}');height: 100vh;background-size: cover;padding: 30px;background-position: bottom">
+        <div class="col-sm-8 col-xs-12 paddingtop text-center" style="height: 100%;padding-top: 3%">
+            <h1  style="color: #45801b;font-size: 60px">ExpressMed</h1>
+            <h2 > Do you need  express refill at the comfort of your home</h2>
+            <h2 >Do you need extra medicine for your travel</h2>
+            <br>
+            <hr>
+            <h2>Have you lost your medicine and need express replacemen</h2>
+{#            <a href="" class="btn landingbtn">just click me!!</a>#}
+        </div>
+    </div>
+
+    <div class="item" style="background-image: url('{% static 'home/slider31.jpg' %}');height: 100vh;background-size: cover;padding: 30px;background-position: bottom">
+{#      <img src="{% static 'home/ny.jpg' %}" alt="New York">#}
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="width: 5%">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next" style="width: 5%">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+    </div>
+
+
+
         <div class="row">
             <div class="col-md-9">
                 <h3>
@@ -657,5 +698,9 @@
   $(this).find(btn).addClass('servicebtnshow')
 });
     </script>
+
+
+
+
 
 {% endblock %}

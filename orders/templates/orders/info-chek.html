@@ -29,32 +29,66 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     <br>
     <br>
     <br>
-    <div class="container-fluid" style="">
-    <div  style="width: 90%;margin: auto">
-        <h1>chek your informations</h1>
-        <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-        <div class="row">
+    <div class="container">
+	<div class="row  col-md-6 pull-right">
+		<div class="pull-right col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-header" > Order summary</div>
+                <div class="panel-body">
+                   <table>
+                       <tbody>
+                       <tr>
+                           <td>items({{ cart.len }})</td>
+                           <td colspan="4" id="sum"></td>
+                       </tr>
+                       <tr>
+                           <td>Shipping & handling:</td>
+                           {% if shiping_method == 'r' %}
+                              <td> $0</td>
+                               {% else %}
+                               <td> $7.5</td>
+                           {% endif %}
+                       </tr>
+                       <tr>
+                           <td>total :</td>
+                           <td>  </td>
+                       </tr>
+
+                       </tbody>
+                   </table>
+                </div>
+                <div class="panel-footer">Panel footer</div>
+            </div>
+        </div>
+
+	</div>
+</div>
+    <div class="container " style="">
+        <div  style="width: 90%;margin: auto">
+            <h1>Please check your information  </h1>
+            <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+            <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
+            <div class="row">
             <div class="col-sm-6 col-xs-12">
+
                 <table class="table ">
                     <tr>
                         <td>First name:</td>
-                        <td>{{ user.first_name }}</td>
+                        <td><input name="first_name" class="form-control" value="{{ user.first_name }}"></td>
                     </tr>
                     <tr>
                         <td>Last name:</td>
-                        <td>{{ user.last_name }}</td>
+                        <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
+
                     </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td>{{ user.email }}</td>
-                    </tr>
+
+
                 </table>
             </div>
         </div>
-        <a href="{% url 'user_profile:update' %}" class="btn btn-warning">if any of this information are wrong please change theme here then come back</a>
-    </div>
+
     <div  style="width: 90%;margin: auto">
-        <h1>chose your address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
+        <h1>shimpment address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
 
               <form action="" method="post">
@@ -70,14 +104,12 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                     <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
                         <div class="panel-heading">address</div>
                         <div class="panel-body">
-                            <p style="height: 50px">address : {{ i.address }}</p>
+                            <p style="height: 50px">address : {{ i.address }},{{ i.city}} , {{ i.zip}} </p>
                             <hr>
-                            <p>City : {{ i.city }}</p>
-                            <p>State : {{ i.city }}</p>
-                            <p>Zip : {{ i.zip }}</p>
+
                         </div>
                         <div class="panel-footer text-center">
-                            <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> chose this address
+                            <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> choose this address
                         </div>
                     </div>
                 {% endfor %}
@@ -102,6 +134,9 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                 <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
             </div>
         </div>
+              <div>
+                 {{ form.as_p }}
+              </div>
               {% if info %}
          <button type="submit" class="btn btn-success" style="float: right">submit <i class="fa fa-check"></i></button>
 
@@ -121,7 +156,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 <div class="modal-content" style="background-color: #f8f8f8;">
         <div class="modal-header" style="border: none">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h1 class="modal-title text-center">add nre address</h1>
+          <h1 class="modal-title text-center">add your address</h1>
             <hr>
         </div>
           <div class="modal-body">
@@ -140,7 +175,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                             <input class="form-control" type="text" name="zip">
                         </div>
                                         <input type="hidden" name="next" value="{{ request.path }}">
-                        <button class="form-control btn-success" type="submit">submit</button>
+                        <button class="form-control btn-success" type="submit">proceed</button>
                     </form>
               <br>
         </div>
@@ -156,31 +191,17 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
          $('input[id=info1]').attr('checked','checked');
     })
     </script>
+     <script>
+
+        $(document).ready(function () {
+            var sum=0
+             {% for item in cart %}
+                  {% with drug=item.drug %}
+                    sum=sum+({{ drug.price}}*{{item.quantity }})
+                  {% endwith %}
+             {% endfor %}
+            $('#sum').html(sum)
+        })
+    </script>
 {% endblock %}
 
-
-
-<script>
-    // Remember? You generated the client token in your view.
-    var braintree_client_token = "{{ braintree_client_token }}";
-
-    requirejs(['jquery', 'jsi18n', 'https://js.braintreegateway.com/js/braintree-2.28.0.min.js'], function($, jsi18n, braintree) {
-        function braintreeSetup() {
-            // Here you tell Braintree to add the drop-in to your division above
-            braintree.setup(braintree_client_token, "dropin", {
-                container: "braintree-dropin"
-                ,onError: function (obj) {
-                    // Errors will be added to the html code
-                    $('[type=submit]').prop('disabled', false);
-                    $('.braintree-notifications').html('<p class="alert alert-danger">' + obj.message + '</p>');
-                }
-            });
-        }
-        braintreeSetup();
-
-        $('form').submit(function () {
-            $('[type=submit]').prop('disabled', true);
-            $('.braintree-notifications').html('');
-        });
-    });
-</script>

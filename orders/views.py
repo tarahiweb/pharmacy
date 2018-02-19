@@ -11,24 +11,28 @@ from django.views import generic
 from . import forms
 from pharmacy import settings
 from django.utils.translation import ugettext_lazy as _
+from .forms import  CreateOrderForm,  CheckoutForm
 
 def order_info(request):
     user=request.user
     info=UserInfo.objects.filter(user=request.user)
     cart = Cart(request)
     if request.method=='POST':
+        form = CreateOrderForm()
+        form.save()
         info = UserInfo.objects.get(pk=request.POST['info'])
         order = Order.objects.create(info=info)
         for item in cart:
             OrderItem.objects.create(order=order,
                                      drug=item['drug'],
-                                     # price=item['price'],
+                                      price=item['price'],
                                      quantity=item['quantity'])
 
             cart.clear()
-            return render(request, 'orders/created.html', {'order': order})
+            return render(request, 'orders/created.html', {'order': order, })
     else:
-        return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user})
+        form = CreateOrderForm()
+        return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user,'form': form})
 
 
 """
@@ -180,10 +184,4 @@ class CheckoutView(generic.FormView):
         # Add your preferred success url
         return reverse('foo')
 
-    def total_amount(request):
-        total=0
-        cart = Cart(request)
-        for item in cart:
-            total +=(item['price'] * item['quantity'])
-        return total
 

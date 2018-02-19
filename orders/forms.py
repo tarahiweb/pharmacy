@@ -18,3 +18,7 @@ class CheckoutForm(forms.Form):
                 'We couldn\'t verify your payment. Please try again.'))
         return self.cleaned_data
 
+class  CreateOrderForm(forms.ModelForm):
+    class Meta:
+        model= Order
+        fields=['shiping_method', ]

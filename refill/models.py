@@ -55,7 +55,7 @@ class NewRx(models.Model):
         a=1
         while a == 1:
             code = 'rx{}'.format(random.randrange(1000, 100000))
-            if not NewRx.objects.filter(code=code).exists():
+            if not NewRx.objects.filter(rx_number=code).exists():
                 self.rx_number = code
                 a = 2
         super(NewRx, self).save()

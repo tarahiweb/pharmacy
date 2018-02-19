@@ -12,6 +12,7 @@
 {#    <link rel="stylesheet" href="{% static 'cmd/bootstrap.min.css' %}">#}
     <script src="{% static 'cmd/jquery-3.1.1.js' %}"></script>
     <script src="{% static 'cmd/bootstrap.js' %}"></script>
+    <script src="{% static 'font-awesome/css/fontawesome-all.js' %}"></script>
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     {% block style %}{% endblock %}
   <style>
@@ -85,16 +86,15 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav" >
-        <li class="name text-center" ><a href="" style="color: #951768;"><i class="fa fa-fw fa-id-badge"></i><span> {{ request.user.get_full_name }}</span></a></li>
-        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span>dashboard</span></a></li>
-       <li class="" name="dashboard"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i><span> consulting</span></a></li>
+        <li class="dashboard" name=""><a href="{% url 'user_profile:profile' %}"><i class="fas fa-sliders-h"></i><span>Dashboard</span></a></li>
+       <li class="consulting" name=""><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i><span> Consulting</span></a></li>
 
-        <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>setting <span class="caret"></span></span></a>
+        <li name="" class="dropdown setting"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>Setting <span class="caret"></span></span></a>
             <ul class="dropdown-menu">
-                 <li><a href="">information</a></li>
-                 <li><a href="">Edit phone number</a></li>
-                 <li><a href="">change password</a></li>
-                <li><a href="">add delivery info</a></li>
+                 <li><a href="{% url 'user_profile:update' %}">Information</a></li>
+                <li><a href="{% url 'user_profile:add-phone' %}">Edit phone number</a></li>
+                 <li><a href="{% url 'user_profile:password' %}">Change password</a></li>
+                <li><a href="{% url 'user_profile:create-userinfo' %}">Add delivery info</a></li>
             </ul>
         </li>
 
@@ -116,14 +116,15 @@
         <div style="padding: 10px">
       <ul class="nav nav-pills nav-stacked sidenavlist">
 
-        <li class="active" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fa fa-fw fa-dashboard"></i><span> dashboard</span></a></li>
-        <li class="" name="dashboard"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span>  consulting</span></a></li>
-        <li name="setting" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span> setting<span class="caret"></span></span></a>
+        <li class="dashboard" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fas fa-sliders-h"></i><span> Dashboard</span></a></li>
+        <li class="ocr" name="ocr"><a href="{% url 'refill:one-click-refill' %}"><i class="fas fa-sync-alt"></i><span> One click refill</span></a></li>
+        <li class="consulting" name="consulting"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span>  Consulting</span></a></li>
+        <li name="" class="dropdown setting"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>Setting <span class="caret"></span></span></a>
             <ul class="dropdown-menu">
-                 <li><a href="">information</a></li>
-                <li><a href="">Edit phone number</a></li>
-                 <li><a href="">change password</a></li>
-                <li><a href="">add delivery info</a></li>
+                 <li><a href="{% url 'user_profile:update' %}">Information</a></li>
+                <li><a href="{% url 'user_profile:add-phone' %}">Edit phone number</a></li>
+                 <li><a href="{% url 'user_profile:password' %}">Change password</a></li>
+                <li><a href="{% url 'user_profile:create-userinfo' %}">Add delivery info</a></li>
             </ul>
         </li>
 
@@ -142,6 +143,8 @@
         <li><a href="{% url 'home' %}" style="font-family: 'Arial black';font-size: 30px">ExpressMed</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+          <li class=""><a href="{% url 'product:index' %}" style="">Shop</a> </li>
+          <li class=""><a href="{% url 'refill:new-rx' %}" style="">New prescription</a> </li>
           <li class=""><a href="" style="">{{ user.get_full_name}}</a> </li>
           <li><a href="{% url 'user_profile:logout' %}" style="">Log out</a></li>
       </ul>
@@ -153,6 +156,10 @@
     </div>
   </div>
 </div>
-
+<script>
+    $(document).ready(function () {
+        $('.{% block activeClass %}{% endblock %}').addClass('active');
+    })
+</script>
 </body>
 </html>

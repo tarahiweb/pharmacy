@@ -2,8 +2,11 @@
 {% block content %}
  <div class="container-fluid">
     <div class="row">
-    <div class="col-xs-12">
-    <h3>update yout informations</h3>
+        <br>
+        <br>
+    <div class="col-md-8 col-md-offset-2 col-xs-12 " >
+    <h3 style="color: #848484;">update yout informations</h3>
+    <div style="padding: 10px;background-color: white;border-radius: 10px">
     <form method="post" action="" class="form-horizontal">
  {% csrf_token %}
     {% for field in form %}
@@ -17,9 +20,10 @@
         {% endfor %}
 
         <br>
-        <button class="btn btn-lg btn-primary" type="submit" >Edit</button>
+        <button class="btn btn-success" type="submit" >Submit</button>
 
 </form>
+    </div>
     </div>
     </div>
     </div>

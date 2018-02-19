@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import RegexValidator
+import random
 
 
 
@@ -39,7 +40,7 @@ class NewRx(models.Model):
     more_refill = models.BooleanField(default=False)
     more_refill_number = models.CharField(max_length=20, blank=True)
 
-
+    rx_number = models.CharField(max_length=10, null=True)
 
     class Meta:
         ordering = ('-created',)
@@ -51,6 +52,12 @@ class NewRx(models.Model):
         if self.verified == True:
             send_mail('verified', 'verified', #TODO: make email template
                       settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
+        a=1
+        while a == 1:
+            code = 'rx{}'.format(random.randrange(1000, 100000))
+            if not NewRx.objects.filter(code=code).exists():
+                self.rx_number = code
+                a = 2
         super(NewRx, self).save()
 
 class Drug(models.Model):

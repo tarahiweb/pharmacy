@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, render_to_response, get_object_or_404
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login,logout,update_session_auth_hash
 from django.conf import settings
 from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm,PhoneForm
 from django.contrib.auth import login as auth_login
@@ -17,6 +17,7 @@ from orders.models import Order
 from refill.views import new_rx
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 @login_required(login_url='user_profile:login')
@@ -46,7 +47,7 @@ def profile(request):
         'free_all':free_product_all,
         'free_verified':free_product_verified
     }
-    return render_to_response('user_profile/profile.html', context)
+    return render_to_response('user_profile/dashboard.html', context)
 
 
 class UserFormView(View):
@@ -117,17 +118,33 @@ def Logout(request):
 
 @login_required(login_url='user_profile:login')
 def user_info(request):
-    form=UserInfoForm(data=request.POST)
-    if form.is_valid():
-        post=form.save(commit=False)
-        post.user=request.user
-        post.save()
-        return redirect(request.GET['next'])
+    if request.method=='POST':
+        form=UserInfoForm(data=request.POST)
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.user=request.user
+            post.save()
+            return redirect(request.GET['next'])
+        else:
+            return redirect(request.GET['next'])
     else:
-        return HttpResponse(form.errors)
-        return redirect(request.GET['next'])
+        form=UserInfoForm()
+        return render(request,'user_profile/form.html',{'form':form})
 
+@login_required(login_url='user_profile:login')
+def ChangePassword(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
 
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('user_profile:profile')
+        return render(request, 'user_profile/form.html', {'form': form})
+    else:
+        form = PasswordChangeForm(user=request.user)
+        context = {'form': form}
+        return render(request, 'user_profile/form.html', context)
 
 class EditView(LoginRequiredMixin, UpdateView):
     login_url = 'user_profile:login'

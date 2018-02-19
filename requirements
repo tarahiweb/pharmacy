@@ -4,3 +4,5 @@ django-pagedown
 twilio
 django-phonenumber-field
 xhtml2pdf
+braintree
+django-markdown-deux

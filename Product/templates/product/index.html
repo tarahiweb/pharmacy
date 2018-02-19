@@ -68,8 +68,8 @@
 
         <div style="width: 95%;margin: auto">
             {% for item in drugs %}
-                <div class="col-md-3 col-sm-6 col-xs-12" style="height: 320px;padding: 10px">
-                    <div class="product-img" style="height: 200px;border: 2px #f1f1f1 solid;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: contain;background-repeat: no-repeat;background-position: center">
+                <div class="col-md-3 col-sm-6 col-xs-12" style="height: 320px;padding: 10px;border: 1px solid silver">
+                    <div class="product-img" style="height: 200px;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: contain;background-repeat: no-repeat;background-position: center">
                         {% if item.price == 0 %}
                         <div class="circle" style="position: absolute;top: 20px;left: 20px;height: 50px;width: 50px;border-radius: 100%;background-color: #1e7e34;align-items: center">
                             <p class="text-center" style="color: white;margin: 15px 0">Free!</p>
@@ -95,9 +95,17 @@
                             {% else %}
                             <span class="disabled" style="font-size: 17px">{{ item.price }}</span>
                             {% endif %}
-                            <a class="btn btn-success" onclick="add_to_cart({{ item.pk }})" style="float: right" > <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
 
                         </p>
+                    <div style="border-top: 1px solid silver;width: 100%">
+                        <div class="col-xs-6" style="padding: 0">
+                             <a class="btn" onclick="add_to_cart({{ item.pk }})" style="width: 100%;border-right: 1px solid silver;border-radius: 0;" data-toggle="popover" data-trigger="hover" data-content="add to cart"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-xs-6" style="padding: 0">
+                            <a class="btn " href="{% url 'product:detail' item.slug %}" data-toggle="popover" data-trigger="hover" data-content="more details" data-placement="left" style="width: 100%;border-left: 1px solid silver;border-radius: 0"><i class="fa fa-search" aria-hidden="true" ></i></a>
+                        </div>
+                    </div>
+
 
                     </div>
                 </div>

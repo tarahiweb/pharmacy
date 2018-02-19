@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from user_profile.models import User
+from markdown_deux import markdown
+from django.utils.safestring import mark_safe
 
 
 class Category(models.Model):
@@ -49,6 +51,10 @@ class  Drug(models.Model):
     def get_absolute_url(self):
         return reverse("product:detail",kwargs={"drug_slug": self.slug})
 
+    def get_markdown(self):
+        content = self.description
+        markdown_text = markdown(content)
+        return mark_safe(markdown_text)
 
 class Comment(models.Model):
     user=models.ForeignKey(User,blank=True,null=True)

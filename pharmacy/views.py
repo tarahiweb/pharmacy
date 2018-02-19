@@ -2,9 +2,10 @@ from django.shortcuts import render
 from user_profile.form import LoginForm
 from django.conf import settings
 from django.core.mail import send_mail
-
+from Product.models import Drug
 def Home(request):
-    return render(request,'home/home.html')
+    drug=Drug.objects.all()[:6]
+    return render(request,'home/home.html',{'drug':drug})
 
 
 def Privacy(request):

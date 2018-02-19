@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from . import views
-
+from refill.views import one_click_refill,one_click_refill_submit
 app_name = 'user_profile'
 
 urlpatterns = [
@@ -21,11 +21,6 @@ urlpatterns = [
     url(r'^refill-orders', views.RefillList, name='refill-order'),
     url(r'^emergency-orders', views.Emergencylist, name='emergency-order'),
     url(r'^free-Products-orders', views.Freeorderlist, name='Free-Products-orders'),
-
-    # refill
-    url(r'^one-click-refill/$', views.one_click_refill, name='one-click-refill'),
-    url(r'^one-click-refill/(?P<pk>[0-9]+)/$', views.one_click_refill_submit, name='one-click-refill-submit'),
-
 
     # add phone
     url(r'^add-phone', views.add_phone, name='add-phone'),

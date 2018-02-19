@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
 
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
@@ -7,7 +7,7 @@ from .models import Refill, Drug, NewRx, Drug_refill
 from django.forms import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-
+from django.contrib import messages
 
 
 def new_rx(request):
@@ -98,3 +98,39 @@ def refill_form(request):
     else:
         form = RefillForm()
         return render(request, 'refill/refill_form.html', {'info':info, 'form':form})
+
+
+
+def one_click_refill(request):
+    order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
+    return render(request,'user_profile/one_click_refill.html',{'order':order})
+
+def one_click_refill_submit(request,pk):
+    if request.method=='GET':
+        info = UserInfo.objects.filter(user=request.user)
+        rx=get_object_or_404(NewRx,pk=pk)
+        current_user=request.user
+        if not current_user==rx.info.user:
+            messages.info(request,'you are not allow here')
+            return render(request, 'user_profile/user-message.html')
+        else:
+            if rx.verified!=True:
+                messages.info(request,'this order is not verified yet')
+                return render(request, 'user_profile/user-message.html')
+            return render(request,'user_profile/one_click_refill_submit.html',{'rx':rx,'info':info})
+
+    else:
+        order=get_object_or_404(NewRx,pk=pk)
+        drug=order.drug_set.all().count()
+        order.pk=None
+        order.info=UserInfo.objects.get(pk=request.POST['info'])
+        order.refill=True
+        order.save()
+        for i in range(drug):
+            if not request.POST['drug_pk{}'.format(i + 1)]=='':
+                drug=Drug.objects.get(pk=request.POST['drug_pk{}'.format(i + 1)])
+                drug.pk=None
+                drug.med=order
+                drug.save()
+        messages.info(request, 'you refill order successfully submited')
+        return render(request, 'user_profile/user-message.html')

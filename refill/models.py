@@ -23,6 +23,7 @@ class NewRx(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
+    refill=models.BooleanField(default=False)
     info = models.ForeignKey(UserInfo, null=True, related_name='info_user')
 
     Dr_name = models.CharField(max_length=50, help_text="only required if verifying with dr is selected", blank=True)

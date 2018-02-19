@@ -12,12 +12,12 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from emergency.models import Emergency_Med
-from refill.models import NewRx
+from refill.models import NewRx,Drug
 from orders.models import Order
 from refill.views import new_rx
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib import messages
+
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -217,21 +217,3 @@ def add_phone(request):
         form = PhoneForm({'add_phone':request.user.phone_number})
         return render(request,'user_profile/form.html',{'form':form})
 
-
-def one_click_refill(request):
-    order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
-    return render(request,'user_profile/one_click_refill.html',{'order':order})
-
-def one_click_refill_submit(request,pk):
-    if request.method=='GET':
-        info = UserInfo.objects.filter(user=request.user)
-        rx=get_object_or_404(NewRx,pk=pk)
-        current_user=request.user
-        if not current_user==rx.info.user:
-            messages.info(request,'you are not allow here')
-            return render(request, 'user_profile/user-message.html')
-        else:
-            if rx.verified!=True:
-                messages.info(request,'this order is not verified yet')
-                return render(request, 'user_profile/user-message.html')
-            return render(request,'user_profile/one_click_refill_submit.html',{'rx':rx,'info':info})

@@ -37,91 +37,109 @@
 
     <div style="background-color: white;border-radius: 5px;padding: 10px;color: #0000008a">
         <br>
-        <table class="table table-striped">
+        <form action="" method="post">
+        {% csrf_token %}
 
-        <thead class="thead-dark">
-            <tr>
-                <th>First name:</th>
-                <th><input type="text" class="form-control" name="first_name" value="{{ rx.first_name }}"></th>
-            </tr>
-            <tr>
-                <th>Last name:</th>
-                <th><input type="text" class="form-control" name="last_name" value="{{ rx.last_name}}"></th>
-            </tr>
-            <tr>
-                <th>Date of birth:</th>
-                <th><input type="date" class="form-control" name="Date_of_Birth" value="{{ rx.Date_of_Birth|date:"Y-m-d" }}"></th>
-            </tr>
-
-        </thead>
-        <tbody>
-
-
-        </tbody>
-    </table>
-        <br>
-        
-        <div class="form-group">
-            <lable>Dr name:</lable>
-            <input type="text" class="form-control" name="Dr_name" value="{{ rx.Dr_name }}">
-        </div>
-        <div class="form-group">
-            <lable>Dr phone number:</lable>
-            <input type="number" class="form-control" name="dr_phone_number" value="{{ rx.dr_phone_number }}">
-        </div>
-        <div class="form-group">
-            <lable>Dr address:</lable>
-            <textarea type="text" class="form-control" name="Dr_adrress" value="{{ rx.Dr_adrress }}">{{ rx.Dr_adrress }}</textarea>
-        </div>
-        <hr>
-
-        <div class="form-group">
-            <lable>Last pharmacy:</lable>
-            <input type="text" class="form-control" name="last_pharmacy" value="{{ rx.last_pharmacy }}">
-        </div>
-        <div class="form-group">
-            <lable>Last pharmacy adrress:</lable>
-            <textarea type="text" class="form-control" name="last_pharmacy_adrress" value="{{ rx.last_pharmacy_adrress }}">{{ rx.last_pharmacy_adrress }}</textarea>
-        </div>
-        <hr>
-        {% if rx.prescription %}
-        <div class="container">
-                   <div class="col-md-6">
-                       <div class="form-group">
-                           <label>Upload Image</label>
-                           <div class="input-group">
-                               <span class="input-group-btn">
-                                    <span class="btn btn-default btn-file">
-                                        Browse… <input type="file" id="imgInp" name="prescription">
-                                    </span>
-                                </span>
-                               <input type="text" class="form-control" readonly value="{{ rx.prescription.name }}">
-                           </div>
-                           <img id='img-upload' src="{{ rx.prescription.url }}"/>
-                       </div>
-                   </div>
-        </div>
-        {% else%}
-        <div class="container">
-                   <div class="col-md-6">
-                       <div class="form-group">
-                           <label>Upload Image</label>
-                           <div class="input-group">
-                               <span class="input-group-btn">
-                                    <span class="btn btn-default btn-file">
-                                        Browse… <input type="file" id="imgInp" name="prescription">
-                                    </span>
-                                </span>
-                               <input type="text" class="form-control" readonly value="">
-                           </div>
-                           <img id='img-upload' src=""/>
-                       </div>
-                   </div>
-        </div>
-        {% endif %}
-    <h3>do you want to delete any drug from refill order</h3>
+{#        <table class="table table-striped">#}
+{##}
+{#        <thead class="thead-dark">#}
+{#            <tr>#}
+{#                <th>First name:</th>#}
+{#                <th>{{ rx.first_name }}</th>#}
+{#                <th><input type="text" class="form-control" name="first_name" value="{{ rx.first_name }}"></th>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Last name:</th>#}
+{#                <th>{{ rx.last_name}}</th>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Date of birth:</th>#}
+{#                <th>{{ rx.Date_of_Birth|date:"Y-m-d" }}</th>#}
+{#            </tr>#}
+{##}
+{#        </thead>#}
+{#        <tbody>#}
+{##}
+{##}
+{#        </tbody>#}
+{#    </table>#}
+{#        <br>#}
+{#    <h3>dr info</h3>#}
+{#        <table class="table">#}
+{#            <tr>#}
+{#                <th>Dr name:</th>#}
+{#                <th>{{ rx.Dr_name }}</th>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Dr phone number:</th>#}
+{#                <th>{{ rx.dr_phone_number }}</th>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Dr address:</th>#}
+{#                <th>{{ rx.Dr_adrress }}</th>#}
+{#            </tr>#}
+{#        </table>#}
+{#        <div class="form-group">#}
+{#            <lable>Dr name:</lable>#}
+{#            <input type="text" class="form-control" name="Dr_name" value="{{ rx.Dr_name }}">#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <lable>Dr phone number:</lable>#}
+{#            <input type="number" class="form-control" name="dr_phone_number" value="{{ rx.dr_phone_number }}">#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <lable>Dr address:</lable>#}
+{#            <textarea type="text" class="form-control" name="Dr_adrress" value="{{ rx.Dr_adrress }}">{{ rx.Dr_adrress }}</textarea>#}
+{#        </div>#}
+{#        <hr>#}
+{##}
+{#        <div class="form-group">#}
+{#            <lable>Last pharmacy:</lable>#}
+{#            <input type="text" class="form-control" name="last_pharmacy" value="{{ rx.last_pharmacy }}">#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <lable>Last pharmacy adrress:</lable>#}
+{#            <textarea type="text" class="form-control" name="last_pharmacy_adrress" value="{{ rx.last_pharmacy_adrress }}">{{ rx.last_pharmacy_adrress }}</textarea>#}
+{#        </div>#}
+{#        <hr>#}
+{#        {% if rx.prescription %}#}
+{#        <div class="container">#}
+{#                   <div class="col-md-6">#}
+{#                       <div class="form-group">#}
+{#                           <label>Upload Image</label>#}
+{#                           <div class="input-group">#}
+{#                               <span class="input-group-btn">#}
+{#                                    <span class="btn btn-default btn-file">#}
+{#                                        Browse… <input type="file" id="imgInp" name="prescription">#}
+{#                                    </span>#}
+{#                                </span>#}
+{#                               <input type="text" class="form-control" readonly value="{{ rx.prescription.name }}">#}
+{#                           </div>#}
+{#                           <img id='img-upload' src="{{ rx.prescription.url }}"/>#}
+{#                       </div>#}
+{#                   </div>#}
+{#        </div>#}
+{#        {% else%}#}
+{#        <div class="container">#}
+{#                   <div class="col-md-6">#}
+{#                       <div class="form-group">#}
+{#                           <label>Upload Image</label>#}
+{#                           <div class="input-group">#}
+{#                               <span class="input-group-btn">#}
+{#                                    <span class="btn btn-default btn-file">#}
+{#                                        Browse… <input type="file" id="imgInp" name="prescription">#}
+{#                                    </span>#}
+{#                                </span>#}
+{#                               <input type="text" class="form-control" readonly value="">#}
+{#                           </div>#}
+{#                           <img id='img-upload' src=""/>#}
+{#                       </div>#}
+{#                   </div>#}
+{#        </div>#}
+{#        {% endif %}#}
+    <h3>Manager drugs</h3>
                     <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-
+        <p>you only can remove drug from order for add new you need to fill <a href="{% url 'refill:new-rx' %}">NewRx form </a> </p>
         <table class="table table-striped">
 
         <thead class="thead-dark">
@@ -135,8 +153,9 @@
 
         {% for item in rx.drug_set.all %}
             <tr id="drug{{ forloop.counter }}">
-                <td><input type="text" value="{{ item.drug_name}}" readonly class="form-control"></td>
-                <td><input type="text" value="{{ item.drug_dose}}" readonly class="form-control"></td>
+                <td>{{ item.drug_name}}</td>
+                <td>{{ item.drug_dose}}</td>
+                <input type="number" hidden name="drug_pk{{ forloop.counter }}" value="{{ item.pk }}">
                 <td>
                     <a class="btn btn-danger" onclick="deletefunc({{ forloop.counter }})"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
@@ -199,6 +218,7 @@
         <br>
         <br>
 
+        </form>
     </div>
     </div>
 
@@ -243,46 +263,12 @@
 
 
     <script>
-    $(document).ready( function() {
-    	$(document).on('change', '.btn-file :file', function() {
-		var input = $(this),
-			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-		input.trigger('fileselect', [label]);
-		});
-
-		$('.btn-file :file').on('fileselect', function(event, label) {
-
-		    var input = $(this).parents('.input-group').find(':text'),
-		        log = label;
-
-		    if( input.length ) {
-		        input.val(log);
-		    } else {
-		        if( log ) alert(log);
-		    }
-
-		});
-		function readURL(input) {
-		    if (input.files && input.files[0]) {
-		        var reader = new FileReader();
-
-		        reader.onload = function (e) {
-		            $('#img-upload').attr('src', e.target.result);
-		        }
-
-		        reader.readAsDataURL(input.files[0]);
-		    }
-		}
-
-		$("#imgInp").change(function(){
-		    readURL(this);
-		});
-	});
     $(document).ready(function () {
         $('input[value={{ rx.info.pk }}]').attr('checked','checked');
     })
     var deletefunc=function (e) {
         console.log(e)
+        $('input[name=drug_pk'+e+']').val('')
         $('#drug'+e+'').remove()
     }
 

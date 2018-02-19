@@ -1,12 +1,14 @@
 from django.contrib import admin
 from .models import User,UserInfo,Question,Answer
-
+from refill.models import NewRx
 
 
 
 class UserInfoInline(admin.TabularInline):
     model = UserInfo
     raw_id_fields = ['user']
+
+
 class UserAdmin(admin.ModelAdmin):
     #list_display = [ ]
     #list_filter = ['paid', 'created', 'updated']

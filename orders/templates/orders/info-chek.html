@@ -30,44 +30,82 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     <br>
     <br>
     <div class="container">
-	<div class="row  col-md-6 pull-right">
-		<div class="pull-right col-md-6">
-            <div class="panel panel-default">
+
+
+<head>
+  <title>checkout</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  /* Note: Try to remove the following lines to see the effect of CSS positioning */
+  .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid" style="height:20px;">
+  <h1><strong>checkout</strong></h1>
+</div>
+<br>
+
+<div class="container">
+  <div class="row">
+    <nav class="col-sm-3 pull-right">
+      <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="500">
+        <div class="panel panel-default">
                 <div class="panel-header" > Order summary</div>
                 <div class="panel-body">
                    <table>
                        <tbody>
                        <tr>
                            <td>items({{ cart.len }})</td>
-                           <td colspan="4" id="sum"></td>
-                       </tr>
-                       <tr>
-                           <td>Shipping & handling:</td>
-                           {% if shiping_method == 'r' %}
-                              <td> $0</td>
-                               {% else %}
-                               <td> $7.5</td>
-                           {% endif %}
-                       </tr>
-                       <tr>
-                           <td>total :</td>
-                           <td>  </td>
+                           <td > {{ total }}</td>
                        </tr>
 
+                           <tr class="total">
+                               <td>Shipping & handling:</td>
+                                <td colspan="4" id="sum"></td>
+                           </tr>
+                       <tr>
+                           <td>total </td>
+                           <td>{{ total  }}</td>
+
+                       </tr>
                        </tbody>
                    </table>
                 </div>
-                <div class="panel-footer">Panel footer</div>
+                <div class="panel-footer">
+                    <form action="" method="POST">
+                        {% csrf_token%}
+                    {% if info %}
+         <button type="submit" >place your order <i class="fa fa-check"></i></button>
+
+
+              {% endif %}
+                </form>
+                </div>
             </div>
         </div>
-
-	</div>
+      </ul>
+    </nav>
+  </div>
 </div>
-    <div class="container " style="">
+
+</body>
+
+
+
+    <div class="container col-sm-9" style="">
         <div  style="width: 90%;margin: auto">
             <h1>Please check your information  </h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-            <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
+            <form action="{% url 'order:checkout' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
             <div class="row">
             <div class="col-sm-6 col-xs-12">
 
@@ -138,7 +176,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                  {{ form.as_p }}
               </div>
               {% if info %}
-         <button type="submit" class="btn btn-success" style="float: right">submit <i class="fa fa-check"></i></button>
+         <button type="submit" class="btn btn-success" style="float: right">place your order <i class="fa fa-check"></i></button>
 
 
               {% endif %}
@@ -175,7 +213,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                             <input class="form-control" type="text" name="zip">
                         </div>
                                         <input type="hidden" name="next" value="{{ request.path }}">
-                        <button class="form-control btn-success" type="submit">proceed</button>
+                        <button class="form-control btn-success" type="submit">submit</button>
                     </form>
               <br>
         </div>
@@ -186,6 +224,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
       </div>
     </div>
 </div>
+{% endblock %}
     <script>
     $(document).ready(function () {
          $('input[id=info1]').attr('checked','checked');
@@ -194,14 +233,61 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
      <script>
 
         $(document).ready(function () {
-            var sum=0
-             {% for item in cart %}
-                  {% with drug=item.drug %}
-                    sum=sum+({{ drug.price}}*{{item.quantity }})
-                  {% endwith %}
-             {% endfor %}
-            $('#sum').html(sum)
+             var sum=0
+            var total={{ total }}
+             {% if shiping_method == 'r'%}
+                    sum = sum + 0
+                    total = total + 0
+              {% else %}
+                 sum = sum + 7.5
+                 total = total+75
+             {% endif%}
+             $('#sum', '#total').html(sum, total)
         })
     </script>
-{% endblock %}
+
+<script>
+    $(document).ready(function() {
+     $('[data-toggle="popover"]').popover();
+  $('#popoverbtn').popover({
+    trigger: 'manual',
+    placement: 'bottom',
+    html: true,
+    content:  function() {
+      return '<p>this drug is in your cart</p> <a href="#" class="bastan" data-dismiss="alert">got it!</a>'
+    },
+  });
+});
+
+
+$(document).ready(function() {
+  $(document).on("click", ".popover .bastan", function() {
+    $(this).parents(".popover").popover('hide');
+  });
+});
+
+        function add_to_cart(id) {
+            $.ajax({
+                url: '/cart/add/'+id,
+                dataType: 'json',
+                success:function (e) {
+                    var lenght=e['len']
+                    var status=e['status']
+                    $('.cart-lenght').html(lenght)
+                      if (status == false) {
+
+                        $(".cart").effect( "bounce",
+			                    {times:100}, 10000 );
+                        $('#popoverbtn').popover('toggle');
+                    }else {
+                        console.log('false')
+                          $('#popoverbtn').popover('toggle');
+                      }
+
+                }
+            })
+        }
+
+</script>
+
 

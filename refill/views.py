@@ -103,7 +103,7 @@ def refill_form(request):
 
 def one_click_refill(request):
     order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
-    return render(request,'user_profile/one_click_refill.html',{'order':order})
+    return render(request, 'one_click_refill/one_click_refill.html', {'order':order})
 
 def one_click_refill_submit(request,pk):
     if request.method=='GET':
@@ -117,7 +117,7 @@ def one_click_refill_submit(request,pk):
             if rx.verified!=True:
                 messages.info(request,'this order is not verified yet')
                 return render(request, 'user_profile/user-message.html')
-            return render(request,'user_profile/one_click_refill_submit.html',{'rx':rx,'info':info})
+            return render(request, 'one_click_refill/one_click_refill_submit.html', {'rx':rx, 'info':info})
 
     else:
         order=get_object_or_404(NewRx,pk=pk)

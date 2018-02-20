@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^refill-orders', views.RefillList, name='refill-order'),
     url(r'^emergency-orders', views.Emergencylist, name='emergency-order'),
     url(r'^free-Products-orders', views.Freeorderlist, name='Free-Products-orders'),
+    url(r'^orders', views.order, name='orders'),
 
     # add phone
     url(r'^add-phone', views.add_phone, name='add-phone'),

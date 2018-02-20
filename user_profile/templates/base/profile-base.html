@@ -110,13 +110,14 @@
         <div class="affix" style=" height: 100%;width: inherit;background-color: #fff;box-shadow:10px 10px 10px #c6c6c6;overflow: hidden">
       <div class="pf-section" >
           <br>
-          <img src="{% static 'user_profile/user.png' %}" width="100px" alt="">
+          <img src="" width="100px" alt="">
           <h3 style="color: white">{{ user.get_full_name }}</h3>
       </div>
         <div style="padding: 10px">
       <ul class="nav nav-pills nav-stacked sidenavlist">
 
         <li class="dashboard" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fas fa-sliders-h"></i><span> Dashboard</span></a></li>
+        <li class="order" name="order"><a href="{% url 'user_profile:orders' %}"><i class="fas fa-shopping-cart"></i><span> Orders</span></a></li>
         <li class="ocr" name="ocr"><a href="{% url 'refill:one-click-refill' %}"><i class="fas fa-sync-alt"></i><span> One click refill</span></a></li>
         <li class="consulting" name="consulting"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span>  Consulting</span></a></li>
         <li name="" class="dropdown setting"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>Setting <span class="caret"></span></span></a>

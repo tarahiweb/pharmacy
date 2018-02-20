@@ -29,10 +29,11 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     <br>
     <br>
     <br>
-    <div class="container">
-	<div class="row  col-md-6 pull-right">
-		<div class="pull-right col-md-6">
-            <div class="panel panel-default">
+    <div class="container-fluid">
+    <div class="row">
+	<div class="col-sm-3 pull-right" >
+		<div class="affix" >
+            <div class="panel panel-default" >
                 <div class="panel-header" > Order summary</div>
                 <div class="panel-body">
                    <table>
@@ -62,10 +63,9 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
         </div>
 
 	</div>
-</div>
-    <div class="container " style="">
+    <div class="col-sm-9" >
         <div  style="width: 90%;margin: auto">
-            <h1>Please check your information  </h1>
+            <h1>Please check your information</h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
             <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
             <div class="row">
@@ -148,8 +148,9 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
     </div>
     </div>
-
-
+    </div>
+    </div>
+    </div>
 <div id="address" class="modal fade" role="dialog">
     <div class="modal-dialog" style="margin-top: 70px;width: 90%">
 

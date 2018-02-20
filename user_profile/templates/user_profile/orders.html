@@ -1,0 +1,210 @@
+{% extends 'base/profile-base.html' %}
+{% block style %}
+    <style>
+{#        progress bar#}
+    .stepwizard-step p {
+    margin-top: 10px;
+}
+
+.stepwizard-row {
+    display: table-row;
+}
+
+.stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+}
+
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+
+}
+
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+    .done{
+        background-color: #abdde5;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <br>
+        <br>
+
+        <div class="" style="width: 95%;background-color: white;margin: auto;padding: 10px">
+
+            <h1  style="color: #848484;font-size: 50px">All orders</h1>
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#shop">Order from shop</a></li>
+                <li><a data-toggle="tab" href="#newrx">NewRx and Refill</a></li>
+                <li><a data-toggle="tab" href="#emergency">Emergency</a></li>
+
+            </ul>
+
+            <div class="tab-content">
+                <div id="shop" class="tab-pane fade in active">
+                    <h3>Order from shop</h3>
+                </div>
+                <div id="newrx" class="tab-pane fade">
+                    <h3>NewRx and Refill</h3>
+                    <table class="table table-bordered text-center">
+                        <thead style="background-color: #e5e5e5">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">code</th>
+                                <th class="text-center">date</th>
+                                <th class="text-center">status</th>
+                                <th class="text-center">price</th>
+                                <th class="text-center">payment</th>
+                                <th class="text-center">details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in newrx %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ i.rx_number }}</td>
+                                    <td>{{ i.created }}</td>
+                                    {% if i.verified %}
+                                        <td><i class="fas fa-check-circle" style="color: #1e7e34"></i></td>
+                                        <td>{{ i.price }}</td>
+                                    {% else %}
+                                        <td><i class="fas fa-times-circle" style="color: #d03636"></i></td>
+                                        <td style="background-color: #bfbfbf">	&nbsp;</td>
+                                    {% endif %}
+                                    <td><a href="" class="">purchast</a></td>
+                                    <td><a onclick="panelfunc({{ i.pk }})"><i class="fas fa-chevron-down"></i></a></td>
+                                </tr>
+                                <tr >
+                                    <td colspan="7" style="padding: 0">
+                                        <div class=""  id="panel{{ i.pk }}" style="width: 90%; margin: auto;padding: 10px;padding-bottom: 30px;display: none">
+                                            <h5 style="text-align: left">drugs:</h5>
+                                            <table class="table table-bordered table-striped text-center">
+                                                <thead style="background-color: #c6c6c6">
+                                                    <tr>
+                                                        <th class="text-center">drug</th>
+                                                        <th class="text-center">dose</th>
+                                                        <th class="text-center">price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for n in i.drug_set.all %}
+                                                        <tr>
+                                                            <td>{{ n.drug_name }}</td>
+                                                            <td>{{ n.drug_dose }}</td>
+                                                            <td>{{ n.drug_price }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    <tr>
+                                                        <td colspan="2">sum</td>
+                                                        <td>{{ i.price }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h5 style="text-align: left">order status:</h5>
+{#                                            progress bar#}
+                                            <div class="stepwizard">
+                                                <div class="stepwizard-row">
+                                                    {% if i.verified and i.paid and i.delivered %}
+                                                        <div class="stepwizard-step">
+                                                            <p class="btn btn-default done">verifed</p>
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default ">payed</button>
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default" >delivered</button>
+                                                        </div>
+
+                                                    {% elif i.verified and i.paid and not i.delivered %}
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default">verifed</button>
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default ">payed</button>
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default" disabled="disabled">delivering</button>
+                                                        </div>
+
+                                                    {% elif i.verified and not i.paid and not i.delivered %}
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-success ">verifed</button type="button">
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default " disabled="disabled">paying</button>
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default" disabled="disabled">delivered</button>
+                                                        </div>
+
+                                                    {% elif not i.verified and not i.paid and not i.delivered %}
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default"disabled="disabled">verifing</button>
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default "disabled="disabled">paying</button>
+                                                        </div>
+                                                        <div class="stepwizard-step">
+                                                            <button type="button" class="btn btn-default" disabled="disabled">delivering</button>
+                                                        </div>
+
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="emergency" class="tab-pane fade">
+                    <h3>Emergency</h3>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+    var panelfunc=function (e) {
+        $('#panel'+e).slideToggle("slow");
+    }
+    </script>
+{% endblock %}
+
+{% block activeClass %}order{% endblock %}

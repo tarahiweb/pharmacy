@@ -31,12 +31,14 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="{% url 'product:index' %}">shop</a></li>
-        <li><a href="{% url 'user_profile:consulting' %}">consulting</a></li>
           {% if request.user.is_authenticated %}
-          <li><a href="{% url 'refill:new-rx' %}">new prescription</a></li>
-              <li><a href="{% url 'refill:refill' %}">Refill</a></li>
-          <li><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
+                <li><a href="{% url 'user_profile:consulting' %}">Consulting</a></li>
+                <li><a href="{% url 'refill:new-rx' %}">New Prescription</a></li>
+                <li><a href="{% url 'refill:refill' %}">Refill</a></li>
+                <li><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
           {% else %}
+          <li><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
+          <li><a href="" data-toggle="modal" data-target="#login">New Prescription</a></li>
           <li><a href="" data-toggle="modal" data-target="#login">Refill</a></li>
           <li><a href="" data-toggle="modal" data-target="#login">Emergency</a></li>
           {% endif %}

@@ -18,7 +18,7 @@ from refill.views import new_rx
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import PasswordChangeForm
-
+from django.db.models import Sum
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -192,11 +192,12 @@ def consulting_ask(request):
         else:
             return HttpResponse(form.errors)
 
-
+@login_required(login_url='user_profile:login')
 def consulting(request):
     question=Question.objects.filter(user=request.user)
     return render(request,'consulting/consulting.html',{'question':question})
 
+@login_required(login_url='user_profile:login')
 def consulting_show(request,pk):
     if request.method == 'GET':
         question=Question.objects.filter(user=request.user)
@@ -234,3 +235,10 @@ def add_phone(request):
         form = PhoneForm({'add_phone':request.user.phone_number})
         return render(request,'user_profile/form.html',{'form':form})
 
+@login_required(login_url='user_profile:login')
+def order(request):
+    newrx=NewRx.objects.filter(info__user=request.user).annotate(price=Sum('drug__drug_price'))
+    context={
+        'newrx':newrx
+    }
+    return render(request,'user_profile/orders.html',context)

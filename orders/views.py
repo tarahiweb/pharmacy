@@ -11,7 +11,8 @@ from django.views import generic
 from . import forms
 from pharmacy import settings
 from django.utils.translation import ugettext_lazy as _
-from .forms import  CreateOrderForm,  CheckoutForm
+from .forms import    CheckoutForm
+from django.http import HttpResponse
 
 def order_info(request):
     user=request.user
@@ -21,10 +22,10 @@ def order_info(request):
     for item in cart:
         total+= (item['price']* int(item['quantity']))
     if request.method=='POST':
-        form = CreateOrderForm()
-        form.save()
         info = UserInfo.objects.get(pk=request.POST['info'])
         order = Order.objects.create(info=info)
+        order.shiping_method=request.POST['shiping_method']
+        order.save()
         for item in cart:
             OrderItem.objects.create(order=order,
                                      drug=item['drug'],
@@ -32,9 +33,9 @@ def order_info(request):
                                      quantity=item['quantity'])
 
             cart.clear()
-            return render(request, 'orders/checkout.html', {'order': order, })
+        return render(request, 'orders/checkout.html', {'order': order, })
     else:
-        form = CreateOrderForm()
+
         return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user,'form': form, 'total':total})
 
 

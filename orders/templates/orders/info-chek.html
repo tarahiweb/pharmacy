@@ -32,6 +32,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     <div class="container-fluid">
     <div class="row">
 	<div class="col-sm-3 pull-right" >
+    <form action=""  method="post" class="form-horizontal" enctype='multipart/form-data'>
 		<div class="affix" >
             <div class="panel panel-default" >
                 <div class="panel-header" > Order summary</div>
@@ -59,10 +60,8 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                    </table>
                 </div>
                 <div class="panel-footer">
-                    <form action="{% url 'order:checkout' %}" method="POST">
-                        {% csrf_token%}
-         <button type="submit" >place your order <i class="fa fa-check"></i></button>
-                </form>
+                    <button type="submit" >place your order <i class="fa fa-check"></i></button>
+
                 </div>
             </div>
         </div>
@@ -72,7 +71,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
         <div  style="width: 90%;margin: auto">
             <h1>Please check your information</h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
-            <form action="{% url 'order:checkout' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
+
             <div class="row">
             <div class="col-sm-6 col-xs-12">
 
@@ -140,7 +139,13 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
             </div>
         </div>
               <div>
-                 {{ form.as_p }}
+                 <div class="form-group">
+    <label for="exampleFormControlSelect1">shipment method</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="shiping_method">
+      <option value="e == 7.5">express one day shiping $7.5</option>
+      <option value="r == 0">regular three day shiping</option>
+    </select>
+  </div>
               </div>
               {% if info %}
          <button type="submit" class="btn btn-success" style="float: right">place your order<i class="fa fa-check"></i></button>

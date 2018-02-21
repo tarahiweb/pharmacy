@@ -1,11 +1,126 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <div class="container">
 
-<form id="payment-form" action="" method="POST">
-{% csrf_token %}
+
+<head>
+  <title>checkout</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  /* Note: Try to remove the following lines to see the effect of CSS positioning */
+  .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid" style="height:20px;">
+  <h1><strong>checkout</strong></h1>
+</div>
+<br>
+
+<div class="container">
+  <div class="row">
+    <nav class="col-sm-3 pull-right">
+      <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="500">
+        <div class="panel panel-default">
+                <div class="panel-header" > Order summary</div>
+                <div class="panel-body">
+                   <table>
+                       <tbody>
+                       <tr>
+                           <td>items({{ cart.len }})</td>
+                           <td > {{ total }}</td>
+                       </tr>
+
+                           <tr class="total">
+                               <td>Shipping & handling:</td>
+                                <td colspan="4" id="sum"></td>
+                           </tr>
+                       <tr>
+                           <td>total </td>
+                           <td>{{ total  }}</td>
+
+                       </tr>
+                       </tbody>
+                   </table>
+                </div>
+                <div class="panel-footer">
+                    <form id="payment-form" action="" method="POST">
+                         {% csrf_token%}
+                        <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
+                    <input type="submit" value="Purchase">
+                </form>
+                </div>
+            </div>
+        </div>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+</body>
+<!--
+<head>
+   <meta charset="UTF-8">
+   <title>Checkout</title>
+ </head>
+ <body>
+   <div id="dropin-container col-dm-5"></div>
+   <button id="submit-button">Purchase</button>
+
+   <script src="https://js.braintreegateway.com/web/dropin/1.9.2/js/dropin.min.js"></script>
+
+   <script>
+     var submitButton = document.querySelector('#submit-button');
+
+     braintree.dropin.create({
+       authorization: '{{ braintree_client_token }}',
+       selector: '#dropin-container'
+     }, function (err, dropinInstance) {
+       if (err) {
+         // Handle any errors that might've occurred when creating Drop-in
+         console.error(err);
+         return;
+       }
+       submitButton.addEventListener('click', function () {
+         dropinInstance.requestPaymentMethod(function (err, payload) {
+           if (err) {
+             // Handle errors in requesting payment method
+           }
+
+           // Send payload.nonce to your server
+         });
+       });
+     });
+   </script>
+
+
+ </body>
+ -->
+
+    <form id="payment-form" action="" method="POST">
+           {% csrf_token %}
       <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"
        data-braintree-dropin-authorization="{{ braintree_client_token }}"
        data-paypal.flow="checkout"
-       data-paypal.amount="10"
+       data-paypal.amount="100"
        data-paypal.currency="USD"
       ></script>
       <input type="submit" value="Purchase">
-</form>
+    </form>
+
+
+{% endblock %}
+
+
+

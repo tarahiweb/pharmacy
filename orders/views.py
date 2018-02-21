@@ -5,7 +5,7 @@ from cart.cart import Cart
 from user_profile.views import UserFormView, LoginView
 import braintree
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse,reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic
 from . import forms
@@ -33,10 +33,12 @@ def order_info(request):
                                      quantity=item['quantity'])
 
             cart.clear()
+
+        return reverse_lazy('orders:checkout',kwargs={'pk':order.pk})
         return render(request, 'orders/checkout.html', {'order': order, })
     else:
 
-        return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user,'form': form, 'total':total})
+        return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user, 'total':total})
 
 
 """

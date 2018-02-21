@@ -22,3 +22,4 @@ class  CreateOrderForm(forms.ModelForm):
     class Meta:
         model= Order
         fields=['shiping_method', ]
+

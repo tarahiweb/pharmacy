@@ -17,6 +17,9 @@ def order_info(request):
     user=request.user
     info=UserInfo.objects.filter(user=request.user)
     cart = Cart(request)
+    total = 0
+    for item in cart:
+        total+= (item['price']* int(item['quantity']))
     if request.method=='POST':
         form = CreateOrderForm()
         form.save()
@@ -29,10 +32,10 @@ def order_info(request):
                                      quantity=item['quantity'])
 
             cart.clear()
-            return render(request, 'orders/created.html', {'order': order, })
+            return render(request, 'orders/checkout.html', {'order': order, })
     else:
         form = CreateOrderForm()
-        return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user,'form': form})
+        return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user,'form': form, 'total':total})
 
 
 """
@@ -140,10 +143,11 @@ class CheckoutView(generic.FormView):
         }
 
         # You can use the form to calculate a total or add a static total amount
+
         # I'll use a static amount in this example
         result = braintree.Transaction.sale({
             "customer_id": customer_id,
-            "amount": 100,
+            "amount": '10.00',
             "payment_method_nonce": form.cleaned_data['payment_method_nonce'],
             "descriptor": {
                 # Definitely check out https://developers.braintreepayments.com/reference/general/validation-errors/all/python#descriptor

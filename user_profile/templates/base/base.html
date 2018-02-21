@@ -12,39 +12,49 @@
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     {% block style %}
     {% endblock %}
+    <style>
+        .nav-two-item{
+            width: 16.6%;
+            text-align: center;
+            color: #777777;
+
+        }
+        @media screen and (max-device-width: 768px){
+            .nav-two-item{
+                width: auto;
+            }
+
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top bgcolor">
-  <div class="container-fluid">
+<nav class="navbar navbar-default navbar-fixed-top bgcolor" style="background-color: white">
+  <div class="container-fluid" style="padding: 0">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <div class="navbar-header" style="padding: 10px">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'home' %}">expressMed</a>
+      <a class="navbar-brand" href="{% url 'home' %}"style="margin-left: 40px;font-size: 40px;color: #e5e5e5">ExpressMed</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="{% url 'product:index' %}">shop</a></li>
-          {% if request.user.is_authenticated %}
-                <li><a href="{% url 'user_profile:consulting' %}">Consulting</a></li>
-                <li><a href="{% url 'refill:new-rx' %}">New Prescription</a></li>
-                <li><a href="{% url 'refill:refill' %}">Refill</a></li>
-                <li><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
-          {% else %}
-          <li><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
-          <li><a href="" data-toggle="modal" data-target="#login">New Prescription</a></li>
-          <li><a href="" data-toggle="modal" data-target="#login">Refill</a></li>
-          <li><a href="" data-toggle="modal" data-target="#login">Emergency</a></li>
-          {% endif %}
-          <li><a href="{% url 'medicalspa:index' %}">Medical Spa</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
+    <div class="collapse navbar-collapse" id="navbar" style="padding: 0">
+    <div class="col-sm-3 col-md-3" style="margin: 10px;">
+        <form class="navbar-form" role="search" method='GET' action="{% url 'product:index' %}">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search in products" name="q" value='{{ request.GET.q }}'>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        </form>
+    </div>
+
+        <ul class="nav navbar-nav navbar-right menu-two" style="margin: 10px;margin-right: 20px">
         <li class="">
             <a class="btn-success  cart" href="{% url 'cart:cart_detail' %}" id="popoverbtn" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="" >
             <i class="fa fa-shopping-basket" aria-hidden="true"></i> your cart:
@@ -55,31 +65,53 @@
               {% endif %}
          </a>
         </li>
-     {% if request.user.is_authenticated %}
-        <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
-          <ul class="dropdown-menu">
+         {% if request.user.is_authenticated %}
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+              <ul class="dropdown-menu">
 
-                <li><a href="{% url 'user_profile:profile' %}" >{{ request.user.username }}</a></li>
-                <li><a href="{% url 'user_profile:logout' %}">log Out</a></li>
-          </ul>
-        </li>
+                    <li><a href="{% url 'user_profile:profile' %}" >{{ request.user.username }}</a></li>
+                    <li><a href="{% url 'user_profile:logout' %}">log Out</a></li>
+              </ul>
+            </li>
                 {% else %}
                      <li><a href="" data-toggle="modal" data-target="#login">Login</a></li>
               {% endif %}
 
       </ul>
+        <ul class="nav navbar-nav menu-one " style="width: 100%;border-top: 1px solid #e5e5e5;border-bottom: 1px solid #e5e5e5">
+        <li class="nav-two-item"><a href="{% url 'product:index' %}">shop</a></li>
+          {% if request.user.is_authenticated %}
+                <li class="nav-two-item"><a href="{% url 'user_profile:consulting' %}">Consulting</a></li>
+                <li class="nav-two-item"><a href="{% url 'refill:new-rx' %}">New Prescription</a></li>
+                <li class="nav-two-item"><a href="{% url 'refill:refill' %}">Refill</a></li>
+                <li class="nav-two-item"><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
+          {% else %}
+          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
+          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">New Prescription</a></li>
+          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Refill</a></li>
+          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Emergency</a></li>
+          {% endif %}
+          <li class="nav-two-item"><a href="{% url 'medicalspa:index' %}">Medical Spa</a></li>
+      </ul>
+
     </div><!-- /.navbar-collapse -->
 
   </div><!-- /.container-fluid -->
 </nav>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 
     {% block content %}
     {% endblock %}
 
-<footer style="background-color: #f1f1f1">
+<footer style="background-color: white;border-top: 2px solid #e5e5e5;z-index: 100000000000">
 {#    <img src="{% static 'blog/steve.jpg' %}" style="visibility: hidden;" />#}
 <div class="text-center" style="padding: 100px 0">
     <h1><a class="" href="" style=" font-family: 'Arial black';">Exress Med</a></h1>

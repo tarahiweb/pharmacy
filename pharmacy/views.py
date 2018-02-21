@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from Product.models import Drug
 def Home(request):
-    drug=Drug.objects.all()[:6]
+    drug=Drug.objects.all()
     return render(request,'home/home.html',{'drug':drug})
 
 

@@ -3,9 +3,6 @@
 
 {% block style %}
     <style>
-        .paddingtop{
-            padding-top: 10%;
-        }
         .landingbtn{
             margin-bottom: 5px;
             background-color: #371795a3;
@@ -19,15 +16,6 @@
             background-color: white;
             border: 1px solid #371795a3 ;
         }
-        .navbar-default{
-  background-color:transparent ;
-            border: none;
-}
-    .navbar-fixed-top.scrolled {
-  background-color: #ffffff !important;
-        border-bottom: 2px solid #371795a3;
-  transition: background-color 200ms linear;
-}
 .quote {
     color: #45801b;
     text-align: center;
@@ -230,7 +218,7 @@
 
 {#    landing page slider#}
     <div class="row">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -240,8 +228,8 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-    <div class="item active" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 100vh;background-size: cover;padding: 20px">
-         <div class="col-sm-6 col-xs-12 paddingtop text-center" style="height: 100%">
+    <div class="item active" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 50vh;background-size: cover;padding: 20px;background-position: center">
+         <div class="col-sm-6 col-xs-12  text-center" style="height: 100%">
             <h1  style="color: #45801b;font-size: 60px">ExpressMed</h1>
             <h2 >refill your RX easy as cake</h2>
             <p><a class="btn  landingbtn">order emergency refill fast </a> <a class="btn  landingbtn">order refill RX</a></p>
@@ -257,20 +245,22 @@
         </div>
     </div>
 
-    <div class="item" style="background-image: url('{% static 'home/Pill-bottle-spilling.jpg' %}');height: 100vh;background-size: cover;padding: 30px;background-position: bottom">
-        <div class="col-sm-8 col-xs-12 paddingtop text-center" style="height: 100%;padding-top: 3%">
+    <div class="item" style="background-image: url('{% static 'home/Pill-bottle-spilling.jpg' %}');height: 50vh;background-size: cover;padding: 30px;background-position: center">
+        <div class="col-sm-8 col-xs-12  text-center" style="height: 100%">
             <h1  style="color: #45801b;font-size: 60px">ExpressMed</h1>
             <h2 > Do you need  express refill at the comfort of your home</h2>
             <h2 >Do you need extra medicine for your travel</h2>
             <br>
-            <hr>
-            <h2>Have you lost your medicine and need express replacemen</h2>
-{#            <a href="" class="btn landingbtn">just click me!!</a>#}
         </div>
     </div>
 
-    <div class="item" style="background-image: url('{% static 'home/slider31.jpg' %}');height: 100vh;background-size: cover;padding: 30px;background-position: bottom">
-{#      <img src="{% static 'home/ny.jpg' %}" alt="New York">#}
+    <div class="item" style="background-image: url('{% static 'home/slider31.jpg' %}');height: 50vh;background-size: cover;padding: 30px;background-position: bottom">
+        <div class="col-sm-8 col-xs-12  text-center" style="height: 100%">
+            <h1  style="color: #45801b;font-size: 60px">ExpressMed</h1>
+            <h2 >Have you lost your medicine and need express replacement</h2>
+            <h2 > Do you want us to contact your doctor and get a prescription for you and delivered to you </h2>
+            <br>
+        </div>
     </div>
   </div>
 
@@ -286,12 +276,9 @@
 </div>
     </div>
 
-
-
-        <div class="row">
+        <div class="row" style="padding-top: 20px">
             <div class="col-md-9">
-                <h3>
-                    Carousel Product Cart Slider</h3>
+                <h3>Some of our product</h3>
             </div>
             <div class="col-md-3">
                 <!-- Controls -->
@@ -308,37 +295,38 @@
             <div class="carousel-inner">
                 <div class="item active">
                     <div class="row">
-                        {% for i in drug %}
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                                <div class="photo">
-                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                </div>
-                                <div class="info">
-                                    <div class="row">
-                                        <div class="price col-md-6">
-                                            <h5>
-                                                Sample Product</h5>
-                                            <h5 class="price-text-color">
-                                                $199.99</h5>
-                                        </div>
-                                        <div class="rating hidden-sm col-md-6">
-                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="separator clear-left">
-                                        <p class="btn-add">
-                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                        <p class="btn-details">
-                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                    </div>
-                                    <div class="clearfix">
-                                    </div>
-                                </div>
-                            </div>
+                        {% for item in drug %}
+                            <div class="col-md-3 col-sm-6 col-xs-12" style="height: 320px;padding: 10px;border: 1px solid silver">
+                    <div class="product-img" style="height: 200px;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: contain;background-repeat: no-repeat;background-position: center">
+                        {% if item.price == 0 %}
+                        <div class="circle" style="position: absolute;top: 20px;left: 20px;height: 50px;width: 50px;border-radius: 100%;background-color: #1e7e34;align-items: center">
+                            <p class="text-center" style="color: white;margin: 15px 0">Free!</p>
                         </div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <h4 class="">{{ item.drug_name }}</h4>
+                        <p >
+                            {% if item.price == 0 %}
+                            <span class="disabled" style="font-size: 17px">Free!!</span>
+                            {% else %}
+                            <span class="disabled" style="font-size: 17px">{{ item.price }}</span>
+                            {% endif %}
+
+                        </p>
+                    <div style="border-top: 1px solid silver;width: 100%">
+                        <div class="col-xs-6" style="padding: 0">
+                             <a class="btn" onclick="add_to_cart({{ item.pk }})" style="width: 100%;border-right: 1px solid silver;border-radius: 0;" data-toggle="popover" data-trigger="hover" data-content="add to cart"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-xs-6" style="padding: 0">
+                            <a class="btn " href="{% url 'product:detail' item.slug %}" data-toggle="popover" data-trigger="hover" data-content="more details" data-placement="left" style="width: 100%;border-left: 1px solid silver;border-radius: 0"><i class="fa fa-search" aria-hidden="true" ></i></a>
+                        </div>
+                    </div>
+
+
+                    </div>
+                </div>
                         {% endfor %}
 
                     </div>
@@ -601,13 +589,13 @@
 
 
     <script>
-    $(function () {
-  $(document).scroll(function () {
-	  var $nav = $(".navbar-fixed-top");
-      console.log($nav.height())
-      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-	});
-});
+{#    $(function () {#}
+{#  $(document).scroll(function () {#}
+{#	  var $nav = $(".navbar-fixed-top");#}
+{#      console.log($nav.height())#}
+{#      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());#}
+{#	});#}
+
 
     $(".service").click(function(){
   $(".service").removeClass("biger");

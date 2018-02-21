@@ -185,7 +185,16 @@ class CheckoutView(generic.FormView):
         return super(CheckoutView, self).form_valid(form)
 
     def get_success_url(self):
-        # Add your preferred success url
-        return reverse('foo')
+        success_url= 'order:checkout-successful'
+        return reverse(success_url)
 
 
+def Order_summary(request):
+    cart = Cart(request)
+    total = 0
+    for item in cart:
+        total += (item['price'] * int(item['quantity']))
+    return render(request, 'orders/checkout.html', {'total': total ,'cart':cart })
+
+def Checkout_Successfull(request):
+    return render(request, 'orders/created.html')

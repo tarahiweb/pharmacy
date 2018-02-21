@@ -58,7 +58,12 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                        </tbody>
                    </table>
                 </div>
-                <div class="panel-footer">Panel footer</div>
+                <div class="panel-footer">
+                    <form action="{% url 'order:checkout' %}" method="POST">
+                        {% csrf_token%}
+         <button type="submit" >place your order <i class="fa fa-check"></i></button>
+                </form>
+                </div>
             </div>
         </div>
 
@@ -67,7 +72,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
         <div  style="width: 90%;margin: auto">
             <h1>Please check your information</h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
-            <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
+            <form action="{% url 'order:checkout' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
             <div class="row">
             <div class="col-sm-6 col-xs-12">
 
@@ -138,7 +143,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                  {{ form.as_p }}
               </div>
               {% if info %}
-         <button type="submit" class="btn btn-success" style="float: right">submit <i class="fa fa-check"></i></button>
+         <button type="submit" class="btn btn-success" style="float: right">place your order<i class="fa fa-check"></i></button>
 
 
               {% endif %}

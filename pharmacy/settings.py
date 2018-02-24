@@ -81,17 +81,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pharmacy.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
+if DEBUG:
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.sqlite3',
+           'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+       }
+   }
+else:
+   DATABASES = {
+       'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'emed',
+            'USER': 'emed',
+            'PASSWORD': 'SXaBKyJRPsrLZ7UF',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+       }
+   }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -146,3 +155,6 @@ BRAINTREE_MERCHANT_ID = 'ggq27xkfrr5vdty2'
 BRAINTREE_PUBLIC_KEY = 'kp447gtbr9b3cdpv'
 BRAINTREE_PRIVATE_KEY = 'cde363753928cc4bb92a1ea764081257'
 
+if not DEBUG:
+    STATIC_ROOT = '/home/emed/files/static'
+    MEDIA_ROOT = '/home/emed/files/media'

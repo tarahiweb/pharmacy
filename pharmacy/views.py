@@ -16,7 +16,8 @@ def Terms(request):
     return render(request, 'home/terms.html')
 
 def test(request):
-    send_mail('ثبت نام با موفقیت انجام شد', 'کلاس شما با موفقیت رزرو شد.',
+    send_mail('ok', 'ok',
               settings.EMAIL_BACKEND, ['abedi.mehrad@yahoo.com'], fail_silently=False),
     form=LoginForm()
-    return render(request,'home/test.html')
+    return render(request,'email/one_text.html')
+

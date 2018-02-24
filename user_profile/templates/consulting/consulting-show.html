@@ -10,6 +10,9 @@
             display: none;
         }
     }
+    .active{
+        background-color: #b7b7b7;
+    }
     </style>
 {% endblock %}
 
@@ -20,7 +23,7 @@
         <div class="col-md-4 col-xs-12 screenheigh hide-mob"  style="background: rgb(125, 129, 132);color:rgb(243, 243, 243);padding:10px 0px;overflow-y: scroll">
 
             {% for i in question %}
-                <div style="height: 80px;padding: 10px 10px;position: relative">
+                <div {% if i.pk == question_show.pk %}class="active"{% endif %} style="height: 80px;padding: 10px 10px;position: relative">
                     <a href="{% url 'user_profile:consulting-show' i.pk %}" style="position: absolute;right: 0;top: 0;width: 100%;height: 100%"></a>
                     <p>{{ i.body|truncatechars:30}}</p>
                     <p>{{ i.date }}</p>

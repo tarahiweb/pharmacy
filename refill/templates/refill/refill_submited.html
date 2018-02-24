@@ -1,12 +1,22 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block title %}
-    refill
+    your irder submited
 {% endblock %}
 
 {% block content %}
     <br>
     <br>
     <br>
-    <h1>thank you, your order has been successfully submitted, please wait untill your refill prescription get verified</h1>
+    <div class="container-fluid">
+    <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 text-center" style="background-color: #d1d1d1;border-radius: 5px">
+        <h3 style="color: #6f6f6f">thank you, your order has been successfully submitted, please wait untill your refill prescription get verified</h3>
+        <a href="{% url 'user_profile:orders' %}" class="btn btn-success">show my order details</a>
+        <br>
+        <br>
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
 {% endblock %}

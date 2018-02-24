@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
  <html>
      <head>
@@ -15,6 +16,9 @@
              }
              table{
                  border: 1px solid black;
+             }
+             .width-50{
+                 width: 50%;
              }
 
          </style>
@@ -39,18 +43,13 @@
                      <td>Email address:</td>
                      <td>{{ refill.info.user.email }}</td>
                  </tr>
-                 <tr>
-                     <td>Address:</td>
-                     <td>{{ refill.info.address }}</td>
+
+                 {% if refill.info.user.phone_number %}
+                <tr>
+                     <td>phone number</td>
+                     <td>{{ refill.info.user.phone_number }}</td>
                  </tr>
-                 <tr>
-                     <td>Last name</td>
-                     <td>{{ refill.info.zip }}</td>
-                 </tr>
-                 <tr>
-                     <td>last name</td>
-                     <td>{{ refill.info.city }}</td>
-                 </tr>
+             {% endif %}
              </table>
              <hr>
 
@@ -62,8 +61,17 @@
          </tr>
              {% for i in drug %}
                     <tr>
-                        <td>{{ i.drug_name }}</td>
-                        <td>{{ i.drug_dose }}</td>
+                        {% if i.drug_name %}
+                            <td >{{ i.drug_name }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+                        {% if i.drug_dose %}
+                            <td >{{ i.drug_dose}}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
                     </tr>
              {% endfor %}
          </table>
@@ -72,26 +80,51 @@
             <table>
                 <tr>
                     <td>doctor name:</td>
-                    <td>{{ refill.Dr_name }}</td>
+                    {% if refill.Dr_name %}
+                        <td>{{ refill.Dr_name }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td>doctor phone number:</td>
-                    <td>{{ refill.Dr_Phone_number }}</td>
+                    {% if refill.dr_phone_number %}
+                        <td>{{ refill.dr_phone_number }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td>doctor address:</td>
-                    <td>{{ refill.Dr_adrress }}</td>
+                    {% if refill.Dr_adrress %}
+                        <td>{{ refill.Dr_adrress }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
                 </tr>
+
+            </table>
+             <hr>
+            <h1>pharmacy information</h1>
+            <table>
                 <tr>
                     <td>last pharmacy:</td>
-                    <td>{{ refill.last_pharmacy }}</td>
+                    {% if refill.last_pharmacy %}
+                        <td>{{ refill.last_pharmacy }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
                 </tr>
-                {% if refill.last_pharmacy_address %}
                 <tr>
-                    <td>doctor address:</td>
-                    <td>{{ refill.last_pharmacy_address }}</td>
+                    <td>last pharmacy adrress:</td>
+                    {% if refill.last_pharmacy_adrress %}
+                        <td>{{ refill.last_pharmacy_adrress }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
                 </tr>
-                {% endif %}
+
+
             </table>
              <hr>
             <h1>delivery information</h1>
@@ -101,19 +134,13 @@
                      <td>{{ refill.info.address }}</td>
                  </tr>
                  <tr>
-                     <td>Last name</td>
+                     <td>zip code:</td>
                      <td>{{ refill.info.zip }}</td>
                  </tr>
                  <tr>
-                     <td>last name</td>
+                     <td>city:</td>
                      <td>{{ refill.info.city }}</td>
                  </tr>
-                {% if refill.info.phone_number %}
-                <tr>
-                     <td>phone number</td>
-                     <td>{{ refill.info.phone_number }}</td>
-                 </tr>
-             {% endif %}
          </table>
          </div>
 

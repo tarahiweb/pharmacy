@@ -65,6 +65,14 @@ class CheckoutView(generic.FormView):
     template_name = 'orders/checkout.html'
     success_url = 'order:checkout-successful'
 
+   # def total_amount(self):
+    #    request=self.request
+     #   order_id = request.session['order.id']
+      #  order= Order.objects.get(pk = order_id)
+       # amount = order.get_total_cost()
+        #return self.render_to_response(amount)
+
+
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         # We need the user to assign the transaction
@@ -140,7 +148,7 @@ class CheckoutView(generic.FormView):
         address_dict = {
             "first_name": self.user.first_name,
             "last_name": self.user.last_name,
-            "street_address":"",
+            "street_address":"street",
             "extended_address": 'street_2',
             "locality": 'city',
             "region": 'state_or_region',
@@ -152,18 +160,19 @@ class CheckoutView(generic.FormView):
         }
         # You can use the form to calculate a total or add a static total amount
         # I'll use a static amount in this example
-
-
-
         result = braintree.Transaction.sale({
             "customer_id": customer_id,
-            "amount": form.amount,
+            "amount": str((1000)),
+            "payment_method_token": braintree.PaymentMethod.create({
+                "customer_id":customer_id,
+                "payment_method_nonce":form.cleaned_data['payment_method_nonce']
+            }),
             "payment_method_nonce": form.cleaned_data['payment_method_nonce'],
             "descriptor": {
-                # Definitely check out https://developers.braintreepayments.com/reference/general/validation-errors/all/python#descriptor
-                "name": "COMPANY.*test",
+                #Definitely check out https://developers.braintreepayments.com/reference/general/validation-errors/all/python#descriptor
+                "name": "COMPANY*test",
 
-            },
+           },
             "billing": address_dict,
             "shipping": address_dict,
             "options": {
@@ -193,12 +202,11 @@ class CheckoutView(generic.FormView):
         transaction_id = result.transaction.id
         # Now you can send out confirmation emails or update your metrics
         # or do whatever makes you and your customers happy :)
-        order.paid=True
-        order.save()
+        print ('khar')
         return super(CheckoutView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('success_url')
+        return reverse('foo')
 
 
 def Order_summary(request):

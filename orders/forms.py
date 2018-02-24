@@ -10,7 +10,7 @@ class CheckoutForm(forms.Form):
         widget=forms.widgets.HiddenInput,
         required=False,  # In the end it's a required field, but I wanted to provide a custom exception message
     )
-    amount= forms.DecimalField(max_digits=10, decimal_places=2,)
+    #amount= forms.DecimalField(max_digits=10, decimal_places=2,)
 
 
 
@@ -23,10 +23,10 @@ class CheckoutForm(forms.Form):
         return self.cleaned_data
 
 
-    def amount_to_pay(self, request):
-        order_id = request.session.get['order_id']
-        order = Order.objects.get(pk= order_id)
-        self.initial['amount']= order.get_total_cost()
+    #def amount_to_pay(self, request):
+     #   order_id = request.session.get['order.id']
+      #  order = Order.objects.get(pk= order.id)
+       # self.initial['amount']= order.get_total_cost()
 
 
 

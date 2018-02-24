@@ -73,13 +73,19 @@
     <form id="payment-form" action="" method="POST">
            {% csrf_token %}
       <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"
-       data-braintree-dropin-authorization="{{ braintree_client_token }}"
-       data-paypal.flow="checkout"
-       data-paypal.amount= "10"
-       data-paypal.currency="USD"
+           data-braintree-dropin-authorization="{{ braintree_client_token }}"
+           data-paypal.flow="checkout"
+           data-paypal.amount= "10"
+           data-paypal.currency="USD"
 
       ></script>
-      <input type="submit" value="Purchase">
+        {% if braintree_error %}
+      <div class="alert alert-danger fade in">
+          <button class="close" data-dismiss="alert">&times;</button>
+          {{ braintree_error|safe }}
+      </div>
+        {% endif %}
+      <input class="btn btn-success btn-lg btn-block" type="submit" value="Pay now!" />
     </form>
 
 {% endblock %}

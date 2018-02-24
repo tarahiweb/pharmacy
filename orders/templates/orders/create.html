@@ -1,25 +1,41 @@
-{% extends 'base/base.html' %}
-{% load static %}
-{% block title %}
-    your order cart
-{% endblock %}
+{% extends "base/base.html" %}
+
 {% block content %}
-    <br>
-    <br>
-    <br>
-    <h1>checkout</h1>
-    <div class="order">
-        <h3>your order</h3>
-        <ul>
-            {% for item in cart %}
-                <li>{{ item.quantity }}  {{ item.drug.drug_name }}</li>
-            {% endfor %}
-        </ul>
-        <p>total: {{ cart.len }}</p>
-    </div>
-    <form action="{% url 'orders:order_create' %}" method="post">
-        {{ form.as_p }}
-       <p><input type="submit" value="place order"></p>
+  <form method="post" action="." autocomplete="off">
     {% csrf_token %}
-    </form>
+    <p>Payments are safely processed with <a href='https://www.braintreepayments.com/' target='_blank'>Braintree</a>.</p>
+    {% if braintree_error %}
+      <div class="alert alert-danger fade in">
+          <button class="close" data-dismiss="alert">&times;</button>
+          {{ braintree_error|safe }}
+      </div>
+    {% endif %}
+    <div class="braintree-notifications"></div>
+    <div id="braintree-dropin"></div>
+    <input class="btn btn-success btn-lg btn-block" type="submit" value="Pay now!" />
+  </form>
 {% endblock %}
+
+<script>
+    // Remember? You generated the client token in your view.
+    var braintree_client_token = "{{ braintree_client_token }}";
+
+    requirejs(['jquery', 'jsi18n', 'https://js.braintreegateway.com/js/braintree-2.28.0.min.js'], function($, jsi18n, braintree) {
+        function braintreeSetup() {
+            // Here you tell Braintree to add the drop-in to your division above
+            braintree.setup(braintree_client_token, "dropin", {
+                container: "braintree-dropin"
+                ,onError: function (obj) {
+                    // Errors will be added to the html code
+                    $('[type=submit]').prop('disabled', false);
+                    $('.braintree-notifications').html('<p class="alert alert-danger">' + obj.message + '</p>');
+                }
+            });
+        }
+        braintreeSetup();
+        $('form').submit(function () {
+            $('[type=submit]').prop('disabled', true);
+            $('.braintree-notifications').html('');
+        });
+    });
+</script>

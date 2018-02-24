@@ -57,7 +57,6 @@
                 <div class="panel-footer">
                     <form id="payment-form" action="" method="POST">
                          {% csrf_token%}
-                        <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
                     <input type="submit" value="Purchase">
                 </form>
                 </div>
@@ -69,56 +68,19 @@
 </div>
 
 </body>
-<!--
-<head>
-   <meta charset="UTF-8">
-   <title>Checkout</title>
- </head>
- <body>
-   <div id="dropin-container col-dm-5"></div>
-   <button id="submit-button">Purchase</button>
 
-   <script src="https://js.braintreegateway.com/web/dropin/1.9.2/js/dropin.min.js"></script>
-
-   <script>
-     var submitButton = document.querySelector('#submit-button');
-
-     braintree.dropin.create({
-       authorization: '{{ braintree_client_token }}',
-       selector: '#dropin-container'
-     }, function (err, dropinInstance) {
-       if (err) {
-         // Handle any errors that might've occurred when creating Drop-in
-         console.error(err);
-         return;
-       }
-       submitButton.addEventListener('click', function () {
-         dropinInstance.requestPaymentMethod(function (err, payload) {
-           if (err) {
-             // Handle errors in requesting payment method
-           }
-
-           // Send payload.nonce to your server
-         });
-       });
-     });
-   </script>
-
-
- </body>
- -->
 
     <form id="payment-form" action="" method="POST">
            {% csrf_token %}
       <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"
        data-braintree-dropin-authorization="{{ braintree_client_token }}"
        data-paypal.flow="checkout"
-       data-paypal.amount="100"
+       data-paypal.amount= "10"
        data-paypal.currency="USD"
+
       ></script>
       <input type="submit" value="Purchase">
     </form>
-
 
 {% endblock %}
 

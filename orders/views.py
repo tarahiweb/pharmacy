@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from user_profile.models import UserInfo
 from .models import OrderItem,Order
 from cart.cart import Cart
@@ -13,6 +13,10 @@ from pharmacy import settings
 from django.utils.translation import ugettext_lazy as _
 from .forms import    CheckoutForm
 from django.http import HttpResponse
+from django.conf import settings
+from decimal import Decimal
+
+
 
 def order_info(request):
     user=request.user
@@ -20,12 +24,14 @@ def order_info(request):
     cart = Cart(request)
     total = 0
     for item in cart:
-        total+= (item['price']* int(item['quantity']))
+        total+=(item['price']* int(item['quantity']))
+    total= str(total)
     if request.method=='POST':
         info = UserInfo.objects.get(pk=request.POST['info'])
         order = Order.objects.create(info=info)
         order.shiping_method=request.POST['shiping_method']
         order.save()
+        request.session['order.id'] = order.id
         for item in cart:
             OrderItem.objects.create(order=order,
                                      drug=item['drug'],
@@ -33,9 +39,9 @@ def order_info(request):
                                      quantity=item['quantity'])
 
             cart.clear()
-
-        return reverse_lazy('orders:checkout',kwargs={'pk':order.pk})
-        return render(request, 'orders/checkout.html', {'order': order, })
+        return redirect(reverse('order:checkout'))
+        #return reverse_lazy('orders:checkout',kwargs={'pk':pk})
+        #return render(request, 'orders/checkout.html', {'order': order})
     else:
 
         return render(request,'orders/info-chek.html',{'info':info,'cart':cart,'user':user, 'total':total})
@@ -57,12 +63,12 @@ class CheckoutView(generic.FormView):
     """This view lets the user initiate a payment."""
     form_class = forms.CheckoutForm
     template_name = 'orders/checkout.html'
+    success_url = 'order:checkout-successful'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         # We need the user to assign the transaction
         self.user = request.user
-
         # Ha! There it is. This allows you to switch the
         # Braintree environments by changing one setting
         if settings.BRAINTREE_PRODUCTION:
@@ -134,7 +140,7 @@ class CheckoutView(generic.FormView):
         address_dict = {
             "first_name": self.user.first_name,
             "last_name": self.user.last_name,
-            "street_address": 'street',
+            "street_address":"",
             "extended_address": 'street_2',
             "locality": 'city',
             "region": 'state_or_region',
@@ -144,17 +150,19 @@ class CheckoutView(generic.FormView):
             "country_name": 'country',
             "country_code_numeric": 'numeric_country_code',
         }
-
         # You can use the form to calculate a total or add a static total amount
-
         # I'll use a static amount in this example
+
+
+
         result = braintree.Transaction.sale({
             "customer_id": customer_id,
-            "amount": '10.00',
+            "amount": form.amount,
             "payment_method_nonce": form.cleaned_data['payment_method_nonce'],
             "descriptor": {
                 # Definitely check out https://developers.braintreepayments.com/reference/general/validation-errors/all/python#descriptor
                 "name": "COMPANY.*test",
+
             },
             "billing": address_dict,
             "shipping": address_dict,
@@ -185,11 +193,12 @@ class CheckoutView(generic.FormView):
         transaction_id = result.transaction.id
         # Now you can send out confirmation emails or update your metrics
         # or do whatever makes you and your customers happy :)
+        order.paid=True
+        order.save()
         return super(CheckoutView, self).form_valid(form)
 
     def get_success_url(self):
-        success_url= 'order:checkout-successful'
-        return reverse(success_url)
+        return reverse('success_url')
 
 
 def Order_summary(request):

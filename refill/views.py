@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
-
+from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
 from .forms import NewRxForm, RefillForm
@@ -8,7 +8,8 @@ from django.forms import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib import messages
-
+from django.conf import settings
+from django.core.mail import send_mail
 
 def new_rx(request):
     info=UserInfo.objects.filter(user=request.user)
@@ -30,8 +31,16 @@ def new_rx(request):
                 'refill': refill,
                 'drug': drugs,
             }
+            # email
 
-            # pdf = render_to_pdf('report/refill-report.html', contect)
+            message='done' # todo type proprate message here
+            msg_html = render_to_string('email/one_text.html',
+                                        {'text': message })
+            send_mail(message, message,
+                      settings.EMAIL_BACKEND, [request.user.email], fail_silently=False, html_message=msg_html),
+
+
+            # pdf = render_to_pdf('report/refill-report.html', contect) #todo send fax
             # return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':refill})
         print(form.errors)

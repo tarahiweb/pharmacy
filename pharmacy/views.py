@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from Product.models import Drug
 def Home(request):
-    drug=Drug.objects.all()
+    drug=Drug.objects.all()[:4]
     return render(request,'home/home.html',{'drug':drug})
 
 
@@ -18,6 +18,6 @@ def Terms(request):
 def test(request):
     send_mail('ok', 'ok',
               settings.EMAIL_BACKEND, ['abedi.mehrad@yahoo.com'], fail_silently=False),
-    form=LoginForm()
+
     return render(request,'email/one_text.html')
 

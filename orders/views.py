@@ -114,6 +114,7 @@ class CheckoutView(generic.FormView):
             "first_name": self.user.first_name,
             "last_name": self.user.last_name,
             "email": self.user.email,
+
         }
 
         # Create a new Braintree customer
@@ -133,11 +134,9 @@ class CheckoutView(generic.FormView):
                     result.message, _('Please get in contact.'))
             })
             return self.render_to_response(context)
-
         # If the customer creation was successful you might want to also
         # add the customer id to your user profile
         customer_id = result.customer.id
-
         """
         Create a new transaction and submit it.
         I don't gather the whole address in this example, but I can
@@ -162,11 +161,7 @@ class CheckoutView(generic.FormView):
         # I'll use a static amount in this example
         result = braintree.Transaction.sale({
             "customer_id": customer_id,
-            "amount": str((1000)),
-            "payment_method_token": braintree.PaymentMethod.create({
-                "customer_id":customer_id,
-                "payment_method_nonce":form.cleaned_data['payment_method_nonce']
-            }),
+            "amount": "120",
             "payment_method_nonce": form.cleaned_data['payment_method_nonce'],
             "descriptor": {
                 #Definitely check out https://developers.braintreepayments.com/reference/general/validation-errors/all/python#descriptor
@@ -202,7 +197,6 @@ class CheckoutView(generic.FormView):
         transaction_id = result.transaction.id
         # Now you can send out confirmation emails or update your metrics
         # or do whatever makes you and your customers happy :)
-        print ('khar')
         return super(CheckoutView, self).form_valid(form)
 
     def get_success_url(self):

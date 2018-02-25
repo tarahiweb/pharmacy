@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{bootstrap, checkout, dropin, jquery}" />
+    <file url="file://$PROJECT_DIR$" libraries="{bootstrap, braintree-2.24.1, checkout, dropin, jquery}" />
   </component>
 </project>

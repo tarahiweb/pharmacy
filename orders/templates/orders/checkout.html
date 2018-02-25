@@ -90,6 +90,9 @@
 
     <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
 <script>
+    $(document).ready(function () {
+
+
   var form = document.querySelector("#payment-form");
   var client_token = '{{ braintree_client_token }}';
   var HidenInputnonce = document.querySelector('input[name="payment_method_nonce"]');
@@ -117,6 +120,7 @@
       });
     });
   });
+  })
 </script>
 
   </body>

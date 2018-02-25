@@ -90,6 +90,7 @@
 
     <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
 <script>
+    $(document).ready(function () {
   var form = document.querySelector("#payment-form");
   var client_token = '{{ braintree_client_token }}';
   var HidenInputnonce = document.querySelector('input[name="payment_method_nonce"]');
@@ -111,56 +112,22 @@
           return;
         }
         // Add the nonce to the form and submit
-       HidenInputnonce.value = payload.nonce;
+        console.log(payload.nonce)
+          HidenInputnonce.value = payload.nonce;
         form.submit();
         HidenInputnonce.submit();
       });
     });
   });
+    })
 </script>
 
   </body>
 {% endblock %}
 <!--
-    <form id="payment-form" action="" method="POST">
-           {% csrf_token %}
-      <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"
-           data-braintree-dropin-authorization="{{ braintree_client_token }}"
-           data-paypal.flow="checkout"
-           data-paypal.amount= "10"
-           data-paypal.currency="USD"
-
-
-      ></script>
-        {% if braintree_error %}
-      <div class="alert alert-danger fade in">
-          <button class="close" data-dismiss="alert">&times;</button>
-          {{ braintree_error|safe }}
-      </div>
-        {% endif %}
-      <input class="btn btn-success btn-lg btn-block" type="submit" value="Pay now!" />
-        <input type="hidden" id="nonce" name="payment_method_nonce">
-    </form>
-
-    <script>
-    var form = document.querySelector('#payment-form');
-    var client_token = '{{ braintree_client_token }}';
-
-    ,function (createErr, instance) {
-        form.addEventListener('submit', function (event) {
-          event.preventDefault();
-          instance.requestPaymentMethod(function (err, payload) {
-            if (err) {
-              console.log('Error', err);
-              return;
-            }
-            // Add the nonce to the form and submit
-            document.querySelector('#nonce').value = payload.nonce;
-            form.submit();
-          });
         });}
 
-    </script>
+
 
 
 

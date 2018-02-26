@@ -54,6 +54,33 @@
     <br>
     <div class="container-fluid" style="">
         <div class="col-sm-8 col-xs-12" >
+        <input type="hidden" value="1" name="drug_num">
+            <h1 class="drug">drug info</h1>
+            <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+            <div class="well">
+                <h2>what do you need?</h2>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                                <lable class="col-xs-3">drug name 1</lable>
+                                <div class="col-xs-9">
+                                    <input class="form-control" type="text" name="drug_name_1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group" >
+                                <lable class="col-xs-3">drug dose 1</lable>
+                                <div class="col-xs-9">
+                                    <input class="form-control col-xs-10" type="text" name="drug_dose_1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="forms"></div>
+                    <a id="add-another">add another drug</a>
+                </div>
+
             <h1 class="information">Please check you information  </h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
             <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
@@ -182,32 +209,6 @@
                 </div>
             </div>
             </div>
-            <input type="hidden" value="1" name="drug_num">
-            <h1 class="drug">drug info</h1>
-            <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-            <div class="well">
-                <h2>what do you need?</h2>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <div class="form-group">
-                                <lable class="col-xs-3">drug name 1</lable>
-                                <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="drug_name_1">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="form-group" >
-                                <lable class="col-xs-3">drug dose 1</lable>
-                                <div class="col-xs-9">
-                                    <input class="form-control col-xs-10" type="text" name="drug_dose_1">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="forms"></div>
-                    <a id="add-another">add another drug</a>
-                </div>
 
 
 
@@ -346,8 +347,11 @@
         </div>
     </div>
     {% if not user.phone_number %}
-        <div class=" phone-box alert-danger" style="position:fixed;bottom: 5px;right: 5px;border-radius: 5px;padding: 10px ">
-            <h4 class="display" style="margin-top: 0">add your phone number to get payment notification</h4>
+        <div class=" phone-box " style="position:fixed;bottom: 5px;right: 5px;border-radius: 5px;padding: 10px;background-color: #bcc6ce;transition: .4s ">
+            <div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <h5 class="display" style="margin-top: 0">add your phone number to get payment notification</h5>
             <h5 class="display">and better services</h5>
             <form method='post' class="form-inline display" id ='test'>
                 {% csrf_token %}
@@ -465,17 +469,19 @@ $(document).ready( function() {
                      }else {
                          $('.phone-box').removeClass('alert-danger').addClass('alert-success')
                          $('.display').css('display','none')
-                         $('#message').html("<h2><i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i> you phone number added successfully</h2>")
+                         $('#message').html("<h5><i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i> you phone number added successfully</h2>")
 
                      }
                  }
             });
-            return false; //<---- move it here
+            return false;
        });
-
+        $('.close').click(function () {
+            $('.phone-box').css('display','none')
+        })
 });
 </script>
-{#    scroll magic for more info box#}
+{#    scroll spy for more info box#}
     <script>
         $(document).scroll(function () {
             var box=$('.left-arrow')
@@ -485,7 +491,7 @@ $(document).ready( function() {
                 $('#verify').addClass('box-info-display')
                 $('#drug').addClass('box-info-display')
                 $('#address').addClass('box-info-display')
-            }else if (box.offset()['top']>$('.verify').offset()['top'] && box.offset()['top']<$('.drug').offset()['top']){
+            }else if (box.offset()['top']>$('.verify').offset()['top'] && box.offset()['top']<$('.address').offset()['top']){
                 console.log('verify')
                 $('#information').addClass('box-info-display')
                 $('#verify').removeClass('box-info-display')
@@ -504,7 +510,7 @@ $(document).ready( function() {
                     $('#pharmacy-info').addClass('box-info-display')
                     $('#prescription-info').removeClass('box-info-display')
                 }
-            }else if (box.offset()['top']>$('.drug').offset()['top'] && box.offset()['top']<$('.address').offset()['top']){
+            }else if (box.offset()['top']>$('.drug').offset()['top'] && box.offset()['top']<$('.information').offset()['top']){
                 console.log('drug')
                 $('#information').addClass('box-info-display')
                 $('#verify').addClass('box-info-display')

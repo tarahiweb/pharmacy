@@ -183,12 +183,11 @@ class CheckoutView(generic.FormView):
             # Card could've been declined or whatever
             # I recommend to send an error report to all admins
             # , including ``result.message`` and ``self.user.email``
+
             context = self.get_context_data()
             context.update({
                 'form': self.get_form(self.get_form_class()),
-                'braintree_error': _(
-                    'Your payment could not be processed. Please check your'
-                    ' input or use another payment method and try again.')
+                'braintree_error': _(result.message)
             })
             return self.render_to_response(context)
 

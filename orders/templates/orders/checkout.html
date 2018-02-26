@@ -55,10 +55,7 @@
                    </table>
                 </div>
                 <div class="panel-footer">
-                    <form id="payment-form" action="" method="POST">
-                         {% csrf_token%}
-                    <input type="submit" value="Purchase">
-                </form>
+                    footer
                 </div>
             </div>
         </div>
@@ -103,22 +100,33 @@
         amount: "100",
         curency:"USD"
     }
-  }, function (createErr, instance) {
+  }, function (createErr, dropinInstance) {
     form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      instance.requestPaymentMethod(function (err, payload) {
+        event.preventDefault();
+      dropinInstance.requestPaymentMethod(function (err, payload) {
         if (err) {
           console.log('Error', err);
           return;
         }
         // Add the nonce to the form and submit
-        console.log(payload.nonce)
-          HidenInputnonce.value = payload.nonce;
+        console.log(payload.nonce);
+        HidenInputnonce.value = payload.nonce;
         form.submit();
-        HidenInputnonce.submit();
       });
+
+    //if (dropinInstance.isPaymentMethodRequestable()){form.removeAttribute('disabled');}
+    //dropinInstance.on('paymentMethodRequestable', function (event) {
+      //  console.log(event.type);
+        //console.log(event.paymentMethodIsSelected);
+        //form.removeAttribute('disabled');
+    //});
+    //dropinInstance.on('noPaymentMethodRequestable', function () {
+      //  form.setAttribute('disabled', true);
+        
+  //  })
     });
   });
+
     })
 </script>
 

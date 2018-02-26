@@ -147,15 +147,15 @@ class CheckoutView(generic.FormView):
         address_dict = {
             "first_name": self.user.first_name,
             "last_name": self.user.last_name,
-            "street_address":"300 e longleaf drive",
-            "extended_address": 'auburn ',
+            "street_address":"300 E longleaf dr",
+            "extended_address": 'auburn',
             "locality": 'auburn',
-            "region": 'Alabama',
-            "postal_code": '32832',
-            #"country_code_alpha2": '+1',
-            #"country_code_alpha3": '+1',
-            #"country_name": 'USA',
-            #"country_code_numeric": '+1',
+            #"region": 'state_or_region',
+            "postal_code": '36832',
+            #"country_code_alpha2": 'alpha2_country_code',
+            #"country_code_alpha3": 'alpha3_country_code',
+            #"country_name": 'country',
+            #"country_code_numeric": 'numeric_country_code',
         }
         # You can use the form to calculate a total or add a static total amount
         # I'll use a static amount in this example
@@ -186,9 +186,10 @@ class CheckoutView(generic.FormView):
             context = self.get_context_data()
             context.update({
                 'form': self.get_form(self.get_form_class()),
-                'braintree_error': _(result.message)
+                'braintree_error': _(
+                   'Your payment could not be processed. Please check your'
+                    ' input or use another payment method and try again.')
             })
-            print(result.errors)
             return self.render_to_response(context)
 
         # Finally there's the transaction ID

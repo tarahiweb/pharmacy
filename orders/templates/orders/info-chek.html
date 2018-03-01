@@ -30,52 +30,15 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     <br>
     <br>
     <div class="container-fluid">
-    <div class="row">
-	<div class="col-sm-3 pull-right" >
     <form action=""  method="post" class="form-horizontal" enctype='multipart/form-data'>
-		<div class="affix" >
-            <div class="panel panel-default" >
-                <div class="panel-header" > Order summary</div>
-                <div class="panel-body">
-                   <table>
-                       <tbody>
-                       <tr>
-                           <td>items({{ cart.len }})</td>
-                           <td colspan="4" id="sum"></td>
-                       </tr>
-                       <tr>
-                           <td>Shipping & handling:</td>
-                           {% if shiping_method == 'r' %}
-                              <td> $0</td>
-                               {% else %}
-                               <td> $7.5</td>
-                           {% endif %}
-                       </tr>
-                       <tr>
-                           <td>total :</td>
-                           <td>  </td>
-                       </tr>
-
-                       </tbody>
-                   </table>
-                </div>
-                <div class="panel-footer">
-                    <button type="submit" >place your order <i class="fa fa-check"></i></button>
-
-                </div>
-            </div>
-        </div>
-
-	</div>
-    <div class="col-sm-9" style="">
-        <div  style="width: 90%;margin: auto">
-            <h1>Please check your information</h1>
-            <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
-
-            <div class="row">
-            <div class="col-sm-6 col-xs-12">
-
-                <table class="table ">
+        <div class="row">
+            <div class="col-sm-9" style="">
+                <div  style="width: 90%;margin: auto">
+                    <h1>Please check your information</h1>
+                    <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
+                    <div class="row">
+                        <div class="col-sm-6 colxs-12">
+                            <table class="table ">
                     <tr>
                         <td>First name:</td>
                         <td><input name="first_name" class="form-control" value="{{ user.first_name }}"></td>
@@ -88,81 +51,128 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
 
                 </table>
-            </div>
-        </div>
-
-    <div  style="width: 90%;margin: auto">
-        <h1>shimpment address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
-            <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
-
-              <form action="" method="post">
-  <div class="row">
-        <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
-
-            {% csrf_token %}
-            {% if info %}
-            <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
-
-                {% for i in info %}
-
-                    <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
-                        <div class="panel-heading">address</div>
-                        <div class="panel-body">
-                            <p style="height: 50px">address : {{ i.address }},{{ i.city}} , {{ i.zip}} </p>
-                            <hr>
-
-                        </div>
-                        <div class="panel-footer text-center">
-                            <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> choose this address
                         </div>
                     </div>
-                {% endfor %}
 
-                <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
-                    <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                    <div  style="">
+                        <h1>shimpment address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
+                        <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
+
+
+                            <div class="row">
+                                <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
+
+                                    {% csrf_token %}
+                                    {% if info %}
+                                        <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
+
+                                            {% for i in info %}
+
+                                                <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
+                                                    <div class="panel-heading">address</div>
+                                                    <div class="panel-body">
+                                                        <p style="">address : {{ i.address }},{{ i.city}} , {{ i.zip}} </p>
+                                                        <hr>
+
+                                                    </div>
+                                                    <div class="panel-footer text-center">
+                                                        <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> choose this address
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+
+                                            <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                                                <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div style="width: 300px;height: 301px;margin-bottom:0;display: flex">
+                                            <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
+                                                <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+
+                                <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f7f7f7;height: 301px;padding: 0;border-radius: 10px">
+                                    <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                </div>
+                            </div>
+
+
+                        <br>
+
+
+                    </div>
+
+                    <div>
+                        <h1>Chose you shiping method </h1>
+                        <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
+                        <div class="form-group">
+                            <label class="col-xs-2 col-form-label" for="ship">shipment method</label>
+                            <div class="col-xs-6">
+                                <select  class="form-control" id="ship" name="shiping_method">
+                                    <option name="0" value="r == 0">regular three day shiping</option>
+                                    <option name="7.5" value="e == 7.5">express one day shiping</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4"><i class="fa fa-arrow-right" aria-hidden="true"></i> This method add $<span id="detail">0</span> to your bill</div>
+                        </div>
+                    </div>
+                    {% if info %}
+                        <button type="submit" class="btn btn-success" style="float: right">place your order<i class="fa fa-check"></i></button>
+                    {% endif %}
+                    <br>
+                    <br>
                 </div>
             </div>
-        {% else %}
-         <div style="width: 300px;height: 301px;margin-bottom:0;display: flex">
-                 <div class="panel panel-default hover-cours" data-toggle="modal" data-target="#address" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1">
-                    <img src="{% static 'orders/add.png' %}" alt="" width="100%" height="100%">
+            <div class="col-sm-3 " >
+
+                    <div class="affix" >
+                        <div class="panel panel-default" >
+                            <h3 class="panel-header text-center" > Order summary</h3>
+                            <hr>
+                            <div class="panel-body">
+                    <table class="table">
+                       <tbody>
+                       <tr>
+                           <td>items</td>
+                           <td >${{ cart.len }}</td>
+                       </tr>
+                       <tr>
+                           <td>total items fee</td>
+                           <td colspan="4" >${{ total }}</td>
+                       </tr>
+                       <tr>
+                           <td>Shipping & handling:</td>
+                           <td >
+                           $<span id="ship-summery">0</span>
+                            </td>
+                       </tr>
+                       <tr>
+                           <td>total:</td>
+                           <td>$<span id="total">{{ total }}</span></td>
+                       </tr>
+
+                       </tbody>
+                   </table>
                 </div>
-         </div>
-        {% endif %}
+                <div class="panel-footer">
+                    {% if info %}
+                        <button type="submit" class="" style="">place your order<i class="fa fa-check"></i></button>
+                    {% endif %}
 
+                </div>
+                        </div>
+                    </div>
+
+                </div>
         </div>
-
-
-
-            <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f7f7f7;height: 301px;padding: 0;border-radius: 10px">
-                <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
-            </div>
-        </div>
-              <div>
-                 <div class="form-group">
-    <label for="exampleFormControlSelect1">shipment method</label>
-    <select class="form-control" id="exampleFormControlSelect1" name="shiping_method">
-      <option value="e == 7.5">express one day shiping $7.5</option>
-      <option value="r == 0">regular three day shiping</option>
-    </select>
-  </div>
-              </div>
-              {% if info %}
-         <button type="submit" class="btn btn-success" style="float: right">place your order<i class="fa fa-check"></i></button>
-
-
-              {% endif %}
-                  <br>
-         </form>
-        <br>
-
+    </form>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-<div id="address" class="modal fade" role="dialog">
-    <div class="modal-dialog" style="margin-top: 70px;width: 90%">
+    <div id="address" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="margin-top: 70px;width: 90%">
 
 <div class="modal-content" style="background-color: #f8f8f8;">
         <div class="modal-header" style="border: none">
@@ -206,12 +216,18 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
         $(document).ready(function () {
             var sum=0
-             {% for item in cart %}
-                  {% with drug=item.drug %}
-                    sum=sum+({{ drug.price}}*{{item.quantity }})
-                  {% endwith %}
-             {% endfor %}
-            $('#sum').html(sum)
+
+
+            $('#ship').change(function () {
+                console.log()
+                var shipprice=$(this).find(":selected").attr('name')
+                $('#ship-summery').html(shipprice)
+                $('#detail').html(shipprice)
+                var total=parseFloat({{ total }})+parseFloat(shipprice)
+                $('#total').html(total)
+                console.log(total)
+            })
+
         })
     </script>
 {% endblock %}

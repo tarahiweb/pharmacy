@@ -223,12 +223,5 @@ class CheckoutView(generic.FormView):
         return reverse(self.success_url)
 
 
-def Order_summary(request):
-    cart = Cart(request)
-    total = 0
-    for item in cart:
-        total += (item['price'] * int(item['quantity']))
-    return render(request, 'orders/checkout.html', {'total': total ,'cart':cart })
-
 def Checkout_Successfull(request):
     return render(request, 'orders/created.html')

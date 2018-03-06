@@ -65,12 +65,12 @@ class CheckoutView(generic.FormView):
     template_name = 'orders/checkout.html'
     success_url = 'order:checkout-successful'
 
-   # def total_amount(self):
-    #    request=self.request
-     #   order_id = request.session['order.id']
-      #  order= Order.objects.get(pk = order_id)
-       # amount = order.get_total_cost()
-        #return self.render_to_response(amount)
+    def total_amount(self):
+        request=self.request
+        order_id = request.session['order.id']
+        order= Order.objects.get(pk = order_id)
+        amount = order.get_total_cost()
+        return self.render_to_response(amount)
 
 
     @method_decorator(login_required)
@@ -159,6 +159,12 @@ class CheckoutView(generic.FormView):
         }
         # You can use the form to calculate a total or add a static total amount
         # I'll use a static amount in this example
+        request = self.request
+        order_id = request.session['order.id']
+        order = Order.objects.get(pk=order_id)
+        amount = order.get_total_cost()
+        shipment = order.shiping_method
+        print (amount, shipment)
         result = braintree.Transaction.sale({
             "customer_id": customer_id,
             "amount": "120",
@@ -187,7 +193,6 @@ class CheckoutView(generic.FormView):
             context = self.get_context_data()
             context.update({
                 'form': self.get_form(self.get_form_class()),
-                'braintree_error': _(result.message),
                 'braintree_error': _(
                    'Your payment could not be processed. Please check your'
                     ' input or use another payment method and try again.')
@@ -199,6 +204,7 @@ class CheckoutView(generic.FormView):
         transaction_id = result.transaction.id
         # Now you can send out confirmation emails or update your metrics
         # or do whatever makes you and your customers happy :)
+        print (self.total_amount())
         return super(CheckoutView, self).form_valid(form)
 
     def get_success_url(self):

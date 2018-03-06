@@ -9,10 +9,10 @@ class Order(models.Model):
     verified = models.BooleanField(default=False)
     sent=models.BooleanField(default=False)
     shiping_method_choices =(
-        ('e == 7.5', 'express one day shiping $7.5'),
-        ('r == 0', 'regular three day shiping'  ),
+        ( '7.5', 'express one day shiping $7.5'),
+        ( '0', 'regular three day shiping'  ),
     )
-    shiping_method=models.CharField(choices=shiping_method_choices,default='r', max_length=50)
+    shiping_method=models.CharField(choices=shiping_method_choices,default='0', max_length=50)
     info = models.ForeignKey(UserInfo,null=True,related_name='info')
     class Meta:
         ordering= ('-created',)

@@ -113,8 +113,8 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                             <label class="col-xs-2 col-form-label" for="ship">shipment method</label>
                             <div class="col-xs-6">
                                 <select  class="form-control" id="ship" name="shiping_method">
-                                    <option name="0" value="r == 0">regular three day shiping</option>
-                                    <option name="7.5" value="e == 7.5">express one day shiping</option>
+                                    <option name="0" value="0">regular three day shiping</option>
+                                    <option name="7.5" value="7.5">express one day shiping</option>
                                 </select>
                             </div>
                             <div class="col-xs-4"><i class="fa fa-arrow-right" aria-hidden="true"></i> This method add $<span id="detail">0</span> to your bill</div>
@@ -138,7 +138,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
                        <tbody>
                        <tr>
                            <td>items</td>
-                           <td >${{ cart.len }}</td>
+                           <td >{{ cart.len }}</td>
                        </tr>
                        <tr>
                            <td>total items fee</td>

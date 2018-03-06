@@ -37,26 +37,21 @@
                 <div class="panel-body">
                    <table>
                        <tbody>
-                       <tr>
-                           <td>items({{ cart.len }})</td>
-                           <td > {{ total }}</td>
-                       </tr>
-
+                           <tr class="total">
+                               <td>your items</td>
+                                <td>{{ amount}}</td>
+                           </tr>
                            <tr class="total">
                                <td>Shipping & handling:</td>
-                                <td colspan="4" id="sum"></td>
+                                <td>{{ order.shiping_method }}</td>
                            </tr>
                        <tr>
                            <td>total </td>
-                           <td>{{ total  }}</td>
+                           <td>{{ total_amount }}</td>
 
                        </tr>
                        </tbody>
                    </table>
-                </div>
-                <div class="panel-footer">
-                    footer
-                </div>
             </div>
         </div>
       </ul>
@@ -97,7 +92,7 @@
     container: '#dropin-container',
     paypal: {
       flow: "checkout",
-        amount: "100",
+        amount: "{{ total_amount }}",
         curency:"USD"
     }
   }, function (createErr, dropinInstance) {

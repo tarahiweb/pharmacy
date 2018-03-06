@@ -65,12 +65,14 @@ class CheckoutView(generic.FormView):
     template_name = 'orders/checkout.html'
     success_url = 'order:checkout-successful'
 
-    def total_amount(self):
-        request=self.request
-        order_id = request.session['order.id']
-        order= Order.objects.get(pk = order_id)
-        amount = order.get_total_cost()
-        return self.render_to_response(amount)
+    #def total_amount(self):
+     #   request=self.request
+      #  order_id = request.session['order.id']
+        #order= Order.objects.get(pk = order_id)
+        #amount = order.get_total_cost()
+        #shipment = Decimal(order.shiping_method)
+        #total_amount = amount + shipment
+        #return render(request, {'total_amount':total_amount})
 
 
     @method_decorator(login_required)
@@ -100,9 +102,18 @@ class CheckoutView(generic.FormView):
         return super(CheckoutView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        request = self.request
+        order_id = request.session['order.id']
+        order = Order.objects.get(pk=order_id)
+        amount = order.get_total_cost()
+        shipment = Decimal(order.shiping_method)
+        total_amount = amount + shipment
         ctx = super(CheckoutView, self).get_context_data(**kwargs)
         ctx.update({
             'braintree_client_token': self.braintree_client_token,
+            'total_amount':total_amount,
+            'order':order,
+            'amount':amount,
         })
         return ctx
 
@@ -163,11 +174,11 @@ class CheckoutView(generic.FormView):
         order_id = request.session['order.id']
         order = Order.objects.get(pk=order_id)
         amount = order.get_total_cost()
-        shipment = order.shiping_method
-        print (amount, shipment)
+        shipment = Decimal(order.shiping_method)
+        total_amount = amount + shipment
         result = braintree.Transaction.sale({
             "customer_id": customer_id,
-            "amount": "120",
+            "amount": total_amount,
             "payment_method_nonce": form.cleaned_data['payment_method_nonce'],
             "descriptor": {
                 #Definitely check out https://developers.braintreepayments.com/reference/general/validation-errors/all/python#descriptor
@@ -204,7 +215,8 @@ class CheckoutView(generic.FormView):
         transaction_id = result.transaction.id
         # Now you can send out confirmation emails or update your metrics
         # or do whatever makes you and your customers happy :)
-        print (self.total_amount())
+        order.paid = True
+        order.save()
         return super(CheckoutView, self).form_valid(form)
 
     def get_success_url(self):

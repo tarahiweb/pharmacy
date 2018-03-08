@@ -25,8 +25,11 @@ SECRET_KEY = ')+9n8-f!_m$v7#a11&b=$s)t8o!t+1=z*vk&pk1_&*0n*nsric'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-]
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
+if not DEBUG:
+    ALLOWED_HOStS = [] # ['127.0.0.1']
 
 
 # Application definitiona
@@ -158,3 +161,4 @@ BRAINTREE_PRIVATE_KEY = 'cde363753928cc4bb92a1ea764081257'
 if not DEBUG:
     STATIC_ROOT = '/home/emed/files/static'
     MEDIA_ROOT = '/home/emed/files/media'
+

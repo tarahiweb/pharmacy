@@ -7,3 +7,4 @@ xhtml2pdf
 braintree
 django-markdown-deux
 
+django_smtp_ssl

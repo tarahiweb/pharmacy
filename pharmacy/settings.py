@@ -161,4 +161,11 @@ BRAINTREE_PRIVATE_KEY = 'cde363753928cc4bb92a1ea764081257'
 if not DEBUG:
     STATIC_ROOT = '/home/emed/files/static'
     MEDIA_ROOT = '/home/emed/files/media'
+    EMAIL_HOST = 'smtp.zoho.com'
 
+    EMAIL_HOST_USER = 'info@expressmedicine.us'
+    EMAIL_HOST_PASSWORD = 'arminkhayyer'
+    EMAIL_PORT = 465
+    EMAIL_USE_TLS = True
+    EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+    DEFAULT_FROM_EMAIL = 'Express Medicine <info@expressmedicine.us>'

@@ -74,3 +74,23 @@ class RefillForm(forms.ModelForm):
         if more_refill:
             if cleaned_data.get("more_refill_number") == '':
                 raise forms.ValidationError("please specify the number of refills you need")
+
+
+
+class NewRx_CheckoutForm(forms.Form):
+    payment_method_nonce = forms.CharField(
+        max_length=1000,
+        widget=forms.widgets.HiddenInput,
+        required=False,  # In the end it's a required field, but I wanted to provide a custom exception message
+    )
+    #amount= forms.DecimalField(max_digits=10, decimal_places=2,)
+
+
+
+    def clean(self):
+        self.cleaned_data = super(NewRx_CheckoutForm, self).clean()
+        # Braintree nonce is missing
+        if not self.cleaned_data.get('payment_method_nonce'):
+            raise forms.ValidationError(_(
+                'We couldn\'t verify your payment. Please try again.'))
+        return self.cleaned_data

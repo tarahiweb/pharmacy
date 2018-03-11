@@ -37,17 +37,19 @@
                 <div class="panel-body">
                    <table>
                        <tbody>
+                       {% for item in drug %}
                            <tr class="total">
-                               <td>your items</td>
-                                <td></td>
+                               <td>{{ item.drug_name }}</td>
+                                <td>${{ item.drug_price }}</td>
                            </tr>
+                       {% endfor %}
                            <tr class="total">
                                <td>Shipping & handling:</td>
                                 <td></td>
                            </tr>
                        <tr>
                            <td>total </td>
-                           <td>100</td>
+                           <td>${{ amount }}</td>
 
                        </tr>
                        </tbody>

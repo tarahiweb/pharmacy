@@ -5,7 +5,8 @@ app_name= 'refill'
 urlpatterns= [
     #url(r'^create/$', views.order_create, name='order_create'),
     url(r'^new-rx/$', views.new_rx, name='new-rx'),
-
+    url(r'^new-rx/checkout/(?P<pk>[0-9]+)/$', views.NewRx_CheckoutView.as_view(), name='new-rx-checkout'),
+    url(r'^new-rx/checkout-successful/$', views.Checkout_Successfull, name='new-rx-checkout-successful'),
     # report html
     url(r'^report/$', views.report, name='report'),
 

@@ -39,15 +39,15 @@
                        <tbody>
                            <tr class="total">
                                <td>your items</td>
-                                <td>{{ amount}}</td>
+                                <td></td>
                            </tr>
                            <tr class="total">
                                <td>Shipping & handling:</td>
-                                <td>{{ order.shiping_method }}</td>
+                                <td></td>
                            </tr>
                        <tr>
                            <td>total </td>
-                           <td>{{ total_amount }}</td>
+                           <td>100</td>
 
                        </tr>
                        </tbody>
@@ -91,8 +91,8 @@
     authorization: client_token,
     container: '#dropin-container',
     paypal: {
-        flow: "checkout",
-        amount: "{{ total_amount }}",
+      flow: "checkout",
+        amount: "10",
         curency:"USD"
     }
   }, function (createErr, dropinInstance) {
@@ -117,7 +117,7 @@
     //});
     //dropinInstance.on('noPaymentMethodRequestable', function () {
       //  form.setAttribute('disabled', true);
-        
+
   //  })
     });
   });

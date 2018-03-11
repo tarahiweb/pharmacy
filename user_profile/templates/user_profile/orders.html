@@ -96,11 +96,12 @@
                                     {% if i.verified %}
                                         <td><i class="fas fa-check-circle" style="color: #1e7e34"></i></td>
                                         <td>{{ i.price }}</td>
+                                        <td><a href="{% url 'refill:new-rx-checkout' pk=i.pk %}" class="">pay</a></td>
                                     {% else %}
                                         <td><i class="fas fa-times-circle" style="color: #d03636"></i></td>
                                         <td style="background-color: #bfbfbf">	&nbsp;</td>
+                                        <td><a href="" class="">pay</a></td>
                                     {% endif %}
-                                    <td><a href="" class="">purchast</a></td>
                                     <td><a onclick="panelfunc({{ i.pk }})"><i class="fas fa-chevron-down"></i></a></td>
                                 </tr>
                                 <tr >

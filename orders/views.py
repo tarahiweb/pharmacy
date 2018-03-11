@@ -107,7 +107,7 @@ class CheckoutView(generic.FormView):
         order = Order.objects.get(pk=order_id)
         amount = order.get_total_cost()
         shipment = Decimal(order.shiping_method)
-        total_amount = amount + shipment
+        total_amount = (amount + shipment)
         ctx = super(CheckoutView, self).get_context_data(**kwargs)
         ctx.update({
             'braintree_client_token': self.braintree_client_token,

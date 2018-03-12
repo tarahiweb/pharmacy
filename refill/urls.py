@@ -12,13 +12,12 @@ urlpatterns= [
 
     # ajax
     url(r'^ajax/$', views.ajax, name='ajax'),
-
     url(r'^refill/$', views.refill_form, name='refill-form'),
-    url(r'^$', views.refill, name='refill'),
+
 
     # one click refill
-    url(r'^one-click-refill/$', views.one_click_refill, name='one-click-refill'),
-    url(r'^one-click-refill/(?P<pk>[0-9]+)/$', views.one_click_refill_submit, name='one-click-refill-submit'),
+    url(r'^$', views.refill_objects_list, name='refill'),
+    url(r'^easy-refill/(?P<pk>[0-9]+)/$', views.refill_submit, name='refill-submit'),
 
 
 ]

@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, get_object_or_404
 from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
-from .forms import NewRxForm, RefillForm
+
 from .models import Refill, Drug, NewRx, Drug_refill
 from django.forms import forms
 from django.views.decorators.csrf import csrf_exempt
@@ -10,12 +10,20 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
+import braintree
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.utils.decorators import method_decorator
+from django.views import generic
+from . import forms
+from django.utils.translation import ugettext_lazy as _
+from decimal import Decimal
 
 def new_rx(request):
     info=UserInfo.objects.filter(user=request.user)
     #user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
-        form = NewRxForm(request.POST,request.FILES)
+        form = forms.NewRxForm(request.POST,request.FILES)
         if form.is_valid():
             refill = form.save(commit=False)
             information = UserInfo.objects.get(pk=request.POST['info'])
@@ -48,7 +56,7 @@ def new_rx(request):
 
         return render(request, 'refill/new_rx.html', {'info': info, 'form': form})
     else:
-        form = NewRxForm()
+        form = forms.NewRxForm()
         return render(request, 'refill/new_rx.html', {'info':info, 'form':form})
 
 
@@ -78,14 +86,12 @@ def ajax(request):
     return JsonResponse(reserve)
 
 
-def refill(request):
-    return render(request, 'refill/refill.html')
 
 def refill_form(request):
     info=UserInfo.objects.filter(user=request.user)
     #user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
-        form = RefillForm(request.POST,request.FILES)
+        form = forms.RefillForm(request.POST,request.FILES)
         if form.is_valid():
             refill = form.save(commit=False)
             information = UserInfo.objects.get(pk=request.POST['info'])
@@ -106,16 +112,16 @@ def refill_form(request):
             return render(request, 'refill/refill_submited.html', {'refill':refill})
         return render(request, 'refill/refill_form.html', {'info': info, 'form': form})
     else:
-        form = RefillForm()
+        form = forms.RefillForm()
         return render(request, 'refill/refill_form.html', {'info':info, 'form':form})
 
 
 
-def one_click_refill(request):
+def refill_objects_list(request):
     order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
     return render(request, 'one_click_refill/one_click_refill.html', {'order':order})
 
-def one_click_refill_submit(request,pk):
+def refill_submit(request, pk):
     if request.method=='GET':
         info = UserInfo.objects.filter(user=request.user)
         rx=get_object_or_404(NewRx,pk=pk)
@@ -135,6 +141,7 @@ def one_click_refill_submit(request,pk):
         order.pk=None
         order.info=UserInfo.objects.get(pk=request.POST['info'])
         order.refill=True
+        order.verified=False
         order.save()
         for i in range(drug):
             if not request.POST['drug_pk{}'.format(i + 1)]=='':
@@ -145,21 +152,10 @@ def one_click_refill_submit(request,pk):
         messages.info(request, 'you refill order successfully submited')
         return render(request, 'user_profile/user-message.html')
 
-from django.shortcuts import render, redirect, get_object_or_404
-from user_profile.models import UserInfo
-import braintree
-from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse,reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views import generic
-from . import forms
-from pharmacy import settings
-from django.utils.translation import ugettext_lazy as _
-from .forms import NewRx_CheckoutForm
-from django.http import HttpResponse
-from django.conf import settings
-from decimal import Decimal
 
+
+
+# payment sectoin
 class NewRx_CheckoutView(generic.FormView):
     """This view lets the user initiate a payment."""
     form_class = forms.NewRx_CheckoutForm

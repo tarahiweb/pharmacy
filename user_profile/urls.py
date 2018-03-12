@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from . import views
-from refill.views import one_click_refill,one_click_refill_submit
+from refill.views import refill_objects_list,refill_submit
 app_name = 'user_profile'
 
 urlpatterns = [

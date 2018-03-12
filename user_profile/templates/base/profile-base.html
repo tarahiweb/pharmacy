@@ -34,7 +34,9 @@
       height: 100vh;
 
     }
-
+    .limargin{
+        margin-left: 10px;
+    }
 
     @media screen and (max-width: 767px) {
       .row.content {height: auto;}
@@ -86,19 +88,21 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav" >
-        <li class="dashboard" name=""><a href="{% url 'user_profile:profile' %}"><i class="fas fa-sliders-h"></i><span>Dashboard</span></a></li>
-       <li class="consulting" name=""><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i><span> Consulting</span></a></li>
+        <li class="dashboard " name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fas fa-sliders-h"></i><span class="limargin"> Dashboard</span></a></li>
+        <li class="order" name="order"><a href="{% url 'user_profile:orders' %}"><i class="fas fa-shopping-cart"></i><span class="limargin"> Orders</span></a></li>
+        <li class="ocr" name="ocr"><a href="{% url 'refill:refill' %}"><i class="fas fa-sync-alt"></i><span class="limargin"> Refill</span></a></li>
+        <li class="consulting" name="consulting"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span class="limargin">  Consulting</span></a></li>
 
-        <li name="" class="dropdown setting"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>Setting <span class="caret"></span></span></a>
+        <li name="" class="dropdown setting"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span class="limargin">Setting <span class="caret"></span></span></a>
             <ul class="dropdown-menu">
-                 <li><a href="{% url 'user_profile:update' %}">Information</a></li>
+                 <li class="limargin"><a href="{% url 'user_profile:update' %}">Information</a></li>
                 <li><a href="{% url 'user_profile:add-phone' %}">Edit phone number</a></li>
                  <li><a href="{% url 'user_profile:password' %}">Change password</a></li>
                 <li><a href="{% url 'user_profile:create-userinfo' %}">Add delivery info</a></li>
             </ul>
         </li>
 
-        <li><a href="{% url 'user_profile:logout' %}"><i class="fa fa-fw fa-sign-out"></i><span>log out</span></a></li>
+        <li><a href="{% url 'user_profile:logout' %}"><i class="fas fa-sign-out-alt"></i><span class="limargin">log out</span></a></li>
       </ul>
     </div>
   </div>
@@ -116,13 +120,13 @@
         <div style="padding: 10px">
       <ul class="nav nav-pills nav-stacked sidenavlist">
 
-        <li class="dashboard" name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fas fa-sliders-h"></i><span> Dashboard</span></a></li>
-        <li class="order" name="order"><a href="{% url 'user_profile:orders' %}"><i class="fas fa-shopping-cart"></i><span> Orders</span></a></li>
-        <li class="ocr" name="ocr"><a href="{% url 'refill:one-click-refill' %}"><i class="fas fa-sync-alt"></i><span> One click refill</span></a></li>
-        <li class="consulting" name="consulting"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span>  Consulting</span></a></li>
-        <li name="" class="dropdown setting"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span>Setting <span class="caret"></span></span></a>
+        <li class="dashboard " name="dashboard"><a href="{% url 'user_profile:profile' %}"><i class="fas fa-sliders-h"></i><span class="limargin"> Dashboard</span></a></li>
+        <li class="order" name="order"><a href="{% url 'user_profile:orders' %}"><i class="fas fa-shopping-cart"></i><span class="limargin"> Orders</span></a></li>
+        <li class="ocr" name="ocr"><a href="{% url 'refill:refill' %}"><i class="fas fa-sync-alt"></i><span class="limargin"> Refill</span></a></li>
+        <li class="consulting" name="consulting"><a href="{% url 'user_profile:consulting' %}"><i class="fa fa-question" aria-hidden="true"></i></i><span class="limargin">  Consulting</span></a></li>
+        <li name="" class="dropdown setting"><a class="dropdown-toggle" data-toggle="dropdown" href="#section3"><i class="fa fa-fw fa-cog"></i><span class="limargin">Setting <span class="caret"></span></span></a>
             <ul class="dropdown-menu">
-                 <li><a href="{% url 'user_profile:update' %}">Information</a></li>
+                 <li ><a href="{% url 'user_profile:update' %}">Information</a></li>
                 <li><a href="{% url 'user_profile:add-phone' %}">Edit phone number</a></li>
                  <li><a href="{% url 'user_profile:password' %}">Change password</a></li>
                 <li><a href="{% url 'user_profile:create-userinfo' %}">Add delivery info</a></li>
@@ -147,7 +151,7 @@
           <li class=""><a href="{% url 'product:index' %}" style="">Shop</a> </li>
           <li class=""><a href="{% url 'refill:new-rx' %}" style="">New prescription</a> </li>
           <li class=""><a href="" style="">{{ user.get_full_name}}</a> </li>
-          <li><a href="{% url 'user_profile:logout' %}" style="">Log out</a></li>
+          <li><a href="{% url 'user_profile:logout' %}" style="">Log out <i class="fas fa-sign-out-alt"></i></a></li>
       </ul>
     </div>
 

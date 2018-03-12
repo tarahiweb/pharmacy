@@ -189,9 +189,18 @@ class NewRx_CheckoutView(generic.FormView):
         return super(NewRx_CheckoutView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        newrx = NewRx.objects.get(pk=self.kwargs['pk'])
+        drug = newrx.drug_set.all()
+        total = 0
+        for item in drug:
+            total += item.drug_price
+        amount = Decimal(total)
         ctx = super(NewRx_CheckoutView, self).get_context_data(**kwargs)
         ctx.update({
             'braintree_client_token': self.braintree_client_token,
+            'newrx':newrx,
+            'drug':drug,
+            'amount':amount
         })
         return ctx
 

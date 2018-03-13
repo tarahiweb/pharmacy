@@ -41,7 +41,11 @@
         <br>
         <form action="" method="post">
         {% csrf_token %}
-
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <p class="text-center">This order was for: {{ rx.first_name }} {{ rx.last_name}}</p>
+            </div>
+        </div>
 {#        <table class="table table-striped">#}
 {##}
 {#        <thead class="thead-dark">#}
@@ -139,6 +143,9 @@
 {#                   </div>#}
 {#        </div>#}
 {#        {% endif %}#}
+
+
+
     <h3>Manager drugs</h3>
                     <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
         <p>you only can remove drug from order for add new you need to fill <a href="{% url 'refill:new-rx' %}">NewRx form </a> </p>
@@ -164,6 +171,47 @@
         {% endfor %}
         </tbody>
     </table>
+
+        <h3>verifyed by:</h3>
+                    <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+            {% if rx.prescription %}
+                <h4 class="text-center">prescription</h4>
+                <img src="{{ rx.prescription.url }}" alt="" class="img-responsive text-center" style="max-height: 400px;margin: auto">
+            {% endif %}
+
+            {% if rx.Dr_name and rx.dr_phone_number %}
+                <div style="width: 80%;margin: auto">
+                    <h4 class="text-center">Dr info</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Dr name</th>
+                            <th>{{ rx.Dr_name }}</th>
+                        </tr>
+                        <tr>
+                            <th>Dr phone number</th>
+                            <th>{{ rx.dr_phone_number }}</th>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+
+            {% if rx.last_pharmacy and rx.last_pharmacy_adrress %}
+                <div style="width: 80%;margin: auto">
+                    <h4 class="text-center">Last pharmacy</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Last pharmacy name</th>
+                            <th>{{ rx.last_pharmacy }}</th>
+                        </tr>
+                        <tr>
+                            <th>Last pharmacy adrress</th>
+                            <th>{{ rx.last_pharmacy_adrress }}</th>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+
+
     <h3>which address do you want us to deliver <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 13px">add another address</a></h3>
                     <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
 

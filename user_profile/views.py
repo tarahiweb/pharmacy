@@ -237,10 +237,14 @@ def add_phone(request):
 
 @login_required(login_url='user_profile:login')
 def order(request):
-    newrx=NewRx.objects.filter(info__user=request.user).filter(refill=False).annotate(price=Sum('drug__drug_price'))
-    refill=NewRx.objects.filter(info__user=request.user).filter(refill=True).annotate(price=Sum('drug__drug_price'))
-    context={
-        'newrx':newrx,
-        'refill':refill
+    newrx = NewRx.objects.filter(info__user=request.user).filter(refill=False).annotate(price=Sum('drug__drug_price'))
+    refill = NewRx.objects.filter(info__user=request.user).filter(refill=True).annotate(price=Sum('drug__drug_price'))
+    context = {
+        'newrx': newrx,
+        'refill': refill
     }
+    if request.method=='POST':
+        canselobj=NewRx.objects.get(pk=request.POST['pk'])
+        canselobj.cansel=True
+        canselobj.save()
     return render(request,'user_profile/orders.html',context)

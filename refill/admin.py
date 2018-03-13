@@ -18,11 +18,11 @@ class DrugInline(admin.TabularInline):
 
 
 class DrugAdmin(admin.ModelAdmin):
-    #list_display = [ ]
-    #list_filter = ['paid', 'created', 'updated']
+    list_display = [ 'created','verified','paid','delivered','refill']
+    list_filter = ['paid', 'verified', 'updated','refill']
     inlines = [DrugInline]
 
 admin.site.register(NewRx,DrugAdmin)
-admin.site.register(Refill)
+# admin.site.register(Refill)
 
 

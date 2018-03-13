@@ -94,20 +94,24 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ i.rx_number }}</td>
                                     <td>{{ i.created }}</td>
-                                    {% if i.verified %}
-                                        <td><i class="fas fa-check-circle" style="color: #1e7e34"></i></td>
-                                        <td>{{ i.price }}</td>
-                                        <td><a href="{% url 'refill:new-rx-checkout' pk=i.pk %}" class="">pay</a></td>
-                                    {% else %}
-                                        <td><i class="fas fa-times-circle" style="color: #d03636"></i></td>
-                                        <td style="background-color: #bfbfbf">	&nbsp;</td>
-                                        <td>waiting to confirm</td>
-                                    {% endif %}
+                                        {% if i.cansel %}
+                                            <td colspan="3" style="background-color: #d03636;color: white">canseled by user</td>
+                                        {% else %}
+                                            {% if i.verified %}
+                                                <td><i class="fas fa-check-circle" style="color: #1e7e34"></i></td>
+                                                <td>{{ i.price }}</td>
+                                                <td><a href="{% url 'refill:new-rx-checkout' pk=i.pk %}" class="">pay</a></td>
+                                            {% else %}
+                                                <td><i class="fas fa-times-circle" style="color: #d03636"></i></td>
+                                                <td style="background-color: #bfbfbf">	&nbsp;</td>
+                                                <td>waiting to confirm</td>
+                                            {% endif %}
+                                        {% endif %}
                                     <td><a onclick="panelfunc({{ i.pk }})"><i class="fas fa-chevron-down"></i></a></td>
                                 </tr>
                                 <tr >
                                     <td colspan="7" style="padding: 0">
-                                        <div class=""  id="panel{{ i.pk }}" style="width: 90%; margin: auto;padding: 10px;padding-bottom: 30px;display: none">
+                                        <div class=""  id="panel{{ i.pk }}" style="width: 90%; margin: auto;padding: 10px;padding-bottom: 30px;display: none;">
                                             <h5 style="text-align: left">drugs:</h5>
                                             <table class="table table-bordered table-striped text-center">
                                                 <thead style="background-color: #c6c6c6">
@@ -133,7 +137,10 @@
                                             </table>
                                             <h5 style="text-align: left">order status:</h5>
 {#                                            progress bar#}
-                                            <div class="stepwizard">
+                                            {% if i.cansel %}
+                                                <h3>This order was canseled by you</h3>
+                                            {% else %}
+                                                <div class="stepwizard">
                                                 <div class="stepwizard-row">
                                                     {% if i.verified and i.paid and i.delivered %}
                                                         <div class="stepwizard-step">
@@ -182,6 +189,16 @@
                                                     {% endif %}
                                                 </div>
                                             </div>
+                                                <br>
+                                                <div style="">
+                                                    <form action="" method="post">
+                                                        {% csrf_token %}
+                                                        <input  type="hidden" name="pk" value="{{ i.pk }}">
+                                                        <button class="btn btn-danger" style="float: right">Cansel this order</button>
+                                                    </form>
+                                                </div>
+                                                <br>
+                                            {% endif %}
 
                                         </div>
                                     </td>
@@ -211,6 +228,9 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ i.rx_number }}</td>
                                     <td>{{ i.created }}</td>
+                                    {% if i.cansel %}
+                                            <td colspan="3" style="background-color: #d03636;color: white">canseled by user</td>
+                                        {% else %}
                                     {% if i.verified %}
                                         <td><i class="fas fa-check-circle" style="color: #1e7e34"></i></td>
                                         <td>{{ i.price }}</td>
@@ -220,6 +240,7 @@
                                         <td style="background-color: #bfbfbf">	&nbsp;</td>
                                         <td>waiting to confirm</td>
                                     {% endif %}
+                                {% endif %}
                                     <td><a onclick="panelfunc({{ i.pk }})"><i class="fas fa-chevron-down"></i></a></td>
                                 </tr>
                                 <tr >
@@ -250,6 +271,9 @@
                                             </table>
                                             <h5 style="text-align: left">order status:</h5>
 {#                                            progress bar#}
+                                             {% if i.cansel %}
+                                                <h3>This order was canseled by you</h3>
+                                            {% else %}
                                             <div class="stepwizard">
                                                 <div class="stepwizard-row">
                                                     {% if i.verified and i.paid and i.delivered %}
@@ -299,7 +323,16 @@
                                                     {% endif %}
                                                 </div>
                                             </div>
-
+                                            <br>
+                                            <div style="">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input  type="hidden" name="pk" value="{{ i.pk }}">
+                                                    <button class="btn btn-danger" style="float: right">Cansel this order</button>
+                                                </form>
+                                            </div>
+                                            <br>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>
@@ -317,6 +350,9 @@
 
         </div>
     </div>
+
+
+
 
     <script>
 

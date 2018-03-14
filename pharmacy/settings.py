@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import user_profile
+from os import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,14 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')+9n8-f!_m$v7#a11&b=$s)t8o!t+1=z*vk&pk1_&*0n*nsric'
+SECRET_KEY = environ.get('PHARMA_SECRET', ')+9n8-f!_m$v7#a11&b=$s)t8o!t+1=z*vk&pk1_&*0n*nsric')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-
-#DEBUG = False
-
+DEBUG = 'PHARMA_PRODUCTION' not in environ
 
 ALLOWED_HOSTS = ['*']
 if not DEBUG:
@@ -100,10 +97,10 @@ else:
        'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'emed',
-            'USER': 'emed',
-            'PASSWORD': 'SXaBKyJRPsrLZ7UF',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
+            'USER': environ['PHARMA_DB_USER'],
+            'PASSWORD': environ['PHARMA_DB_PASS'],
+            'HOST': environ['PHARMA_DB_HOST'],
+            'PORT': environ['PHARMA_DB_PORT'],
        }
    }
 
@@ -156,23 +153,23 @@ MEDIA_URL = '/media/'
 CART_SESSION_ID = 'cart'
 
 BRAINTREE_PRODUCTION = False
-BRAINTREE_MERCHANT_ID = 'ggq27xkfrr5vdty2'
-BRAINTREE_PUBLIC_KEY = 'kp447gtbr9b3cdpv'
-BRAINTREE_PRIVATE_KEY = 'cde363753928cc4bb92a1ea764081257'
+BRAINTREE_MERCHANT_ID=environ['BRAINTREE_MERCHANT_ID']
+BRAINTREE_PUBLIC_KEY=environ['BRAINTREE_PUBLIC_KEY']
+BRAINTREE_PRIVATE_KEY=environ['BRAINTREE_PRIVATE_KEY']
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL = environ['PHARMA_CELERT_BROKER_URL']
 
 if not DEBUG:
     STATIC_ROOT = '/home/emed/files/static'
     MEDIA_ROOT = '/home/emed/files/media'
-    EMAIL_HOST = 'smtp.zoho.com'
+    EMAIL_HOST = environ['PHARMA_EMAIL_HOST']
 
-    EMAIL_HOST_USER = 'info@expressmedicine.us'
-    EMAIL_HOST_PASSWORD = 'arminkhayyer'
+    EMAIL_HOST_USER = environ['PHARMA_EMAIL_HOST_USER']
+    EMAIL_HOST_PASSWORD = environ['PHARMA_EMAIL_HOST_PASSWORD']
     EMAIL_PORT = 465
     EMAIL_USE_TLS = True
     EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
     CELERY_EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-    DEFAULT_FROM_EMAIL = 'Express Medicine <info@expressmedicine.us>'
+    DEFAULT_FROM_EMAIL = environ['PHARMA_EMAIL_HOST_FROM']
     INSTALLED_APPS += ["djcelery_email"]
 

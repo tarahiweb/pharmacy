@@ -91,7 +91,7 @@ class Refill(models.Model):
     def save(self):
         if self.verified==True:
             send_mail('verified', 'verified',
-                      settings.EMAIL_BACKEND, ['abedi.mehrad@yahoo.com'], fail_silently=False),
+                      settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
         super(Refill, self).save()
 
 class Drug_refill(models.Model):

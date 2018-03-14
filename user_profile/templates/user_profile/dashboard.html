@@ -24,7 +24,7 @@
                 {% else %}
                     <p>all orders: {{ eme_all.count }}</p>
                     <p>verified orders: {{ eme_verified.count }}</p>
-                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:emergency-order' %}">more details</a>
+                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
 
                 {% endif %}
             </div>
@@ -38,7 +38,7 @@
                 {% else %}
                     <p>all orders: {{ refill_all.count }}</p>
                     <p>verified orders: {{ refill_verfied.count }}</p>
-                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:refill-order' %}">more details</a>
+                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
 
                 {% endif %}
             </div>
@@ -52,7 +52,7 @@
                 {% else %}
                     <p>all orders: {{ free_all.count }}</p>
                     <p>verified orders: {{ free_verified.count }}</p>
-                    <a class=" btn btn-success" style="margin: auto" href="{% url 'user_profile:Free-Products-orders' %}">more details</a>
+                    <a class=" btn btn-success" style="margin: auto" href="">more details</a>
 
                 {% endif %}
             </div>

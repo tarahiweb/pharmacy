@@ -169,5 +169,8 @@ if not DEBUG:
     EMAIL_HOST_PASSWORD = 'arminkhayyer'
     EMAIL_PORT = 465
     EMAIL_USE_TLS = True
-    EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+    EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+    CELERY_EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
     DEFAULT_FROM_EMAIL = 'Express Medicine <info@expressmedicine.us>'
+    INSTALLED_APPS += ["djcelery_email"]
+

@@ -160,6 +160,8 @@ BRAINTREE_MERCHANT_ID = 'ggq27xkfrr5vdty2'
 BRAINTREE_PUBLIC_KEY = 'kp447gtbr9b3cdpv'
 BRAINTREE_PRIVATE_KEY = 'cde363753928cc4bb92a1ea764081257'
 
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+
 if not DEBUG:
     STATIC_ROOT = '/home/emed/files/static'
     MEDIA_ROOT = '/home/emed/files/media'

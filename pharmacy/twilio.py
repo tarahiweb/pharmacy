@@ -17,6 +17,6 @@ def send_fax(file):
     fax = client.fax.v1.faxes.create(
         to="+17039927253",
         from_="+12407021252",
-        media_url=file
+        media_url= file
     )
     return fax

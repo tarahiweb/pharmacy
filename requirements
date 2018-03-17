@@ -8,3 +8,6 @@ braintree
 django-markdown-deux
 
 django_smtp_ssl
+django-celery-email==2.0.0
+celery==4.1.0
+redis

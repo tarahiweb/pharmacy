@@ -18,7 +18,7 @@ def Terms(request):
 
 def test(request):
     send_mail('ok', 'ok',
-              settings.EMAIL_BACKEND, ['abedi.mehrad@yahoo.com'], fail_silently=False),
+              settings.DEFAULT_FROM_EMAIL, ['abedi.mehrad@yahoo.com'], fail_silently=False),
 
     return render(request,'email/one_text.html')
 

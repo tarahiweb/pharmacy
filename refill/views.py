@@ -53,7 +53,6 @@ def new_rx(request):
             # return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':refill})
         print(form.errors)
-
         return render(request, 'refill/new_rx.html', {'info': info, 'form': form})
     else:
         form = forms.NewRxForm()

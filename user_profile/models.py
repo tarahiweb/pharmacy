@@ -31,7 +31,7 @@ class Question(models.Model):
         return 'Question :'+ self.body
 
 class Answer(models.Model):
-    parrent=models.ForeignKey(Question, related_name='child')
+    parrent=models.ForeignKey(Question, related_name='answer')
     body = models.TextField()
     user=models.ForeignKey(User,blank=True,null=True)
     date = models.DateTimeField(auto_now_add=True)

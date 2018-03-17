@@ -1,4 +1,5 @@
 {% extends 'base/profile-base.html' %}
+{% load static %}
 {% block style %}
     <style>
 {#        progress bar#}
@@ -51,6 +52,9 @@
     .done{
         background-color: #abdde5;
     }
+    .table>tbody>tr>td{
+        vertical-align: middle;
+    }
     </style>
 {% endblock %}
 {% block content %}
@@ -73,6 +77,72 @@
             <div class="tab-content">
                 <div id="shop" class="tab-pane fade in active">
                     <h3>Order from shop</h3>
+                    {% if not shop %}
+                        <div class="text-center">
+                            <h4>see our product and order</h4>
+                            <a href="{% url 'product:index' %}" class="btn btn-success">order now</a>
+                        </div>
+                    {% else %}
+                        <table class="table table-bordered text-center">
+                        <thead style="background-color: #e5e5e5">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">image</th>
+                                <th class="text-center">name</th>
+                                <th class="text-center">price</th>
+                                <th class="text-center">more info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for j in shop %}
+                            {% for i in j.items.all %}
+                                {% with drug=i.drug %}
+                                <tr style="height: 70px;">
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>
+                                        {% if drug.drug_pic %}
+                                        <a href="{{ drug.get.absolute_url }}">
+                                            <img src="{{ drug.drug_pic.url }}" width="100px" height="100px">
+                                        </a>
+                                        {% else %}
+                                            <img src="{% static 'icons/drugs.png' %}" alt="" width="100px" height="100px">
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ drug.drug_name }}</td>
+                                    <td>{{ drug.price }}</td>
+                                    <td><a onclick="shoppanelfunc({{ i.pk }})"><i class="fas fa-chevron-down"></i></a></td>
+                                </tr>
+                                <tr >
+                                    <td colspan="7" style="padding: 0">
+                                        <div class=""  id="shoppanel{{ i.pk }}" style="width: 90%; margin: auto;padding: 10px;padding-bottom: 30px;display: none">
+                                            <h5 style="text-align: left">factor details:</h5>
+                                            <table class="table">
+                                                <tr>
+                                                    <td>date</td>
+                                                    <td>{{ j.created }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>delivery address</td>
+                                                    <td>
+                                                        <p>{{ j.info.address }}-{{ j.info.city }}-{{ j.info.zip }}</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>shiping method</td>
+                                                    <td>{{ j.get_shiping_method_display}}</td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endwith %}
+                            {% endfor %}
+                            {% endfor %}
+                            <tr></tr>
+                        </tbody>
+                    </table>
+                    {% endif %}
                 </div>
                 <div id="newrx" class="tab-pane fade">
                     <h3>NewRx</h3>
@@ -90,8 +160,8 @@
                         </thead>
                         <tbody>
                             {% for i in newrx %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
+                                <tr style="height: 70px;">
+                                    <td style="vertical-align: middle">{{ forloop.counter }}</td>
                                     <td>{{ i.rx_number }}</td>
                                     <td>{{ i.created }}</td>
                                         {% if i.cansel %}
@@ -224,7 +294,7 @@
                         </thead>
                         <tbody>
                             {% for i in refill %}
-                                <tr>
+                                <tr style="height: 70px;">
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ i.rx_number }}</td>
                                     <td>{{ i.created }}</td>
@@ -358,6 +428,9 @@
 
     var panelfunc=function (e) {
         $('#panel'+e).slideToggle("slow");
+    }
+    var shoppanelfunc=function (e) {
+        $('#shoppanel'+e).slideToggle("slow");
     }
     </script>
 {% endblock %}

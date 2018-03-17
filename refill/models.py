@@ -43,6 +43,11 @@ class NewRx(models.Model):
 
     rx_number = models.CharField(max_length=10, null=True)
 
+    __original_verify = False
+
+    def __init__(self, *args, **kwargs):
+        super(NewRx, self).__init__(*args, **kwargs)
+        self.__original_verify = self.verified
     class Meta:
         ordering = ('-created',)
 
@@ -50,9 +55,10 @@ class NewRx(models.Model):
         return 'Refill{}'.format(self.id)
 
     def save(self):
-        if self.verified == True:
-            send_mail('verified', 'verified', #TODO: make email template
-                      settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
+        if not self.__original_verify:
+            if self.verified == True:
+                send_mail('verified', 'verified', #TODO: make email template
+                          settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
         a=1
         while a == 1:
             code = 'rx{}'.format(random.randrange(1000, 100000))
@@ -81,6 +87,7 @@ class Refill(models.Model):
     RX_number= models.CharField(max_length=20, blank=True, help_text="optional")
     more_refill = models.BooleanField(default=False)
     more_refill_number = models.CharField(max_length=20, blank=True)
+
 
     class Meta:
         ordering= ('-created',)

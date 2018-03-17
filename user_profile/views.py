@@ -18,7 +18,7 @@ from refill.views import new_rx
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import PasswordChangeForm
-from django.db.models import Sum
+from django.db.models import Sum,Count
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -31,10 +31,16 @@ def profile(request):
     # refill
     refill_all=NewRx.objects.filter(info__user=current_user)
     refill_verfied=refill_all.filter(verified=True)
+    refill_pay=refill_verfied.filter(paid=False)
 
     # free product order
     free_product_all=Order.objects.filter(info__user=current_user)
     free_product_verified=free_product_all.filter(verified=True)
+    # consulting
+    question = Question.objects.filter(user=request.user).annotate(answer_count=Count('answer'))
+    answer=Answer.objects.filter(parrent__in=question)
+
+    info=UserInfo.objects.filter(user=current_user)
     context={
         'user': current_user,
         # emergency
@@ -43,9 +49,14 @@ def profile(request):
         # refil
         'refill_all':refill_all,
         'refill_verfied':refill_verfied,
+        'refill_pay':refill_pay,
         # free product
         'free_all':free_product_all,
-        'free_verified':free_product_verified
+        'free_verified':free_product_verified,
+        # consulting
+        'questions':question,
+        'answer':answer,
+        'info':info,
     }
     return render_to_response('user_profile/dashboard.html', context)
 
@@ -219,12 +230,15 @@ def add_phone(request):
 def order(request):
     newrx = NewRx.objects.filter(info__user=request.user).filter(refill=False).annotate(price=Sum('drug__drug_price'))
     refill = NewRx.objects.filter(info__user=request.user).filter(refill=True).annotate(price=Sum('drug__drug_price'))
+    shop=Order.objects.filter(info__user=request.user)
     context = {
         'newrx': newrx,
-        'refill': refill
+        'refill': refill,
+        'shop':shop
     }
     if request.method=='POST':
         canselobj=NewRx.objects.get(pk=request.POST['pk'])
         canselobj.cansel=True
         canselobj.save()
+    return render(request,'user_profile/orders.html',context)
     return render(request,'user_profile/orders.html',context)

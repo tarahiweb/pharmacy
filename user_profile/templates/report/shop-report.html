@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <html>
+     <head>
+         <title>New Shop Order</title>
+         <style type="text/css">
+             body {
+                 font-weight: 200;
+                 font-size: 14px;
+             }
+             td,th {
+                 padding: 5px;
+             }
+             th{
+                 background-color: #f4f4f4;
+             }
+             table{
+                 border: 1px solid black;
+             }
+             .width-50{
+                 width: 50%;
+             }
+
+         </style>
+     </head>
+     <body>
+         <div class=''>
+             <p class='' style="font-size: 40px;margin-bottom: 20px">ExpressMed</p>
+             <hr>
+         <div>
+         <div class=''>
+                <h1>costumer information</h1>
+             <table style="border: 1px solid black">
+                 <tr>
+                     <td>First name:</td>
+                     <td>{{ order.info.user.first_name }}</td>
+                 </tr>
+                 <tr>
+                     <td>Last name:</td>
+                     <td>{{ order.info.user.last_name }}</td>
+                 </tr>
+                 <tr>
+                     <td>Email address:</td>
+                     <td>{{ order.info.user.email }}</td>
+                 </tr>
+
+                 {% if order.info.user.phone_number %}
+                <tr>
+                     <td>phone number</td>
+                     <td>{{ order.info.user.phone_number }}</td>
+                 </tr>
+             {% endif %}
+             </table>
+             <hr>
+
+            <h1>products order</h1>
+         <table style="border: 1px solid black">
+         <tr>
+             <th >name</th>
+             <th>price</th>
+             <th>quantity</th>
+         </tr>
+             {% for i in order.items.all %}
+                    <tr>
+                        <td >{{ i.drug.drug_name}}</td>
+                        <td >{{ i.price }}</td>
+                        <td >{{ i.quantity }}</td>
+                    </tr>
+             {% endfor %}
+            <tr>
+                <td>shiping method</td>
+                <td>{{ order.get_shiping_method_display }}</td>
+                <td>{{ order.shiping_method }}</td>
+            </tr>
+            <tr>
+                <td>total:</td>
+                <td colspan="2" style="text-align: center">{{ total }}</td>
+            </tr>
+         </table>
+             <hr>
+
+            <h1>delivery information</h1>
+         <table>
+             <tr>
+                     <td>Address:</td>
+                     <td>{{ order.info.address }}</td>
+                 </tr>
+                 <tr>
+                     <td>zip code:</td>
+                     <td>{{ order.info.zip }}</td>
+                 </tr>
+                 <tr>
+                     <td>city:</td>
+                     <td>{{ order.info.city }}</td>
+                 </tr>
+         </table>
+         <h1>Shiping method:</h1>
+
+         <p>{{ order.get_shiping_method_display }}</p>
+
+         </div>
+
+     </div>
+         </div>
+     </body>
+ </html>

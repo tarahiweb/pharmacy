@@ -19,6 +19,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Sum,Count
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from pharmacy.report import render_to_pdf
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -179,6 +182,12 @@ def consulting_ask(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+            # email
+            message = 'done'  # todo type proprate message here(consulting question shoma sabt shod, zoodi javab midim )
+            msg_html = render_to_string('email/one_text.html',
+                                        {'text': message})
+            send_mail('you order is subimitet', 'you order is subimitet',  # todo type Appropriate title for email
+                      settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
             return redirect('user_profile:consulting-show', pk=post.pk)
         else:
             return HttpResponse(form.errors)
@@ -240,5 +249,5 @@ def order(request):
         canselobj=NewRx.objects.get(pk=request.POST['pk'])
         canselobj.cansel=True
         canselobj.save()
-    return render(request,'user_profile/orders.html',context)
+        pdf = render_to_pdf('report/refill-report.html')  # todo send fax for canselation
     return render(request,'user_profile/orders.html',context)

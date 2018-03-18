@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from user_profile.models import UserInfo
 from .models import OrderItem,Order
 from cart.cart import Cart
-from user_profile.views import UserFormView, LoginView
+from pharmacy.report import render_to_pdf
 import braintree
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse,reverse_lazy
@@ -15,8 +15,8 @@ from .forms import    CheckoutForm
 from django.http import HttpResponse
 from django.conf import settings
 from decimal import Decimal
-
-
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 def order_info(request):
     user=request.user
@@ -217,6 +217,14 @@ class CheckoutView(generic.FormView):
         # or do whatever makes you and your customers happy :)
         order.paid = True
         order.save()
+        # report
+        pdf = render_to_pdf('report/shop-report.html', {'order':order,'total':total_amount})  # todo send fax and sms and email
+        # email
+        msg = render_to_string('email/shop-factor.html',
+                               {'order': order,
+                                'total':total_amount})
+        send_mail('you order is subimitet', 'you order is subimitet', #todo type Appropriate title for email
+                  settings.DEFAULT_FROM_EMAIL, [self.request.user.email], fail_silently=False,html_message=msg),
         return super(CheckoutView, self).form_valid(form)
 
     def get_success_url(self):
@@ -225,3 +233,4 @@ class CheckoutView(generic.FormView):
 
 def Checkout_Successfull(request):
     return render(request, 'orders/created.html')
+

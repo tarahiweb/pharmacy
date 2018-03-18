@@ -2,8 +2,9 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
-
-
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
 
 class User(AbstractUser):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
@@ -35,6 +36,13 @@ class Answer(models.Model):
     body = models.TextField()
     user=models.ForeignKey(User,blank=True,null=True)
     date = models.DateTimeField(auto_now_add=True)
+
+    def save(self):
+        message = 'answer to you question \n {answer}'.format(answer=self.body)
+        msg_html = render_to_string('email/one_text.html',
+                                    {'text': message})
+        send_mail(message, message,
+                  settings.DEFAULT_FROM_EMAIL, [self.parrent.user.email], fail_silently=False, html_message=msg_html),
 
 
 

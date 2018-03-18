@@ -115,7 +115,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
                 <tr>
                     <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                      <h1 style="font-size: 48px; font-weight: 400; margin: 0;"><singleline label="main heading"></singleline></h1>
+                      <h1 style="font-size: 48px; font-weight: 400; margin: 0;"><singleline label="main heading">Thank you for you shoping</singleline></h1>
                     </td>
                 </tr>
             </table>
@@ -141,6 +141,33 @@
                   <multiline label="lead">{{ text|safe|linebreaks }}</multiline>
                 </td>
               </tr>
+                <tr bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                    <td>
+                        <table cellspacing="0" cellpadding="0" border="1" width="100%">
+                                <tr>
+                                    <th>product</th>
+                                    <th>fee</th>
+                                    <th>quantity</th>
+                                </tr>
+                                {% for i in order.items.all %}
+                                    <tr>
+                                        <td>{{ i.drug.drug_name }}</td>
+                                        <td>{{ i.drug.price }}</td>
+                                        <td>{{ i.quantity }}</td>
+                                    </tr>
+                                {% endfor %}
+                               <tr>
+                <td>shiping method</td>
+                <td>{{ order.get_shiping_method_display }}</td>
+                <td>{{ order.shiping_method }}</td>
+            </tr>
+            <tr>
+                <td>total:</td>
+                <td colspan="2" style="text-align: center">{{ total }}</td>
+            </tr>
+                            </table>
+                    </td>
+                </tr>
               <!-- COPY -->
 
               <!-- BULLETPROOF BUTTON -->

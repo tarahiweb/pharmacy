@@ -35,21 +35,21 @@ def new_rx(request):
                                            drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=refill)
 
             drugs = Drug.objects.filter(med=refill)
-            drugs = Drug.objects.filter(med=refill)
+
             contect = {
                 'refill': refill,
                 'drug': drugs,
             }
             # email
 
-            message='done' # todo type proprate message here
+            message='done' # todo type proprate message here(newrx shoma sabt shod montazere taeid o gheymat dehi bashid mitoni rxnumber ham bedi)
             msg_html = render_to_string('email/one_text.html',
                                         {'text': message })
             send_mail(message, message,
-                      settings.EMAIL_BACKEND, [request.user.email], fail_silently=False, html_message=msg_html),
+                      settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
 
 
-            # pdf = render_to_pdf('report/refill-report.html', contect) #todo send fax
+            pdf = render_to_pdf('report/refill-report.html', contect) #todo send fax
             # return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':refill})
         print(form.errors)
@@ -59,17 +59,10 @@ def new_rx(request):
         return render(request, 'refill/new_rx.html', {'info':info, 'form':form})
 
 
-
 def report(request):
-    refill=NewRx.objects.last()
-    drug=Drug.objects.filter(med=refill)
-    contect={
-        'refill':refill,
-        'drug':drug
-    }
-    pdf=render_to_pdf('report/refill-report.html',contect)
-    return HttpResponse(pdf,content_type='application/pdf')
-
+    order=NewRx.objects.last()
+    pdf = render_to_pdf('report/refill-report.html', {'refill':order})  # todo send fax
+    return HttpResponse(pdf, content_type='application/pdf')
 
 @csrf_exempt
 def ajax(request):
@@ -86,7 +79,7 @@ def ajax(request):
 
 
 
-def refill_form(request):
+def refill_form(request): #todo can we just delete this view?
     info=UserInfo.objects.filter(user=request.user)
     #user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
@@ -107,7 +100,7 @@ def refill_form(request):
             }
 
             pdf = render_to_pdf('report/refill-report.html', contect)
-            return HttpResponse(pdf, content_type='application/pdf')
+            # return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':refill})
         return render(request, 'refill/refill_form.html', {'info': info, 'form': form})
     else:
@@ -148,6 +141,21 @@ def refill_submit(request, pk):
                 drug.pk=None
                 drug.med=order
                 drug.save()
+        drug=Drug.objects.filter(med=order)
+        contect = {
+            'refill': order,
+            'drug': drug,
+        }
+        pdf = render_to_pdf('report/refill-report.html', contect)  # todo send fax
+
+        # emai
+
+        message = 'done'  # todo type proprate message here(refill ordere shoma sabt shod montazere taeid o gheymat dehi bashid)
+        msg_html = render_to_string('email/one_text.html',
+                                    {'text': message})
+        send_mail(message, message,
+                  settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
+
         messages.info(request, 'you refill order successfully submited')
         return render(request, 'user_profile/user-message.html')
 
@@ -301,6 +309,12 @@ class NewRx_CheckoutView(generic.FormView):
         transaction_id = result.transaction.id
         # Now you can send out confirmation emails or update your metrics
         # or do whatever makes you and your customers happy :)
+        message = 'done'  # todo type proprate message here(pardakhte shoma ba movafahghiat sabt shod )
+        msg_html = render_to_string('email/one_text.html',
+                                    {'text': message})
+        send_mail(message, message,
+                  settings.DEFAULT_FROM_EMAIL, [self.request.user.email], fail_silently=False, html_message=msg_html),
+
         return super(NewRx_CheckoutView, self).form_valid(form)
 
     def get_success_url(self):

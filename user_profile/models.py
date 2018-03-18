@@ -38,10 +38,10 @@ class Answer(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def save(self):
-        message = 'answer to you question \n {answer}'.format(answer=self.body)
+        message = 'answer to your question \n {answer}'.format(answer=self.body)
         msg_html = render_to_string('email/one_text.html',
                                     {'text': message})
-        send_mail(message, message,
+        send_mail('answer to your question', 'answer to your question',
                   settings.DEFAULT_FROM_EMAIL, [self.parrent.user.email], fail_silently=False, html_message=msg_html),
 
 

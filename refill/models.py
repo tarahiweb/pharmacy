@@ -62,7 +62,7 @@ class NewRx(models.Model):
                                        {'order': self,
                                         'total': sum(item.drug_price for item in self.drug_set.all())})
                 send_mail('order has been verified', 'order has been verified', #TODO: make email template
-                          settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
+                          settings.DEFAULT_FROM_EMAIL, [self.info.user.email], fail_silently=False),
         a=1
         while a == 1:
             code = 'rx{}'.format(random.randrange(1000, 100000))

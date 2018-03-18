@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import RegexValidator
 import random
 from django.template.loader import render_to_string
-
+from django.core.exceptions import ValidationError
 
 
 
@@ -54,15 +54,13 @@ class NewRx(models.Model):
     def __str__(self):
         return 'Refill{}'.format(self.id)
 
-    def get_total_cost(self):
-        return sum(item.drug_price for item in self.drug_set.all())
 
     def save(self):
         if not self.__original_verify:
             if self.verified == True:
                 msg = render_to_string('email/payment-for-rx.html',
                                        {'order': self,
-                                        'total': self.get_total_cost()})
+                                        'total': sum(item.drug_price for item in self.drug_set.all())})
                 send_mail('order has been verified', 'order has been verified', #TODO: make email template
                           settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
         a=1
@@ -77,7 +75,7 @@ class Drug(models.Model):
     med=models.ForeignKey(NewRx,null=True)
     drug_name = models.CharField(max_length=100,blank=True)
     drug_dose = models.CharField(max_length=20,blank=True)
-    drug_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    drug_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True,default=0)
 
 
 class Refill(models.Model): #todo can we just delete this??

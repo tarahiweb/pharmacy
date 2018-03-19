@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
@@ -162,11 +162,27 @@ def refill_submit(request, pk):
 
 
 
+def NewRx_checkout(request, **kwargs):
+    user = request.user
+    info = UserInfo.objects.filter(user=request.user)
+    newrx = NewRx.objects.get(pk=kwargs['pk'])
+    drug = newrx.drug_set.all()
+    if request.method=='POST':
+        newrx.shiping_method= request.POST['shiping_method']
+        newrx.save()
+        request.session['newrx.id'] = newrx.id
+        return redirect(reverse('refill:newrx-checkoutview'))
+    else:
+
+        return render(request,'refill/newrx_checkout.html',{'info':info,'user':user, 'drug':drug, 'newrx':newrx})
+
+
+
 # payment sectoin
 class NewRx_CheckoutView(generic.FormView):
     """This view lets the user initiate a payment."""
     form_class = forms.NewRx_CheckoutForm
-    template_name = 'refill/NewRx_Chechout.html'
+    template_name = 'refill/NewRx_Chechout_payment.html'
     success_url = 'refill:new-rx-checkout-successful'
 
     @method_decorator(login_required)
@@ -187,7 +203,6 @@ class NewRx_CheckoutView(generic.FormView):
             public_key=settings.BRAINTREE_PUBLIC_KEY,
             private_key=settings.BRAINTREE_PRIVATE_KEY,
         )
-        pk = self.kwargs['pk']
         # Generate a client token. We'll send this to the form to
         # finally generate the payment nonce
         # You're able to add something like ``{"customer_id": 'foo'}``,
@@ -196,7 +211,9 @@ class NewRx_CheckoutView(generic.FormView):
         return super(NewRx_CheckoutView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        newrx = NewRx.objects.get(pk=self.kwargs['pk'])
+        request = self.request
+        newrx_id = request.session['newrx.id']
+        newrx = NewRx.objects.get(pk=newrx_id)
         drug = newrx.drug_set.all()
         total = 0
         for item in drug:
@@ -264,12 +281,14 @@ class NewRx_CheckoutView(generic.FormView):
         }
         # You can use the form to calculate a total or add a static total amount
         # I'll use a static amount in this example
-        newrx= NewRx.objects.get(pk = self.kwargs['pk'])
+        request = self.request
+        newrx_id = request.session['newrx.id']
+        newrx = NewRx.objects.get(pk=newrx_id)
         drug = newrx.drug_set.all()
-        total= 0
+        total = 0
         for item in drug:
             total += item.drug_price
-        amount = Decimal(total)
+        amount = Decimal(total) + Decimal(newrx.shiping_method)
         result = braintree.Transaction.sale({
             "customer_id": customer_id,
             "amount": amount,

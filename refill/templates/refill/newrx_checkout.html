@@ -1,0 +1,176 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <br>
+    <br>
+    <div style="width: 90%;margin: auto">
+
+    <div style="background-color: white;border-radius: 5px;padding: 10px;color: #0000008a">
+        <br>
+        <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <p class="text-center">This order is submited by : {{ newrx.first_name }} {{ newrx.last_name}}</p>
+            </div>
+        </div>
+
+    <table class="table table-striped">
+
+        <thead class="thead-dark">
+            <tr>
+                <th>drug name</th>
+                <th>drug dose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+        {% for item in newrx.drug_set.all %}
+                <td>{{ item.drug_name}}</td>
+                <td>{{ item.drug_dose}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <h3>verifyed by:</h3>
+                    <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+            {% if newrx.prescription %}
+                <h4 class="text-center">prescription</h4>
+                <img src="{{ newrx.prescription.url }}" alt="" class="img-responsive text-center" style="max-height: 400px;margin: auto">
+            {% endif %}
+
+            {% if newrx.Dr_name and newrx.dr_phone_number %}
+                <div style="width: 80%;margin: auto">
+                    <h4 class="text-center">Dr info</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Dr name</th>
+                            <th>{{ newrx.Dr_name }}</th>
+                        </tr>
+                        <tr>
+                            <th>Dr phone number</th>
+                            <th>{{ newrx.dr_phone_number }}</th>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+
+            {% if newrx.last_pharmacy and newrx.last_pharmacy_adrress %}
+                <div style="width: 80%;margin: auto">
+                    <h4 class="text-center">Last pharmacy</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Last pharmacy name</th>
+                            <th>{{ newrx.last_pharmacy }}</th>
+                        </tr>
+                        <tr>
+                            <th>Last pharmacy adrress</th>
+                            <th>{{ newrx.last_pharmacy_adrress }}</th>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+
+
+    <h3>which address do you want us to deliver <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 13px">add another address</a></h3>
+                    <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+
+
+    <div class="row" style="width: 100%">
+                        <div class="col-sm-11 col-xs-11" style="height: 330px;overflow-x: scroll;">
+
+                            {% if info %}
+                                <div style="width: {% widthratio info.count 1 600 %}px;height: 301px;margin-bottom:0;display: flex">
+
+                                    {% for i in info %}
+                                        <div class="panel panel-default" style="height: 300px;width:300px;background-color: #f8f8f8;border-radius: 4px;border: 2px darkgrey solid;flex: 1;margin-right: 10px">
+                                            <div class="panel-heading">address</div>
+                                            <div class="panel-body">
+                                                <p style="height: 50px">address : {{ i.address }}</p>
+                                                <hr>
+                                                <p>City : {{ i.city }}</p>
+                                                <p>State : {{ i.city }}</p>
+                                                <p>Zip : {{ i.zip }}</p>
+                                            </div>
+                                            <div class="panel-footer text-center">
+                                                <input type="radio" name="info" id="info{{ forloop.counter }}" value="{{ i.pk }}"> chose this address
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                            {% endif %}
+                        </div>
+
+
+                        <div class="col-sm-1 col-xs-1 text-center" style="background-color: #f7f7f7;height: 301px;padding: 0;border-radius: 10px">
+                            <p class=""style="position: absolute;right: 10%;top:40%;font-size: 50px"><i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+    {% if info %}
+                    <button class="btn btn-warning" style="float: right" type="submit" >submit <i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+
+                {% else %}
+                    <a class="btn btn-warning" style="float: right" disabled="" >for subimt please add an address information <i class="fa fa-info" aria-hidden="true"></i></a>
+                    <br>
+                {% endif %}
+        <br>
+        <br>
+<div>
+                        <h1>Chose you shiping method </h1>
+                        <p class="" style="height: 5px;width: 120px;border-radius: 5px;"></p>
+                        <div class="form-group">
+                            <label class="col-xs-2 col-form-label" for="ship">shipment method</label>
+                            <div class="col-xs-6">
+                                <select  class="form-control" id="ship" name="shiping_method">
+                                    <option name="0" value="0">regular three day shiping</option>
+                                    <option name="7.5" value="7.5">express one day shiping</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4"><i class="fa fa-arrow-right" aria-hidden="true"></i> This method add $<span id="detail">0</span> to your bill</div>
+                        </div>
+        </form>
+    </div>
+    </div>
+
+
+
+{#    modal#}
+    <div id="address" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="margin-top: 70px;width: 90%">
+
+            <div class="modal-content" style="background-color: #f8f8f8;">
+                <div class="modal-header" style="border: none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h1 class="modal-title text-center">add your address</h1>
+                    <hr>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'user_profile:create-userinfo' %}?next={{ request.path }}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <lable>address</lable>
+                            <input class="form-control" type="text" name="address">
+                        </div>
+                        <div class="form-group">
+                            <lable>city</lable>
+                            <input class="form-control" type="text" name="city">
+                        </div>
+                        <div class="form-group">
+                            <lable>zip</lable>
+                            <input class="form-control" type="text" name="zip">
+                        </div>
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button class="form-control btn-success" type="submit">submit</button>
+                    </form>
+
+                </div>
+                <div class="modal-footer" style="border: none">
+
+                    <button type="button" class="btn btnpink" data-dismiss="modal" style="width: auto">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

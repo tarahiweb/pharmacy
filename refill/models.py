@@ -38,6 +38,12 @@ class NewRx(models.Model):
 
     prescription = models.ImageField(blank=True)
 
+    shiping_method_choices = (
+        ('7.5', 'express one day shiping $7.5'),
+        ('0', 'regular three day shiping'),
+    )
+    shiping_method = models.CharField(choices=shiping_method_choices, default='0', max_length=50)
+
     more_refill = models.BooleanField(default=False)
     more_refill_number = models.CharField(max_length=20, blank=True)
 

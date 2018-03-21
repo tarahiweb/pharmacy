@@ -102,7 +102,7 @@ class Refill(models.Model): #todo can we just delete this??
     def save(self):
         if self.verified==True:
             send_mail('verified', 'verified', #todo type message
-                      settings.EMAIL_BACKEND, [self.info.user.email], fail_silently=False),
+                      settings.DEFAULT_FROM_EMAIL, [self.info.user.email], fail_silently=False),
         super(Refill, self).save()
 
 class Drug_refill(models.Model): #todo and delete this?

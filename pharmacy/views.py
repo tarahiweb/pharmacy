@@ -26,5 +26,5 @@ def test(request):
     # order=NewRx.objects.last()
     # sumation=sum(item.drug_price for item in order.drug_set.all())
     # return HttpResponse(sumation)
-    return render(request,'email/payment-for-rx.html',{'order':order})
+    return render(request,'email/payment-for-rx.html')
 

@@ -21,8 +21,8 @@ def Terms(request):
     return render(request, 'home/terms.html')
 
 def test(request):
-    # send_mail('ok', 'ok',
-    #           settings.DEFAULT_FROM_EMAIL, ['abedi.mehrad@yahoo.com'], fail_silently=False),
+    send_mail('ok', 'ok',
+              settings.DEFAULT_FROM_EMAIL, ['abedi.mehrad@yahoo.com'], fail_silently=False),
     order=NewRx.objects.last()
     sumation=sum(item.drug_price for item in order.drug_set.all())
     return HttpResponse(sumation)

@@ -25,6 +25,6 @@ def test(request):
               settings.DEFAULT_FROM_EMAIL, ['abedi.mehrad@yahoo.com'], fail_silently=False),
     # order=NewRx.objects.last()
     # sumation=sum(item.drug_price for item in order.drug_set.all())
-    # return HttpResponse(sumation)
-    return render(request,'email/payment-for-rx.html')
+    return HttpResponse('kj')
+    # return render(request,'email/payment-for-rx.html')
 

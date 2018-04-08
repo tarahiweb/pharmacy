@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Refill, Drug,NewRx
+from .models import Refill, Drug,NewRx,Drug_refill
 from django.forms.models import ModelForm
 from user_profile.models import User, UserInfo
 
@@ -20,7 +20,17 @@ class DrugAdmin(admin.ModelAdmin):
     list_filter = ['paid', 'verified', 'updated','refill']
     inlines = [DrugInline]
 
+class DrugForRefilInline(admin.TabularInline):
+    extra = 0
+    form = AlwaysChangedModelForm
+    model = Drug_refill
+    raw_id_fields = ['med']
+class DrugForRefillAdmin(admin.ModelAdmin):
+    list_display = [ 'Phone_number','first_name','last_name','Email','RX_number']
+    list_filter = ['Phone_number', 'first_name','last_name','Email','RX_number']
+    inlines = [DrugForRefilInline]
+
 admin.site.register(NewRx,DrugAdmin)
-admin.site.register(Refill)
+admin.site.register(Refill,DrugForRefillAdmin)
 
 

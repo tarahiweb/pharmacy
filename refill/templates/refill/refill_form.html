@@ -37,44 +37,91 @@
     <br>
 
     <div class="container-fluid" style="">
-    <form action=""  method="post" class="form-horizontal">
-        <div  style="width: 90%;margin: auto">
-            {% csrf_token %}
-          {{ form.as_p }}
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="col-sm-8 col-xs-12" >
+            <form action=""  method="post" class="form-horizontal">
+                {% csrf_token %}
                 <input type="hidden" value="1" name="drug_num">
-             <div>
-     <h1>drug information</h1>
+                <div class="row">
+            <div class="col-sm-10 col-xs-12">
+                <table class="table ">
+                    <tr>
+                        <td>First name:</td>
+                        <td><input name="first_name" class="form-control" value="{{ user.first_name }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td>
+                        <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
 
-             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-                <div class="well">
-                    <h2>what do you need?</h2>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <div class="form-group">
-                                <lable class="col-xs-2">drug name 1</lable>
-                                <div class="col-xs-10">
-                                    <input class="form-control" type="text" name="drug_name_1">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="form-group" >
-                                <lable class="col-xs-2">drug dose 1</lable>
-                                <div class="col-xs-10">
-                                    <input class="form-control col-xs-10" type="text" name="drug_dose_1">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="forms"></div>
-                    <a id="add-another">add another drug</a>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth:</td>
+                        <td>
+                            {% if form.Date_of_Birth.errors %}
+                                {% for error in form.Date_of_Birth %}
+                                    <li><span class="error " style="color: #9d0000">This field is required.</span></li>
+                                {% endfor %}
+                            {% endif %}
+                            <input type="date" class="form-control" name="Date_of_Birth" {% if form.Date_of_Birth.value != None %}value="{{ form.Date_of_Birth.value|stringformat:'s' }}"{% endif %} required>
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input name="Email" class="form-control" type="email" value="{{ user.email }}"></td>
+                    </td>
+                </tr>
+                    <tr>
+                        <td>Phone number:</td>
+                        <td><input name="Phone_number" type="number" class="form-control" value="{{ user.phone_number }}"></td>
+                    </td>
+                </tr>
+                <tr>
+                     <tr>
+                        <td>RX number:</td>
+                        <td><input name="RX_number" class="form-control" ></td>
+                    </td>
+                </tr>
+                </table>
+            </div>
                 </div>
+            <div>
+                        <h1>drug information</h1>
 
-                <button type="submit">submit</button>
+                        <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+                        <div class="well">
+                            <h2>what do you need?</h2>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <lable class="col-xs-2">drug name 1</lable>
+                                        <div class="col-xs-10">
+                                            <input class="form-control" type="text" name="drug_name_1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group" >
+                                        <lable class="col-xs-2">drug dose 1</lable>
+                                        <div class="col-xs-10">
+                                            <input class="form-control col-xs-10" type="text" name="drug_dose_1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="forms"></div>
+                            <a id="add-another">add another drug</a>
+
+                        </div>
+
+                        <button type="submit">submit</button>
+
+                    </div>
 
             </form>
+            <br>
         </div>
+    </div>
     </div>
 
 
@@ -89,18 +136,24 @@ form_count = Number($("[name=drug_num]").val());
 $("#add-another").click(function() {
     form_count ++;
 
-     element = $('     <div class="form-group">\n' +
-         '\n' +
-         '                 <lable>drug name '+form_count+'</lable>\n' +
-         '                 <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
-         '             </div>\n' +
-         '                <div class="form-group" >\n' +
-         '\n' +
-         '                 <lable>drug dose '+form_count+'</lable>\n' +
-         '                 <input class="form-control" type="text" name="drug_dose_'+form_count+'">\n' +
-         '             </div>' +
-         '<div class="form-group">' +
-         '</div>');
+     element = $('<hr><div class="row">\n' +
+            '                <div class="col-xs-6">\n' +
+            '                    <div class="form-group">\n' +
+            '                        <lable class="col-xs-2">drug name '+form_count+'</lable>\n' +
+            '                        <div class="col-xs-10">\n' +
+            '                            <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '                <div class="col-xs-6">\n' +
+            '                <div class="form-group" >\n' +
+            '                    <lable class="col-xs-2">drug dose '+form_count+'</lable>\n' +
+            '                    <div class="col-xs-10">\n' +
+            '                        <input class="form-control col-xs-10" type="text" name="drug_dose_'+form_count+'">\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '                </div>\n' +
+            '                </div>');
 
 
     $("#forms").append(element);

@@ -10,6 +10,7 @@
     <script src="{% static 'cmd/jquery-ui.min.js' %}"></script>
     <script src="{% static 'cmd/bootstrap.js' %}"></script>
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <script src="{% static 'font-awesome/css/fontawesome-all.js' %}"></script>
     {% block style %}
     {% endblock %}
     <style>
@@ -38,7 +39,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'home' %}"style="margin-left: 40px;font-size: 40px;color: #e5e5e5">Tyson Pharmacy</a>
+      <a class="navbar-brand" href="{% url 'home' %}" style="margin-left: 40px;font-size: 40px;color: #e5e5e5;padding: 0;"><img src="{% static 'home/Tysons_logo-0.jpg' %}" alt="" width="200px" height="50px"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -84,12 +85,30 @@
           {% if request.user.is_authenticated %}
                 <li class="nav-two-item"><a href="{% url 'user_profile:consulting' %}">Consulting</a></li>
                 <li class="nav-two-item"><a href="{% url 'refill:new-rx' %}">New Prescription</a></li>
-                <li class="nav-two-item"><a href="{% url 'refill:refill' %}">Refill</a></li>
+{#                <li class="nav-two-item"><a href="{% url 'refill:refill' %}">Refill</a></li>#}
+                <li class="nav-two-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Refill <i class="fas fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
+                    <li><a href="{% url 'refill:refill' %}">Refill <i class="fas fa-lock-open"></i></a></li>
+                    <li><a href="{% url 'refill:refill-form' %}">Refill as geust</a></li>
+                </ul>
+          </li>
                 <li class="nav-two-item"><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
           {% else %}
           <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
           <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">New Prescription</a></li>
-          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Refill</a></li>
+{#          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Refill</a></li>#}
+          <li class="nav-two-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Refill <i class="fas fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
+                    <li><a a href="" data-toggle="modal" data-target="#login">Refill <i class="fas fa-lock"></i></a></li>
+                    <li><a href="{% url 'refill:refill-form' %}">Refill as geust</a></li>
+                </ul>
+          </li>
           <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Emergency</a></li>
           {% endif %}
           <li class="nav-two-item"><a href="{% url 'compound-info:compound-info' %}">compounding</a></li>
@@ -116,15 +135,15 @@
 <div class="text-center" style="padding: 100px 0">
     <h1><a class="" href="" style=" font-family: 'Arial black';">Tyson Pharmacy</a></h1>
     <p>
-        <a target="_blank" style="padding-right: 0.5rem;"  href="" class="" ><i  class="fa fa-paper-plane fa-2x " ></i></a>
-        <a target="_blank" style="padding-right: 0.5rem;"  href="" class=""><i i class="fa fa-instagram fa-2x "></i></a>
-        <a target="_blank" style="" href= "" class=""><i  class="fa fa-envelope-square fa-2x "></i></a>
-        <a target="_blank" style="" href="" class=""><i  class="fa fa-facebook fa-2x "></i></a>
-        <a target="_blank" style="" href="" class=""><i  class="fa fa-twitter fa-2x "></i></a>
-        <a target="_blank" style="" href="" class=""><i  class="fa fa-google-plus fa-2x "></i></a>
+        <a target="_blank" style="padding-right: 0.5rem;"  href="" class="" ><i class="fab fa-telegram fa-2x "></i></a>
+        <a target="_blank" style="padding-right: 0.5rem;"  href="" class=""><i class="fab fa-instagram fa-2x"></i></a>
+        <a target="_blank" style="" href= "" class=""><i class="fas fa-envelope-square fa-2x"></i></a>
+        <a target="_blank" style="" href="" class=""><i class="fab fa-facebook-square fa-2x"></i></a>
+        <a target="_blank" style="" href="" class=""><i class="fab fa-twitter-square fa-2x"></i></a>
+        <a target="_blank" style="" href="" class=""><i class="fab fa-google-plus-square fa-2x"></i></a>
     </p>
     <p style="">
-        <a type="button" href="" data-toggle="modal" data-target="#login" style=""><i class="fa fa-sign-in" aria-hidden="true"></i> login </a> |
+        <a type="button" href="" data-toggle="modal" data-target="#login" style=""><i class="fas fa-sign-in-alt"></i> login </a> |
         <a type="button" href="" data-toggle="modal" data-target="#aboutUs" style=""><i class="fa fa-eye" aria-hidden="true"></i> about us </a> |
         <a type="button" href="" data-toggle="modal" data-target="#callUs"style=""><i class="fa fa-phone" aria-hidden="true"></i> call us </a> |
         <a href="{% url 'terms' %}" > Terms and Conditions</a> |

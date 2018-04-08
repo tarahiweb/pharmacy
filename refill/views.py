@@ -79,15 +79,13 @@ def ajax(request):
 
 
 
-def refill_form(request): #todo can we just delete this view?
-    info=UserInfo.objects.filter(user=request.user)
+def refill_form(request):
+    #info=UserInfo.objects.filter(user=request.user)
     #user= User.objects.filter(pk=request.user.id)
     if request.method=='POST':
-        form = forms.RefillForm(request.POST,request.FILES)
+        form = forms.RefillForm(request.POST)
         if form.is_valid():
             refill = form.save(commit=False)
-            information = UserInfo.objects.get(pk=request.POST['info'])
-            refill.info = information
             refill.save()
             for i in range(int(request.POST['drug_num'])):
                 drug = Drug_refill.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
@@ -102,10 +100,11 @@ def refill_form(request): #todo can we just delete this view?
             pdf = render_to_pdf('report/refill-report.html', contect)
             # return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':refill})
-        return render(request, 'refill/refill_form.html', {'info': info, 'form': form})
+        return render(request, 'refill/refill_form.html', {'form': form})
+        #return HttpResponse(form.errors)
     else:
         form = forms.RefillForm()
-        return render(request, 'refill/refill_form.html', {'info':info, 'form':form})
+        return render(request, 'refill/refill_form.html', {'form':form})
 
 
 
@@ -218,7 +217,7 @@ class NewRx_CheckoutView(generic.FormView):
         total = 0
         for item in drug:
             total += item.drug_price
-        amount = Decimal(total)
+        amount = Decimal(total) + Decimal(newrx.shiping_method)
         ctx = super(NewRx_CheckoutView, self).get_context_data(**kwargs)
         ctx.update({
             'braintree_client_token': self.braintree_client_token,
@@ -333,7 +332,8 @@ class NewRx_CheckoutView(generic.FormView):
                                     {'text': message})
         send_mail(message, message,
                   settings.DEFAULT_FROM_EMAIL, [self.request.user.email], fail_silently=False, html_message=msg_html),
-
+        newrx.paid = True
+        newrx.save()
         return super(NewRx_CheckoutView, self).form_valid(form)
 
     def get_success_url(self):

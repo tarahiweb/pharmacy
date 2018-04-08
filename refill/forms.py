@@ -43,17 +43,10 @@ class NewRxForm(forms.ModelForm):
 class RefillForm(forms.ModelForm):
     class Meta:
          model = Refill
-         fields = ['first_name','last_name','Date_of_Birth','RX_number', 'more_refill', 'more_refill_number',]
+         fields = ['first_name','last_name','Email',"Phone_number","RX_number"]
          widgets = {
             'Date_of_Birth': DateInput(),
          }
-
-    def clean(self):
-        cleaned_data = super().clean()
-        more_refill = cleaned_data.get("more_refill")
-        if more_refill:
-            if cleaned_data.get("more_refill_number") == '':
-                raise forms.ValidationError("please specify the number of refills you need")
 
 
 

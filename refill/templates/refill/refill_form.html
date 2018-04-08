@@ -35,67 +35,12 @@
     <br>
     <br>
     <br>
+    <form>
     <div class="container-fluid" style="">
 
         <div  style="width: 90%;margin: auto">
-            <h1>Please check you information  </h1>
-            <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
-        <form action="" method="post" class="form-horizontal" enctype='multipart/form-data'>
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-sm-6 col-xs-12">
-                <table class="table ">
-                    <tr>
-                        <td>First name:</td>
-                        <td><input name="first_name" class="form-control" value="{{ user.first_name }}"></td>
-                    </tr>
-                    <tr>
-                        <td>Last name:</td>
-                        <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
-
-                    </tr>
-                    <tr>
-                        <td>Date of Birth:</td>
-                        <td>
-                            {% if form.Date_of_Birth.errors %}
-                                {% for error in form.Date_of_Birth %}
-                                    <li><span class="error " style="color: #9d0000">This field is required.</span></li>
-                                {% endfor %}
-                            {% endif %}
-                            <input type="date" class="form-control" name="Date_of_Birth">
-                        </td>
-                </table>
-            </div>
-        </div>
-                      <div>
-                          <input type="radio" id="mr" name="more_refill" value= > do you need more refill
-
-                          <div id="mr-panel" style="display: none">
-                            <div class="form-group">
-                                {% if form.more_refill_number.errors %}
-                                    {% for error in form.more_refill_number.errors %}
-                                        <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>
-                                    {% endfor %}
-                                {% endif %}
-                                <label>Please specify the number of refill</label>
-                                <input type="text" class="form-control" name="more_refill_number">
-                            </div>
-                          </div>
-                      </div>
-
-{#        <a href="{% url 'user_profile:update' %}" class="btn btn-warning">if any of this information are wrong please change theme here then come back</a>#}
-{#                {% for i in form %}#}
-{#                    {{ i.name }}#}
-{#                    <div class="form-group">#}
-{#                        {% if i.errors %}#}
-{#                            {% for error in i.errors %}#}
-{#                                <li><span class="error " style="color: #9d0000">{{ error|escape }}</span></li>#}
-{#                            {% endfor %}#}
-{#                        {% endif %}#}
-{#                        <lable>{{ i.label }}</lable>#}
-{#                        <input class="form-control" type="text" name="{{ i.name }}">#}
-{#                    </div>#}
-{#                {% endfor %}#}
+            {% csrf_token %}
+          {{ form.as_p }}
                 <input type="hidden" value="1" name="drug_num">
         <h1>drug info</h1>
              <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
@@ -121,11 +66,52 @@
                     </div>
                     <div id="forms"></div>
                     <a id="add-another">add another drug</a>
+
                 </div>
+            <div>
+                <button type="submit" class="btn btn-success" style="float: right">submit<i class="fa fa-check"></i></button>
+             </div>
+        </div>
+    </div>
+    </form>
 
 
+            <script>
+    $(document).ready(function () {
+         $('input[id=info1]').attr('checked','checked');
+    })
 
-                    <h1>chose your address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
+{#    add another drug#}
+form_count = Number($("[name=drug_num]").val());
+$("#add-another").click(function() {
+    form_count ++;
+
+     element = $('     <div class="form-group">\n' +
+         '\n' +
+         '                 <lable>drug name '+form_count+'</lable>\n' +
+         '                 <input class="form-control" type="text" name="drug_name_'+form_count+'">\n' +
+         '             </div>\n' +
+         '                <div class="form-group" >\n' +
+         '\n' +
+         '                 <lable>drug dose '+form_count+'</lable>\n' +
+         '                 <input class="form-control" type="text" name="drug_dose_'+form_count+'">\n' +
+         '             </div>' +
+         '<div class="form-group">' +
+         '</div>');
+
+
+    $("#forms").append(element);
+    // build element and append it to our forms container
+
+    $("[name=drug_num]").val(form_count);
+    // increment form count so our view knows to populate
+    // that many fields for validation
+})
+</script>
+{% endblock %}
+
+<!--
+                    <h1>choose your address <a class="btn btn-success" data-toggle="modal" data-target="#address" style="font-size: 17px">add another address</a></h1>
                     <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
 
                     <div class="row">
@@ -366,4 +352,4 @@ $(document).ready( function() {
 
 });
 </script>
-{% endblock %}
+-->

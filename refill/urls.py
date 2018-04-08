@@ -3,7 +3,6 @@ from . import views
 
 app_name= 'refill'
 urlpatterns= [
-    #url(r'^create/$', views.order_create, name='order_create'),
     url(r'^new-rx/$', views.new_rx, name='new-rx'),
     url(r'^new-rx/checkout/(?P<pk>[0-9]+)/$', views.NewRx_checkout, name='new-rx-checkout'),
     url(r'^new-rx/checkout-payment/$', views.NewRx_CheckoutView.as_view(), name='newrx-checkoutview'),

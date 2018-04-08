@@ -84,19 +84,22 @@ class Drug(models.Model):
     drug_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True,default=0)
 
 
-class Refill(models.Model): #todo can we just delete this??
+class Refill(models.Model):
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
     Date_of_Birth = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
-    paid = models.BooleanField(default=False)
+    #paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
-    delivered= models.BooleanField(default=False)
+    #delivered= models.BooleanField(default=False)
     info = models.ForeignKey(UserInfo,null=True,related_name='infouser')
-    RX_number= models.CharField(max_length=20, blank=True, help_text="optional")
-    more_refill = models.BooleanField(default=False)
-    more_refill_number = models.CharField(max_length=20, blank=True)
+    RX_number= models.CharField(max_length=20, blank=True)
+    Email = models.EmailField(null=True)
+    Phone_number = PhoneNumberField(null=True)
+
+    #more_refill = models.BooleanField(default=False)
+    #more_refill_number = models.CharField(max_length=20, blank=True)
 
 
     class Meta:
@@ -111,7 +114,7 @@ class Refill(models.Model): #todo can we just delete this??
                       settings.DEFAULT_FROM_EMAIL, [self.info.user.email], fail_silently=False),
         super(Refill, self).save()
 
-class Drug_refill(models.Model): #todo and delete this?
+class Drug_refill(models.Model):
     med=models.ForeignKey(Refill,null=True)
     drug_name = models.CharField(max_length=50, blank=True)
     drug_dose = models.CharField(max_length=20, blank=True)

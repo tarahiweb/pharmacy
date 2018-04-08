@@ -25,19 +25,19 @@ def new_rx(request):
     if request.method=='POST':
         form = forms.NewRxForm(request.POST,request.FILES)
         if form.is_valid():
-            refill = form.save(commit=False)
+            newrx = form.save(commit=False)
             information = UserInfo.objects.get(pk=request.POST['info'])
-            refill.info = information
-            refill.save()
-            request.session['refill.id'] = refill.id
+            newrx.info = information
+            newrx.save()
+            request.session['refill.id'] = newrx.id
             for i in range(int(request.POST['drug_num'])):
                 drug = Drug.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
-                                           drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=refill)
+                                           drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=newrx)
 
-            drugs = Drug.objects.filter(med=refill)
+            drugs = Drug.objects.filter(med=newrx)
 
             contect = {
-                'refill': refill,
+                'refill': newrx,
                 'drug': drugs,
             }
             # email
@@ -51,7 +51,7 @@ def new_rx(request):
 
             pdf = render_to_pdf('report/refill-report.html', contect) #todo send fax
             # return HttpResponse(pdf, content_type='application/pdf')
-            return render(request, 'refill/refill_submited.html', {'refill':refill})
+            return render(request, 'refill/refill_submited.html', {'refill':newrx})
         print(form.errors)
         return render(request, 'refill/new_rx.html', {'info': info, 'form': form})
     else:
@@ -108,7 +108,7 @@ def refill_form(request):
 
 
 
-
+@login_required(login_url='user_profile:login')
 def refill_objects_list(request):
     order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
     return render(request, 'one_click_refill/one_click_refill.html', {'order':order})

@@ -3,8 +3,6 @@ from .models import Refill, Drug,NewRx
 from django.forms.models import ModelForm
 from user_profile.models import User, UserInfo
 
-#class REfillAdmin(admin.ModelAdmin):
- #   list_display = ['created', 'userinfo_address','userinfo_city', 'userinfo_zip']
 
 class AlwaysChangedModelForm(ModelForm):
     def has_changed(self):
@@ -23,6 +21,6 @@ class DrugAdmin(admin.ModelAdmin):
     inlines = [DrugInline]
 
 admin.site.register(NewRx,DrugAdmin)
-# admin.site.register(Refill)
+admin.site.register(Refill)
 
 

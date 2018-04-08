@@ -35,14 +35,16 @@
     <br>
     <br>
     <br>
-    <form>
-    <div class="container-fluid" style="">
 
+    <div class="container-fluid" style="">
         <div  style="width: 90%;margin: auto">
             {% csrf_token %}
           {{ form.as_p }}
                 <input type="hidden" value="1" name="drug_num">
-        <h1>drug info</h1>
+             <div>
+     <h1>drug information</h1>
+            <form action=""  method="post" class="form-horizontal">
+                {% csrf_token %}
              <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
                 <div class="well">
                     <h2>what do you need?</h2>
@@ -68,12 +70,13 @@
                     <a id="add-another">add another drug</a>
 
                 </div>
-            <div>
-                <button type="submit" class="btn btn-success" style="float: right">submit<i class="fa fa-check"></i></button>
-             </div>
+
+                <button type="submit">submit</button>
+
+            </form>
         </div>
     </div>
-    </form>
+
 
 
             <script>

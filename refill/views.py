@@ -108,6 +108,7 @@ def refill_form(request):
 
 
 
+
 def refill_objects_list(request):
     order=NewRx.objects.filter(info__user=request.user).filter(verified=True)
     return render(request, 'one_click_refill/one_click_refill.html', {'order':order})

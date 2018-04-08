@@ -85,6 +85,8 @@ class Drug(models.Model):
 
 
 class Refill(models.Model):
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
     Date_of_Birth = models.DateTimeField()
@@ -93,10 +95,11 @@ class Refill(models.Model):
     #paid = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
     #delivered= models.BooleanField(default=False)
-    info = models.ForeignKey(UserInfo,null=True,related_name='infouser')
+    #info = models.ForeignKey(UserInfo,null=True,related_name='infouser')
     RX_number= models.CharField(max_length=20, blank=True)
     Email = models.EmailField(null=True)
-    Phone_number = PhoneNumberField(null=True)
+    Phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True,
+                                    null=True)
 
     #more_refill = models.BooleanField(default=False)
     #more_refill_number = models.CharField(max_length=20, blank=True)

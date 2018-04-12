@@ -207,18 +207,37 @@
     margin-right: 10px;
 }
 
+.product-col{
+    height:200px;
+    border-radius: 10px;
+    padding-top: 20px;
+    position: relative;
+    overflow: hidden;
 
+}
+.padding-20{
+    padding: 20px;
 
+}
+    .product-col-footer{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 40px;
+        background-color: rgba(132, 132, 132, 0.8);
+        margin: auto;
+    }
 
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: -120px">
 
 {#    landing page slider#}
     <div class="row">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -228,9 +247,9 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-    <div class="item active" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 50vh;background-size: cover;padding: 20px;background-position: center">
+    <div class="item active" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 100vh;background-size: cover;padding: 20px;background-position: center;padding-top: 120px">
          <div class="col-sm-6 col-xs-12  text-center" style="height: 100%">
-            <h1  style="color: #45801b;font-size: 60px">Tyson Pharmacy</h1>
+            <h1  style="color: #45801b;font-size: 60px">TYSONS PHARMACY</h1>
             <h2 >refill your RX easy as cake</h2>
             <p><a class="btn  landingbtn">order emergency refill fast </a> <a class="btn  landingbtn">order refill RX</a></p>
 {#            <ul style="list-style: none;padding: 0">#}
@@ -245,18 +264,18 @@
         </div>
     </div>
 
-    <div class="item" style="background-image: url('{% static 'home/Pill-bottle-spilling.jpg' %}');height: 50vh;background-size: cover;padding: 30px;background-position: center">
+    <div class="item" style="background-image: url('{% static 'home/Pill-bottle-spilling.jpg' %}');height: 100vh;background-size: cover;padding: 30px;background-position: center;padding-top: 120px">
         <div class="col-sm-8 col-xs-12  text-center" style="height: 100%">
-            <h1  style="color: #45801b;font-size: 60px">Tyson Pharmacy</h1>
+            <h1  style="color: #45801b;font-size: 60px">TYSONS PHARMACY</h1>
             <h2 > Do you need  express refill at the comfort of your home</h2>
             <h2 >Do you need extra medicine for your travel</h2>
             <br>
         </div>
     </div>
 
-    <div class="item" style="background-image: url('{% static 'home/slider31.jpg' %}');height: 50vh;background-size: cover;padding: 30px;background-position: bottom">
+    <div class="item" style="background-image: url('{% static 'home/slider31.jpg' %}');height: 100vh;background-size: cover;padding: 30px;background-position: bottom;padding-top: 120px">
         <div class="col-sm-8 col-xs-12  text-center" style="height: 100%">
-            <h1  style="color: #45801b;font-size: 60px">Tyson Pharmacy</h1>
+            <h1  style="color: #45801b;font-size: 60px">TYSONS PHARMACY</h1>
             <h2 >Have you lost your medicine and need express replacement</h2>
             <h2 > Do you want us to contact your doctor and get a prescription for you and delivered to you </h2>
             <br>
@@ -276,188 +295,227 @@
 </div>
     </div>
 
-        <div class="row" style="padding-top: 20px">
-            <div class="col-md-9">
-                <h3>Some of our product</h3>
-            </div>
-            <div class="col-md-3">
-                <!-- Controls -->
-                <div class="controls pull-right hidden-xs">
-                    <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"
-                        data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example"
-                            data-slide="next"></a>
-                </div>
-            </div>
-        <div class="col-xs-12">
+{#        <div class="row" style="padding-top: 20px">#}
+{#            <div class="col-md-9">#}
+{#                <h3>Some of our product</h3>#}
+{#            </div>#}
+{#            <div class="col-md-3">#}
+{#                <!-- Controls -->#}
+{#                <div class="controls pull-right hidden-xs">#}
+{#                    <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"#}
+{#                        data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example"#}
+{#                            data-slide="next"></a>#}
+{#                </div>#}
+{#            </div>#}
+{#        <div class="col-xs-12">#}
+{##}
+{#        <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">#}
+{#            <!-- Wrapper for slides -->#}
+{#            <div class="carousel-inner">#}
+{#                <div class="item active">#}
+{#                    <div class="row" style="margin: 0">#}
+{#                        {% for item in drug %}#}
+{#                            <div class="col-md-3 col-sm-6 col-xs-12" style="height: 350px;padding: 10px;border: 1px solid silver">#}
+{#                    <div class="product-img" style="height: 200px;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: contain;background-repeat: no-repeat;background-position: center">#}
+{#                        {% if item.price == 0 %}#}
+{#                        <div class="circle" style="position: absolute;top: 20px;left: 20px;height: 50px;width: 50px;border-radius: 100%;background-color: #1e7e34;align-items: center">#}
+{#                            <p class="text-center" style="color: white;margin: 15px 0">Free!</p>#}
+{#                        </div>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{##}
+{#                    <div>#}
+{#                        <h4 class="">{{ item.drug_name }}</h4>#}
+{#                        <p >#}
+{#                            {% if item.price == 0 %}#}
+{#                            <span class="disabled" style="font-size: 17px">Free!!</span>#}
+{#                            {% else %}#}
+{#                            <span class="disabled" style="font-size: 17px">{{ item.price }}</span>#}
+{#                            {% endif %}#}
+{##}
+{#                        </p>#}
+{#                    <div style="border-top: 1px solid silver;width: 100%;position: absolute;bottom: 0px;left: 0">#}
+{#                        <div class="col-xs-6" style="padding: 0">#}
+{#                             <a class="btn" onclick="add_to_cart({{ item.pk }})" style="width: 100%;border-right: 1px solid silver;border-radius: 0;" data-toggle="popover" data-trigger="hover" data-content="add to cart"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>#}
+{#                        </div>#}
+{#                        <div class="col-xs-6" style="padding: 0">#}
+{#                            <a class="btn " href="{% url 'product:detail' item.slug %}" data-toggle="popover" data-trigger="hover" data-content="more details" data-placement="left" style="width: 100%;border-left: 1px solid silver;border-radius: 0"><i class="fa fa-search" aria-hidden="true" ></i></a>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{#                        {% endfor %}#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="row">#}
+{#                        <div class="col-sm-3">#}
+{#                            <div class="col-item">#}
+{#                                <div class="photo">#}
+{#                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />#}
+{#                                </div>#}
+{#                                <div class="info">#}
+{#                                    <div class="row">#}
+{#                                        <div class="price col-md-6">#}
+{#                                            <h5>#}
+{#                                                Product with Variants</h5>#}
+{#                                            <h5 class="price-text-color">#}
+{#                                                $199.99</h5>#}
+{#                                        </div>#}
+{#                                        <div class="rating hidden-sm col-md-6">#}
+{#                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">#}
+{#                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">#}
+{#                                            </i><i class="fa fa-star"></i>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="separator clear-left">#}
+{#                                        <p class="btn-add">#}
+{#                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>#}
+{#                                        <p class="btn-details">#}
+{#                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>#}
+{#                                    </div>#}
+{#                                    <div class="clearfix">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-sm-3">#}
+{#                            <div class="col-item">#}
+{#                                <div class="photo">#}
+{#                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />#}
+{#                                </div>#}
+{#                                <div class="info">#}
+{#                                    <div class="row">#}
+{#                                        <div class="price col-md-6">#}
+{#                                            <h5>#}
+{#                                                Grouped Product</h5>#}
+{#                                            <h5 class="price-text-color">#}
+{#                                                $249.99</h5>#}
+{#                                        </div>#}
+{#                                        <div class="rating hidden-sm col-md-6">#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="separator clear-left">#}
+{#                                        <p class="btn-add">#}
+{#                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>#}
+{#                                        <p class="btn-details">#}
+{#                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>#}
+{#                                    </div>#}
+{#                                    <div class="clearfix">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-sm-3">#}
+{#                            <div class="col-item">#}
+{#                                <div class="photo">#}
+{#                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />#}
+{#                                </div>#}
+{#                                <div class="info">#}
+{#                                    <div class="row">#}
+{#                                        <div class="price col-md-6">#}
+{#                                            <h5>#}
+{#                                                Product with Variants</h5>#}
+{#                                            <h5 class="price-text-color">#}
+{#                                                $149.99</h5>#}
+{#                                        </div>#}
+{#                                        <div class="rating hidden-sm col-md-6">#}
+{#                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">#}
+{#                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">#}
+{#                                            </i><i class="fa fa-star"></i>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="separator clear-left">#}
+{#                                        <p class="btn-add">#}
+{#                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>#}
+{#                                        <p class="btn-details">#}
+{#                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>#}
+{#                                    </div>#}
+{#                                    <div class="clearfix">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-sm-3">#}
+{#                            <div class="col-item">#}
+{#                                <div class="photo">#}
+{#                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />#}
+{#                                </div>#}
+{#                                <div class="info">#}
+{#                                    <div class="row">#}
+{#                                        <div class="price col-md-6">#}
+{#                                            <h5>#}
+{#                                                Product with Variants</h5>#}
+{#                                            <h5 class="price-text-color">#}
+{#                                                $199.99</h5>#}
+{#                                        </div>#}
+{#                                        <div class="rating hidden-sm col-md-6">#}
+{#                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">#}
+{#                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">#}
+{#                                            </i><i class="fa fa-star"></i>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="separator clear-left">#}
+{#                                        <p class="btn-add">#}
+{#                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>#}
+{#                                        <p class="btn-details">#}
+{#                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>#}
+{#                                    </div>#}
+{#                                    <div class="clearfix">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#            </div>#}
+{#            <br>#}
+{#            </div>#}
+{#        <div class="row" style="width: 90%;margin: auto">#}
+{#            <h1 class="text-center">shop</h1>#}
+{#            <div class="col-sm-3 col-xs-12 padding-20" >#}
+{#                <div class="product-col text-center" style="background-color: #951768;">#}
+{#                    <img src="{% static 'home/shampoo.png' %}" alt="" width="50%">#}
+{#                    <div class="text-center product-col-footer">#}
+{#                        <p>shampoo</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-sm-3 col-xs-12 padding-20" style="">#}
+{#                <div class="product-col text-center" style="background-color: #951768">#}
+{#                     <img src="{% static 'home/soap.png' %}" alt="" width="50%">#}
+{#                    <div class="text-center product-col-footer">#}
+{#                        <p>whashing</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-sm-3 col-xs-12 padding-20" >#}
+{#                <div class="product-col text-center"style="background-color: #951768">#}
+{#                     <img src="{% static 'home/make-up.png' %}" alt="" width="50%">#}
+{#                    <div class="text-center product-col-footer">#}
+{#                        <p>make up</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-sm-3 col-xs-12 padding-20" >#}
+{#                <div class="product-col text-center" style="background-color: #951768">#}
+{#                     <img src="{% static 'home/sun-protection.png' %}" alt="" width="50%">#}
+{#                    <div class="text-center product-col-footer">#}
+{#                        <p>sun cream</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="text-center">#}
+{#                    <a href="" class="btn landingbtn" style="">see more!</a>#}
+{#            </div>#}
+{#        </div>#}
+{#        <br>#}
 
-        <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div class="row" style="margin: 0">
-                        {% for item in drug %}
-                            <div class="col-md-3 col-sm-6 col-xs-12" style="height: 350px;padding: 10px;border: 1px solid silver">
-                    <div class="product-img" style="height: 200px;background-image: {% if item.drug_pic %} url('{{ item.drug_pic.url }}'){% else %}url('{% static 'icons/drugs.png' %}'){% endif %};background-size: contain;background-repeat: no-repeat;background-position: center">
-                        {% if item.price == 0 %}
-                        <div class="circle" style="position: absolute;top: 20px;left: 20px;height: 50px;width: 50px;border-radius: 100%;background-color: #1e7e34;align-items: center">
-                            <p class="text-center" style="color: white;margin: 15px 0">Free!</p>
-                        </div>
-                        {% endif %}
-                    </div>
-
-                    <div>
-                        <h4 class="">{{ item.drug_name }}</h4>
-                        <p >
-                            {% if item.price == 0 %}
-                            <span class="disabled" style="font-size: 17px">Free!!</span>
-                            {% else %}
-                            <span class="disabled" style="font-size: 17px">{{ item.price }}</span>
-                            {% endif %}
-
-                        </p>
-                    <div style="border-top: 1px solid silver;width: 100%;position: absolute;bottom: 0px;left: 0">
-                        <div class="col-xs-6" style="padding: 0">
-                             <a class="btn" onclick="add_to_cart({{ item.pk }})" style="width: 100%;border-right: 1px solid silver;border-radius: 0;" data-toggle="popover" data-trigger="hover" data-content="add to cart"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="col-xs-6" style="padding: 0">
-                            <a class="btn " href="{% url 'product:detail' item.slug %}" data-toggle="popover" data-trigger="hover" data-content="more details" data-placement="left" style="width: 100%;border-left: 1px solid silver;border-radius: 0"><i class="fa fa-search" aria-hidden="true" ></i></a>
-                        </div>
-                    </div>
-
-
-                    </div>
-                </div>
-                        {% endfor %}
-
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                                <div class="photo">
-                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                </div>
-                                <div class="info">
-                                    <div class="row">
-                                        <div class="price col-md-6">
-                                            <h5>
-                                                Product with Variants</h5>
-                                            <h5 class="price-text-color">
-                                                $199.99</h5>
-                                        </div>
-                                        <div class="rating hidden-sm col-md-6">
-                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="separator clear-left">
-                                        <p class="btn-add">
-                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                        <p class="btn-details">
-                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                    </div>
-                                    <div class="clearfix">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                                <div class="photo">
-                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                </div>
-                                <div class="info">
-                                    <div class="row">
-                                        <div class="price col-md-6">
-                                            <h5>
-                                                Grouped Product</h5>
-                                            <h5 class="price-text-color">
-                                                $249.99</h5>
-                                        </div>
-                                        <div class="rating hidden-sm col-md-6">
-                                        </div>
-                                    </div>
-                                    <div class="separator clear-left">
-                                        <p class="btn-add">
-                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                        <p class="btn-details">
-                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                    </div>
-                                    <div class="clearfix">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                                <div class="photo">
-                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                </div>
-                                <div class="info">
-                                    <div class="row">
-                                        <div class="price col-md-6">
-                                            <h5>
-                                                Product with Variants</h5>
-                                            <h5 class="price-text-color">
-                                                $149.99</h5>
-                                        </div>
-                                        <div class="rating hidden-sm col-md-6">
-                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="separator clear-left">
-                                        <p class="btn-add">
-                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                        <p class="btn-details">
-                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                    </div>
-                                    <div class="clearfix">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                                <div class="photo">
-                                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                </div>
-                                <div class="info">
-                                    <div class="row">
-                                        <div class="price col-md-6">
-                                            <h5>
-                                                Product with Variants</h5>
-                                            <h5 class="price-text-color">
-                                                $199.99</h5>
-                                        </div>
-                                        <div class="rating hidden-sm col-md-6">
-                                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                            </i><i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="separator clear-left">
-                                        <p class="btn-add">
-                                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                        <p class="btn-details">
-                                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                    </div>
-                                    <div class="clearfix">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            </div>
-            <br>
-            </div>
-        <br>
         <div class="row" style="background: #3C385C;background: -webkit-linear-gradient(to right, #3C385C, #6c6896);background: linear-gradient(to right, #3C385C, #6c6896);height: 400px">
             <h1 class="text-center" style="color: white">Our services</h1>
             <div class="col-md-4 col-xs-12 service">
@@ -509,38 +567,35 @@
                         <p>yek sery mision o cherto pert</p>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
-    <div class="row text-center" style="">
-        <h1 style="color: #45801b ">Download Our Free Mobile App</h1>
-        <div class="col-sm-6 col-md-3 col-xs-12">
-            <img src="{% static 'home/drug.png' %}" alt="" style="background-color:  #45801b;width: 120px">
-            <br>
-            <p style="color: #45801b">Refill on-the-go</p>
-            <p>Refill your medications 24/7 without logging into your profile.</p>
-        </div> 
-        <div class="col-sm-6 col-md-3  col-xs-12">
-            <img src="{% static 'home/pill.png' %}" alt="" style="background-color:  #45801b;width: 120px">
-            <br>
-            <p style="color: #45801b">Pill and Refill Reminders</p>
-            <p>Refill your medications 24/7 without logging into your profile.</p>
-        </div>
-        <div class="col-sm-6 col-md-3  col-xs-12">
-            <img src="{% static 'home/profile.png' %}" alt="" style="background-color:  #45801b;width: 120px">
-            <br>
-            <p style="color: #45801b">User Profiles</p>
-            <p>Refill your medications 24/7 without logging into your profile.</p>
-        </div>
-        <div class="col-sm-6 col-md-3  col-xs-12">
-            <img src="{% static 'home/delivery.png' %}" alt="" style="background-color:  #45801b;width: 120px">
-            <br>
-            <p style="color: #45801b">Delivery Options</p>
-            <p>Refill your medications 24/7 without logging into your profile.</p>
-        </div>
-    </div>
+{#    <div class="row text-center" style="">#}
+{#        <h1 style="color: #45801b ">Download Our Free Mobile App</h1>#}
+{#        <div class="col-sm-6 col-md-3 col-xs-12">#}
+{#            <img src="{% static 'home/drug.png' %}" alt="" style="background-color:  #45801b;width: 120px">#}
+{#            <br>#}
+{#            <p style="color: #45801b">Refill on-the-go</p>#}
+{#            <p>Refill your medications 24/7 without logging into your profile.</p>#}
+{#        </div> #}
+{#        <div class="col-sm-6 col-md-3  col-xs-12">#}
+{#            <img src="{% static 'home/pill.png' %}" alt="" style="background-color:  #45801b;width: 120px">#}
+{#            <br>#}
+{#            <p style="color: #45801b">Pill and Refill Reminders</p>#}
+{#            <p>Refill your medications 24/7 without logging into your profile.</p>#}
+{#        </div>#}
+{#        <div class="col-sm-6 col-md-3  col-xs-12">#}
+{#            <img src="{% static 'home/profile.png' %}" alt="" style="background-color:  #45801b;width: 120px">#}
+{#            <br>#}
+{#            <p style="color: #45801b">User Profiles</p>#}
+{#            <p>Refill your medications 24/7 without logging into your profile.</p>#}
+{#        </div>#}
+{#        <div class="col-sm-6 col-md-3  col-xs-12">#}
+{#            <img src="{% static 'home/delivery.png' %}" alt="" style="background-color:  #45801b;width: 120px">#}
+{#            <br>#}
+{#            <p style="color: #45801b">Delivery Options</p>#}
+{#            <p>Refill your medications 24/7 without logging into your profile.</p>#}
+{#        </div>#}
+{#    </div>#}
         <div class="row" style="background-color: #f1f1f1">
             <br>
 
@@ -581,10 +636,10 @@
 
 
         </div>
-    <div class="row text-center" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 300px;background-attachment: fixed;background-position: right;background-size: cover">
-        <h1>under construction</h1>
-
-    </div>
+{#    <div class="row text-center" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 300px;background-attachment: fixed;background-position: right;background-size: cover">#}
+{#        <h1>under construction</h1>#}
+{##}
+{#    </div>#}
     </div>
 
 

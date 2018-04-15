@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% block title %} New Perscription{% endblock %}
 <br>
 {% load static %}
 {% block style %}
@@ -59,14 +60,14 @@
         <div class="col-sm-8 col-xs-12" >
         <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
         <input type="hidden" value="1" name="drug_num">
-            <h1 class="drug">drug info</h1>
+            <h1 class="drug">Medicine info</h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
             <div class="well">
-                <h2>what do you need?</h2>
+                <h2>please enter your medications name</h2>
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group">
-                                <lable class="col-xs-3">drug name 1</lable>
+                                <lable class="col-xs-3">Medicine name-1</lable>
                                 <div class="col-xs-9">
                                     <input class="form-control" type="text" name="drug_name_1">
                                 </div>
@@ -74,7 +75,7 @@
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group" >
-                                <lable class="col-xs-3">drug dose 1</lable>
+                                <lable class="col-xs-3">Medicine dose-1</lable>
                                 <div class="col-xs-9">
                                     <input class="form-control col-xs-10" type="text" name="drug_dose_1">
                                 </div>
@@ -82,10 +83,10 @@
                         </div>
                     </div>
                     <div id="forms"></div>
-                    <a id="add-another">add another drug</a>
+                    <a id="add-another">add another Medicine</a>
                 </div>
 
-            <h1 class="information">Please check you information  </h1>
+            <h1 class="information">Please check you information</h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
 
             <div class="row">
@@ -303,11 +304,11 @@
                 </div>
                 <div id="drug" class="box-info-display">
                     <h4>what do you need</h4>
-                    <p>if you need add more drug just click more drug </p>
+                    <p>if you need add more Medicine just click more Medicine </p>
                 </div>
                 <div id="address" class="box-info-display">
                     <h4>where do you want to delivered</h4>
-                    <p>you can add more than one it will be save for next purchast  </p>
+                    <p>you can add more than one it will be save for next order </p>
                     <p>scroll right in this section to see more of your addresses</p>
                 </div>
                     <p class="left-arrow"style="font-size: 20px"><i class="fa fa-arrow-left" aria-hidden="true"></i></p>

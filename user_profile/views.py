@@ -183,10 +183,10 @@ def consulting_ask(request):
             post.user = request.user
             post.save()
             # email
-            message = 'done'  # todo type proprate message here(consulting question shoma sabt shod, zoodi javab midim )
+            message = 'Your Question is successfuly submited, our Pharmacist will get back to you soon'  # todo type proprate message here(consulting question shoma sabt shod, zoodi javab midim )
             msg_html = render_to_string('email/one_text.html',
                                         {'text': message})
-            send_mail('you order is subimitet', 'you order is subimitet',  # todo type Appropriate title for email
+            send_mail('Question is successfuly submited', 'Question is successfuly submited',
                       settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
             return redirect('user_profile:consulting-show', pk=post.pk)
         else:

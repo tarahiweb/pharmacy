@@ -22,7 +22,7 @@ def Terms(request):
 
 def test(request):
     send_mail('ok', 'ok',
-              settings.DEFAULT_FROM_EMAIL, ['abedi.mehrad@yahoo.com'], fail_silently=False),
+              settings.EMAIL_HOST_USER, ['abedi.mehrad@yahoo.com'], fail_silently=False),
     # order=NewRx.objects.last()
     # sumation=sum(item.drug_price for item in order.drug_set.all())
     return HttpResponse('kj')

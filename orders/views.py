@@ -223,7 +223,7 @@ class CheckoutView(generic.FormView):
         msg = render_to_string('email/shop-factor.html',
                                {'order': order,
                                 'total':total_amount})
-        send_mail('you order is subimitet', 'you order is subimitet', #todo type Appropriate title for email
+        send_mail('Thank you', 'your order is successfuly submited',
                   settings.DEFAULT_FROM_EMAIL, [self.request.user.email], fail_silently=False,html_message=msg),
         return super(CheckoutView, self).form_valid(form)
 

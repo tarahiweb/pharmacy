@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% block title %} Refill as guest {% endblock %}
 <br>
 {% load static %}
 {% block style %}
@@ -59,7 +60,7 @@
                         <td>
                             {% if form.Date_of_Birth.errors %}
                                 {% for error in form.Date_of_Birth %}
-                                    <li><span class="error " style="color: #9d0000">This field is required.</span></li>
+                                    <li><span class="error " style="color: #9d0000">This field is required</span></li>
                                 {% endfor %}
                             {% endif %}
                             <input type="date" class="form-control" name="Date_of_Birth" {% if form.Date_of_Birth.value != None %}value="{{ form.Date_of_Birth.value|stringformat:'s' }}"{% endif %} required>

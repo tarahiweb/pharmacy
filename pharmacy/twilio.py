@@ -15,7 +15,7 @@ def send_sms(phone_number, body):
 
 def send_fax(file):
     fax = client.fax.v1.faxes.create(
-        to="+17039927253",
+        to="+17034018245",
         from_="+12407021252",
         media_url= file
     )

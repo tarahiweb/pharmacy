@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
-
+from pharmacy.twilio import send_fax
 from .models import Refill, Drug, NewRx, Drug_refill
 from django.forms import forms
 from django.views.decorators.csrf import csrf_exempt
@@ -42,15 +42,16 @@ def new_rx(request):
             }
             # email
 
-            message='done' # todo type proprate message here(newrx shoma sabt shod montazere taeid o gheymat dehi bashid mitoni rxnumber ham bedi)
+            message='Your order is successfully submited, we will notify you as soon as we verify it'
             msg_html = render_to_string('email/one_text.html',
                                         {'text': message })
             send_mail(message, message,
                       settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
 
 
-            pdf = render_to_pdf('report/refill-report.html', contect) #todo send fax
+            pdf = render_to_pdf('report/refill-report.html', contect)
             # return HttpResponse(pdf, content_type='application/pdf')
+            send_fax('https://www.tysonspharmacy.us/refill/report/')
             return render(request, 'refill/refill_submited.html', {'refill':newrx})
         print(form.errors)
         return render(request, 'refill/new_rx.html', {'info': info, 'form': form})
@@ -60,7 +61,9 @@ def new_rx(request):
 
 
 def report(request):
-    order=NewRx.objects.last()
+    info = UserInfo.objects.filter(user=request.user)
+    order = NewRx.objects.filter(info=info)
+    order=order.first()
     pdf = render_to_pdf('report/refill-report.html', {'refill':order})  # todo send fax
     return HttpResponse(pdf, content_type='application/pdf')
 
@@ -96,6 +99,13 @@ def refill_form(request):
                 'refill': refill,
                 'drug': drugs,
             }
+            # email
+
+            message = 'Your order is successfully submited, we will notify you as soon as we verify it',
+            msg_html = render_to_string('email/one_text.html',
+                                        {'text': message})
+            send_mail(message, message,
+                      settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
 
             pdf = render_to_pdf('report/refill-report.html', contect)
             # return HttpResponse(pdf, content_type='application/pdf')
@@ -328,7 +338,7 @@ class NewRx_CheckoutView(generic.FormView):
         transaction_id = result.transaction.id
         # Now you can send out confirmation emails or update your metrics
         # or do whatever makes you and your customers happy :)
-        message = 'done'  # todo type proprate message here(pardakhte shoma ba movafahghiat sabt shod )
+        message = 'Thank you, your payment was successfull'
         msg_html = render_to_string('email/one_text.html',
                                     {'text': message})
         send_mail(message, message,

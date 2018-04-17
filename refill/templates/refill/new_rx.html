@@ -60,6 +60,8 @@
         <div class="col-sm-8 col-xs-12" >
         <form action="{% url 'refill:new-rx' %}"  method="post" class="form-horizontal" enctype='multipart/form-data'>
         <input type="hidden" value="1" name="drug_num">
+
+
             <h1 class="drug">Medicine info</h1>
             <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
             <div class="well">
@@ -264,7 +266,9 @@
                     </div>
 
 
-
+                    <div class="well">
+                        <p>If you have any question you can ask us, <a href="{% url 'contact-us' %}">just click me</a> </p>
+                    </div>
 
 
 

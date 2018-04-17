@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+TYSONS pharmacy | contact us
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+
+                <h3 class="">Contact Us</h3>
+                <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
+                <table class="table">
+                    <tr>
+                        <td>phone:</td>
+                        <td>0921341451</td>
+                    </tr>
+                    <tr>
+                        <td>address:</td>
+                        <td>address</td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>info@tysonspharmacy.us</td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <iframe  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAM0zrUIHW2yr4LnduzUnbG2zJEAlbtlKg&q=Florida" width="100%"  frameborder="0" style="border:0"></iframe>
+
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <img src="{% static 'home/tysonspharmacyimage1.png' %}" alt=""width="100%">
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

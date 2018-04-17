@@ -28,3 +28,5 @@ def test(request):
     return HttpResponse('kj')
     # return render(request,'email/payment-for-rx.html')
 
+def contact_us(request):
+    return render(request,'home/contact-us.html')

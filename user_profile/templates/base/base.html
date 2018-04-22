@@ -85,28 +85,26 @@
           {% if request.user.is_authenticated %}
                 <li class="nav-two-item"><a href="{% url 'user_profile:consulting' %}">Consulting</a></li>
                 <li class="nav-two-item"><a href="{% url 'refill:new-rx' %}">New Prescription</a></li>
-{#                <li class="nav-two-item"><a href="{% url 'refill:refill' %}">Refill</a></li>#}
-                <li class="nav-two-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Refill <i class="fas fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
-                    <li><a href="{% url 'refill:refill' %}">Refill <i class="fas fa-lock-open"></i></a></li>
-                    <li><a href="{% url 'refill:refill-form' %}">Refill as geust</a></li>
-                </ul>
-          </li>
+                <li class="nav-two-item "><a class="nav-link dropdown-toggle" href="{% url 'refill:refill' %}" >Refill</a></li>
                 <li class="nav-two-item"><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
           {% else %}
           <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
-          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">New Prescription</a></li>
-{#          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Refill</a></li>#}
+              <li class="nav-two-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    New Prescription <i class="fas fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
+                    <li><a a href="" data-toggle="modal" data-target="#login">New Prescription <i class="fas fa-lock"></i></a></li>
+                    <li><a href="{% url 'refill:newrx-as-qeust' %}">New Prescription as geust</a></li>
+                </ul>
+          </li>
           <li class="nav-two-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Refill <i class="fas fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
                     <li><a a href="" data-toggle="modal" data-target="#login">Refill <i class="fas fa-lock"></i></a></li>
-                    <li><a href="{% url 'refill:refill-form' %}">Refill as geust</a></li>
+                    <li><a href="{% url 'refill:refill-as-qeust' %}">Refill as geust</a></li>
                 </ul>
           </li>
           <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Emergency</a></li>
@@ -130,7 +128,7 @@
     {% block content %}
     {% endblock %}
 
-<footer style="background-color: white;border-top: 2px solid #e5e5e5;position: relative">
+<footer style="background-color: #f9f9f9;border-top: 2px solid #e5e5e5;position: relative">
 {#    <img src="{% static 'blog/steve.jpg' %}" style="visibility: hidden;" />#}
 <div class="text-center" style="padding: 100px 0">
     <h1><a class="" href="" style=" font-family: 'Arial black';">TYSONS Pharmacy</a></h1>

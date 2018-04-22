@@ -1,5 +1,5 @@
 from django import forms
-from .models import NewRx, Refill
+from .models import NewRx, Refill,NewRxAsQeust
 
 
 class DateInput(forms.DateInput):
@@ -69,3 +69,37 @@ class NewRx_CheckoutForm(forms.Form):
             raise forms.ValidationError(_(
                 'We couldn\'t verify your payment. Please try again.'))
         return self.cleaned_data
+
+
+
+class NewRxAsGeustForm(forms.ModelForm):
+    class Meta:
+         model = NewRxAsQeust
+         fields = ['first_name','last_name','Date_of_Birth','email','phone_number', 'dr_phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
+              'prescription']
+
+         widgets = {
+            'Date_of_Birth': DateInput(),
+         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        verify_option = cleaned_data.get("verify_optin")
+        if cleaned_data.get("Dr_adrress") == '' or cleaned_data.get("Dr_name") == '' or cleaned_data.get("dr_phone_number") == '':
+            doctor=False
+        else:
+            doctor=True
+        if cleaned_data.get("last_pharmacy") == '' or cleaned_data.get("last_pharmacy_adrress") == '':
+            pharmacy=False
+        else:
+            pharmacy=True
+
+        if cleaned_data.get("prescription") == None:
+            prescription=False
+        else:
+            prescription=True
+        if  doctor==False and pharmacy==False and prescription==False:
+            raise forms.ValidationError(
+                "At least one of the varifying option is require"
+            )
+

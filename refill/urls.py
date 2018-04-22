@@ -12,7 +12,10 @@ urlpatterns= [
 
     # ajax
     url(r'^ajax/$', views.ajax, name='ajax'),
-    url(r'^refill/$', views.refill_form, name='refill-form'),
+
+    # qeust
+    url(r'^refill_as_qeust/$', views.refill_as_qeust, name='refill-as-qeust'),
+    url(r'^newrx_as_qeust/$', views.newrx_as_qeust, name='newrx-as-qeust'),
 
 
     # one click refill

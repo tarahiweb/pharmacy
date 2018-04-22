@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
 from pharmacy.twilio import send_fax
-from .models import Refill, Drug, NewRx, Drug_refill
+from .models import Refill, Drug, NewRx, Drug_refill,DrugQeust
 from django.forms import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -19,6 +19,7 @@ from . import forms
 from django.utils.translation import ugettext_lazy as _
 from decimal import Decimal
 
+@login_required(login_url='user_profile:login')
 def new_rx(request):
     info=UserInfo.objects.filter(user=request.user)
     #user= User.objects.filter(pk=request.user.id)
@@ -79,42 +80,6 @@ def ajax(request):
             'days': 'not',
         }
     return JsonResponse(reserve)
-
-
-
-def refill_form(request):
-    #info=UserInfo.objects.filter(user=request.user)
-    #user= User.objects.filter(pk=request.user.id)
-    if request.method=='POST':
-        form = forms.RefillForm(request.POST)
-        if form.is_valid():
-            refill = form.save(commit=False)
-            refill.save()
-            for i in range(int(request.POST['drug_num'])):
-                drug = Drug_refill.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
-                                           drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=refill)
-
-            drugs = Drug_refill.objects.filter(med=refill)
-            contect = {
-                'refill': refill,
-                'drug': drugs,
-            }
-            # email
-
-            message = 'Your order is successfully submited, we will notify you as soon as we verify it',
-            msg_html = render_to_string('email/one_text.html',
-                                        {'text': message})
-            send_mail(message, message,
-                      settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
-
-            pdf = render_to_pdf('report/refill-report.html', contect)
-            # return HttpResponse(pdf, content_type='application/pdf')
-            return render(request, 'refill/refill_submited.html', {'refill':refill})
-        return render(request, 'refill/refill_form.html', {'form': form})
-        #return HttpResponse(form.errors)
-    else:
-        form = forms.RefillForm()
-        return render(request, 'refill/refill_form.html', {'form':form})
 
 
 
@@ -353,3 +318,78 @@ class NewRx_CheckoutView(generic.FormView):
 
 def Checkout_Successfull(request):
     return render(request, 'refill/NewRx_checkout_successful.html')
+
+
+# qeust views
+
+def refill_as_qeust(request):
+    #info=UserInfo.objects.filter(user=request.user)
+    #user= User.objects.filter(pk=request.user.id)
+    if request.method=='POST':
+        form = forms.RefillForm(request.POST)
+        if form.is_valid():
+            refill = form.save(commit=False)
+            refill.save()
+            for i in range(int(request.POST['drug_num'])):
+                drug = Drug_refill.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
+                                           drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=refill)
+
+            drugs = Drug_refill.objects.filter(med=refill)
+            contect = {
+                'refill': refill,
+                'drug': drugs,
+            }
+            # email
+
+            message = 'Your order is successfully submited, we will notify you as soon as we verify it',
+            msg_html = render_to_string('email/one_text.html',
+                                        {'text': message})
+            send_mail(message, message,
+                      settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
+
+            pdf = render_to_pdf('report/refill-report.html', contect)
+            # return HttpResponse(pdf, content_type='application/pdf')
+            return render(request, 'refill/refill_submited.html', {'refill':refill})
+        return render(request, 'refill/refill_as_qeust.html', {'form': form})
+        #return HttpResponse(form.errors)
+    else:
+        form = forms.RefillForm()
+        return render(request, 'refill/refill_as_qeust.html', {'form':form})
+
+
+
+def newrx_as_qeust(request):
+    #info=UserInfo.objects.filter(user=request.user)
+    #user= User.objects.filter(pk=request.user.id)
+    if request.method=='POST':
+        form = forms.NewRxAsGeustForm(request.POST,request.FILES)
+        if form.is_valid():
+            rx_qeust = form.save(commit=False)
+            rx_qeust.save()
+            for i in range(int(request.POST['drug_num'])):
+                drug = DrugQeust.objects.create(drug_name=request.POST['drug_name_{}'.format(i + 1)],
+                                           drug_dose=request.POST['drug_dose_{}'.format(i + 1)], med=rx_qeust)
+
+            drugs = DrugQeust.objects.filter(med=rx_qeust)
+            contect = {
+                'refill': rx_qeust,
+                'drug': drugs,
+            }
+            # email
+
+            message = 'Your order is successfully submited, we will notify you as soon as we verify it',
+            msg_html = render_to_string('email/one_text.html',
+                                        {'text': message})
+            send_mail(message, message,
+                      settings.DEFAULT_FROM_EMAIL, [rx_qeust.email], fail_silently=False, html_message=msg_html),
+
+            pdf = render_to_pdf('report/refill-report.html', contect)
+            # return HttpResponse(pdf, content_type='application/pdf')
+            return render(request, 'refill/refill_submited.html', {'refill':rx_qeust})
+        return render(request, 'refill/newrx_as_qeust.html', {'form': form})
+        #return HttpResponse(form.errors)
+    else:
+        form = forms.NewRxAsGeustForm()
+        return render(request, 'refill/newrx_as_qeust.html', {'form':form})
+
+

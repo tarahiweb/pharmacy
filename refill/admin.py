@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Refill, Drug,NewRx,Drug_refill
+from .models import Refill, Drug,NewRx,Drug_refill,NewRxAsQeust
 from django.forms.models import ModelForm
 from user_profile.models import User, UserInfo
 
@@ -32,5 +32,6 @@ class DrugForRefillAdmin(admin.ModelAdmin):
 
 admin.site.register(NewRx,DrugAdmin)
 admin.site.register(Refill,DrugForRefillAdmin)
+admin.site.register(NewRxAsQeust)
 
 

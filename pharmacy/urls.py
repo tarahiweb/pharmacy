@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^test/',test ),
 
     # other
-    url(r'^contact-us/', contact_us,name='contact-us'),
+    url(r'^contact-us$', contact_us,name='contact-us'),
 
 ]
 

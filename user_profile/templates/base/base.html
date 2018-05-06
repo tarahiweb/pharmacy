@@ -57,6 +57,9 @@
 
         <ul class="nav navbar-nav navbar-right menu-two" style="margin: 10px;margin-right: 20px">
         <li class="">
+            <a href="{% url 'contact-us' %}"> Need Help? 703-992-7253 </a>
+        </li>
+        <li class="">
             <a class="btn-success  cart" href="{% url 'cart:cart_detail' %}" id="popoverbtn" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="" >
             <i class="fa fa-shopping-basket" aria-hidden="true"></i> your cart:
               {% if cart.len > 0 %}
@@ -70,6 +73,7 @@
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
               <ul class="dropdown-menu">
+
 
                     <li><a href="{% url 'user_profile:profile' %}" >{{ request.user.username }}</a></li>
                     <li><a href="{% url 'user_profile:logout' %}">log Out</a></li>
@@ -85,7 +89,15 @@
           {% if request.user.is_authenticated %}
                 <li class="nav-two-item"><a href="{% url 'user_profile:consulting' %}">Consulting</a></li>
                 <li class="nav-two-item"><a href="{% url 'refill:new-rx' %}">New Prescription</a></li>
-                <li class="nav-two-item "><a class="nav-link dropdown-toggle" href="{% url 'refill:refill' %}" >Refill</a></li>
+                <li class="nav-two-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Refill <i class="fas fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
+                    <li><a a href="" data-toggle="modal" data-target="#login">Refill <i class="fas fa-lock"></i></a></li>
+                    <li><a href="{% url 'refill:refill-as-qeust' %}">Refill as geust</a></li>
+                </ul>
+          </li>
                 <li class="nav-two-item"><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
           {% else %}
           <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
@@ -142,11 +154,13 @@
     </p>
     <p style="">
         <a type="button" href="" data-toggle="modal" data-target="#login" style=""><i class="fas fa-sign-in-alt"></i> login </a> |
-        <a type="button" href="{% url 'contact-us' %}" data-toggle="modal" data-target="#aboutUs" style=""><i class="fas fa-phone-square"></i> contact us </a> |
+        <a type="button" href="{% url 'contact-us' %}"><i class="fas fa-phone-square"></i> contact us </a> |
         <a type="button" href="" data-toggle="modal" data-target="#callUs"style=""><i class="fa fa-phone" aria-hidden="true"></i> call us </a> |
         <a href="{% url 'terms' %}" > Terms and Conditions</a> |
         <a href="{% url 'privacy' %}">Privacy and Policy</a>
     </p>
+    <p><a href="{% url 'contact-us' %}"> Tel: 703-992-7253, Fax: 703-992-7253</a></p>
+    <p>Address: 110 Pleasant ST NW, Vienna, VA</p>
     <p>AllRight reserved</p>
     <p style="position: absolute;bottom: 0;width: 100%;color: #adabab;font-size: 10px">developed and designed <a href="https://www.linkedin.com/in/mehrad-abedi-bb84a3130/">mehrad</a> & <a href="https://www.linkedin.com/in/armin-khayyer-755a26147/">armin</a></p>
 </div>

@@ -260,14 +260,14 @@
             <br>
             <hr>
             <h1>ready to talk?!</h1>
-            <a href="" class="btn landingbtn">just click me!!</a>
+            <a href="{% url 'user_profile:consulting' %}" class="btn landingbtn">just click here!!</a>
         </div>
     </div>
 
     <div class="item" style="background-image: url('{% static 'home/home.jpg' %}');height: 100vh;background-size: cover;padding: 30px;background-position: center;padding-top: 120px">
         <div class="col-sm-8 col-xs-12 col-sm-offset-2 text-center" style="background-color: #02ffe8cc;margin-top: 10%;border-radius: 10px">
             <h1  style="color: #ffad02">TYSONS PHARMACY</h1>
-            <h2 > Do you need  express refill at the comfort of your home</h2>
+            <h2 > Do you need express refill at the comfort of your home?</h2>
             <br>
         </div>
     </div>
@@ -276,7 +276,7 @@
         <div class="col-sm-8 col-xs-12  text-center" style="margin-top: 10%;color: white">
             <h1  style="color: #ffad02">TYSONS PHARMACY</h1>
             <h2 style="color: #f7f7f7" >Have you lost your medicine and need express replacement</h2>
-            <h2 > Do you want us to contact your doctor and get a prescription for you and delivered to you </h2>
+            <h2 > Do you want us to contact your doctor and get a prescription for you and deliver it to you </h2>
             <br>
         </div>
     </div>
@@ -521,25 +521,25 @@
                 <div class="servicecard card1 text-center" style="background-color: red;height: 100%;width: 100%;color: white">
                     <p class="text-center" style="color: white;font-size: 40px">online drug store</p>
                     <p style="">We provide Free products and meds with coupons just ask our pharmacists about the free meds list</p>
-                    <a class="btn servicebtn" style="background-color: white;border-radius: 30px;position: absolute;bottom: 30px;right: 25%">order emergency refill fast </a>
+                    <a class="btn servicebtn" href="{% url 'product:index' %}" style="background-color: white;border-radius: 30px;position: absolute;bottom: 30px;right: 25%"> Shop our products online </a>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12 service biger">
                  <div class="servicecard card2 text-center" style="background-color: red;height: 100%;width: 100%;color: white">
                      <p class="text-center" style="color: white;font-size: 40px">RX services</p>
-                     <p >We can Contact your doctor and get a emergency prescription for you and delivered to you </p>
-                     <p > We can help with lost medicines and need express replacement it’s no problem </p>
-                     <p > Do you or you loved one need a special packaging for too many medicines so they would not. BE missed doses .</p>
+                     <p > We can help with lost medicines and need express replacement, it’s no problem </p>
+                     <p > Do you or your loved one need a special packaging for too many medicines so they would not. Be missed doses.</p>
+                     <p> We have all kind of solutions</p>
                      <a class="btn servicebtn servicebtnshow" style="">order emergency refill fast </a>
                  </div>
             </div>
             <div class="col-md-4 col-xs-12 service">
                  <div class="servicecard card3 text-center" style="background-color: red;height: 100%;width: 100%;color: white">
                      <p class="text-center" style="color: white;font-size: 40px">consulting</p>
-                     <p style="">We can Contact your doctor and get a emergency prescription for you and delivered to you</p>
+                     <p style="">We can Contact your doctor and get an emergency prescription for you and deliver it to you</p>
                     <p>We also have great list of doctors for your medical problems</p>
-                    <p>We can provide hard to find medicines faster than anybody else let us try</p>
-                     <a class="btn servicebtn" style="">order emergency refill fast </a>
+                    <p>We can provide hard to find medicines faster than anybody else, let us try</p>
+                     <a class="btn servicebtn"  href="{% url 'contact-us' %}" style=""> contact our well-informed pharmacists </a>
                  </div>
             </div>
 
@@ -550,22 +550,22 @@
 
             </div>
             <div class="col-md-7 col-xs-12" style="">
-                <h1 class="text-center">What else we can do</h1>
+                <h1 class="text-center">Other services</h1>
                 <div class="row text-center">
                     <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
                         <i class="fas fa-pills" style="font-size: 30px;color: #8a368a"></i>
-                        <p>We can help with lost medicines and need express replacement it’s no problem let our experienced staff handle it you shouldn’t go without it</p>
+                        <p>We can help with lost medicines and need express replacement, it’s no problem let our experienced staff handle it. You shouldn’t go without it</p>
 
                     </div>
                     <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
                         <i class="fas fa-user-md" style="font-size: 30px;color: #8a368a"></i>
-                        <p>We can Contact your doctor and get a emergency prescription for you and delivered to you </p>
+                        <p>We can Contact your doctor and get a emergency prescription for you and deliver it to you </p>
                     </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
                         <i class="fas fa-shipping-fast" style="font-size: 30px;color: #8a368a"></i>
-                        <p>Why fight all the traffic, weather, and big lines at big store pharmacies not necessary at with today’s technology let us deliver your medicine at privacy of your home and at your conviniece call us for transferring your meds to our Pharmacy</p>
+                        <p>Why fight all the traffic, weather, and big lines at big store pharmacies, not necessary at all. With today’s technologies let us deliver your medicine at privacy of your home and at your conviniece call us for transferring your meds to our Pharmacy</p>
                     </div>
                     <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
                         <i class="fas fa-search" style="font-size: 30px;color: #8a368a"></i>
@@ -618,13 +618,13 @@
 				  <div class="carousel-inner">
 				    <div class="item">
 				    	<blockquote>
-				    		<p>"Super friendly staff, extremely fast service. And their pricing is competitive"</p>
+				    		<p>"Super friendly staff, extremely fast services. And their pricing is competitive"</p>
 				    	</blockquote>
                         <p class="text-center">- A 5-Star Google Review</p>
 				    </div>
 				    <div class="item">
 				    	<blockquote>
-				    		<p>One of the best pharmacies around.</p>
+				    		<p>One of the best pharmacies around</p>
 				    	</blockquote>
                         <p class="text-center">- A 5-Star Google Review</p>
 				    </div>

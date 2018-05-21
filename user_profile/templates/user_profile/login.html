@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block style %}
+    {% load static %}
     <style>
 {#        @import "bourbon";#}
 @media (min-width: 768px) {
@@ -75,54 +76,79 @@
 {% endblock %}
 
 {% block content %}
-    <br>
-    <br>
-    <br>
+      <div class="modal-content" style=" padding: 40px; ">
+        <div class="modal-header" style="border: none">
+        </div>
+          <div class="modal-body" style="padding-top: 0px;">
+            <div class="row">
+              <div class="col-sm-5 col-sm-offset-1 col-xs-12 col-xs-offset-0" style="">
+                <h1>Register</h1>
+
+                <form class="" action="{% url 'user_profile:register' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label >First name</label>
+                        <input  class="form-control"  name="first_name" placeholder="Enter first name">
+                    </div>
+                    <div class="form-group">
+                        <label >last name</label>
+                        <input  class="form-control"  name="last_name" placeholder="Enter last name">
+                    </div>
+                    <div class="form-group">
+                        <label >Email</label>
+                        <input  class="form-control"  name="email" placeholder="Enter email adress">
+                    </div>
 
 
-<div class="wrapper">
-    <div class="row small" style="max-width: 400px; margin: auto" >
-        <form class="form-signin text-center form-horizontal" action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+                    <div class="form-group">
+                        <label >password:</label>
+                        <input type="password" class="form-control"  value="" name="password" placeholder="enter a password">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary " type="submit" style="">submit</button>
+                </form>
 
-            <h2 class="form-signin-heading" style="color: #319531">login</h2>
-            {% if form.errors %}
-                <div class="alert alert-warning ">
+              </div>
+                <div class="col-sm-5 col-xs-12" style="">
+                    <h1>Login</h1>
+                    {% if form.errors %}<div class="alert alert-danger ">
                     <p>email or password is wrong</p>
-                </div>
-            {% endif %}
-
-
-
-            <div class="form-group">
-                <label for="id_username" class="col-sm-2 control-label">email:</label>
-                <div class="col-xs-10">
-                    <input class="form-control" id="id_username" name="username" type="email" >
-                </div>
-
-            </div>
-            <div class="form-group">
-
-                <label for="id_password" class="col-sm-2 control-label">password:</label>
-                <div class="col-xs-10">
-                    <input class="form-control" id="id_password" name="password" type="password">
-                </div>
-            </div>
-
-            <div class="form-group">
+                </div>{% endif %}
+                    <form action="{% url 'user_profile:login' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <div class="form-group">
+                                <span class="alert-danger"></span>
+                            <label >Email address</label>
+                            <input type="email" class="form-control"  name="username" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label >Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
                 <div class="col-xs-10">
                     <input type="radio"  class="col-sm-1"  id="rememberbtn"  >
                     <label dir="auto" for="rememberbtn" class="col-sm-offset-2 col-sm-8 ">remember me </label>
                 </div>
-            </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit" value="Login" style="background-color: rgb(149,23,104)">Login</button>
-            <p><a href="" style="text-decoration: none">forgot password?</a></p>
-            {#        <p><a href="{% url 'resendkey' %}" style="text-decoration: none">اگر ایمیل تان تایید نشده برای دریافت لینک فعال سازی کلیک کنید.</a></p>#}
-        </form>
-    </div>
+                        <div class="form-group">
 
-</div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <br>
+                        <br>
+                        <a href="{% url 'reset_password' %}"><b>FORGOT YOUR PASSWORD?</b></a>
+                        </div>
+                    </form>
+              </div>
+          </div>
+        </div>
+          <div class="modal-footer" style="border: none">
+
+          </div>
+      </div>
+
 {% endblock %}
 
 

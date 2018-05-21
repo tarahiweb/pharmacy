@@ -154,11 +154,11 @@ def ChangePassword(request):
             form.save()
             update_session_auth_hash(request, form.user)
             return redirect('user_profile:profile')
-        return render(request, 'user_profile/form.html', {'form': form})
+        return render(request, 'user_profile/change_password.html', {'form': form})
     else:
         form = PasswordChangeForm(user=request.user)
         context = {'form': form}
-        return render(request, 'user_profile/form.html', context)
+        return render(request, 'user_profile/change_password.html', context)
 
 class EditView(LoginRequiredMixin, UpdateView):
     login_url = 'user_profile:login'

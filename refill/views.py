@@ -125,7 +125,7 @@ def refill_submit(request, pk):
 
         # emai
 
-        message = 'done'  # todo type proprate message here(refill ordere shoma sabt shod montazere taeid o gheymat dehi bashid)
+        message = 'Your Refill has been submitted successfully, we will notify you as soon as your order get verified'
         msg_html = render_to_string('email/one_text.html',
                                     {'text': message})
         send_mail(message, message,
@@ -341,7 +341,7 @@ def refill_as_qeust(request):
             }
             # email
 
-            message = 'Your order is successfully submited, we will notify you as soon as we verify it',
+            message = 'Your order is successfully submited, we will notify you as soon as we verify it'
             msg_html = render_to_string('email/one_text.html',
                                         {'text': message})
             send_mail(message, message,

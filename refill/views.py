@@ -345,7 +345,7 @@ def refill_as_qeust(request):
             msg_html = render_to_string('email/one_text.html',
                                         {'text': message})
             send_mail(message, message,
-                      settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
+                      settings.DEFAULT_FROM_EMAIL, [refill.Email], fail_silently=False, html_message=msg_html),
 
             pdf = render_to_pdf('report/refill-report.html', contect)
             # return HttpResponse(pdf, content_type='application/pdf')

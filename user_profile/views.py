@@ -22,6 +22,7 @@ from django.db.models import Sum,Count
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
+from pharmacy.twilio import send_sms
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -218,6 +219,7 @@ def consulting_show(request,pk):
 
 @csrf_exempt
 def add_phone(request):
+    user=request.user
     if request.method == 'POST':
         form=PhoneForm(request.POST)
         if form.is_valid():

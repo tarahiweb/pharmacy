@@ -42,7 +42,7 @@ class Emergency_as_guest(models.Model):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
-    Date_of_Birth = models.DateTimeField()
+    #Date_of_Birth = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)

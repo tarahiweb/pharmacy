@@ -43,7 +43,7 @@ class NewRxForm(forms.ModelForm):
 class RefillForm(forms.ModelForm):
     class Meta:
          model = Refill
-         fields = ['first_name','last_name','Date_of_Birth','Email',"Phone_number","RX_number"]
+         fields = ['first_name','last_name','Email',"Phone_number","RX_number"]
          widgets = {
             'Date_of_Birth': DateInput(),
          }
@@ -75,7 +75,7 @@ class NewRx_CheckoutForm(forms.Form):
 class NewRxAsGeustForm(forms.ModelForm):
     class Meta:
          model = NewRxAsQeust
-         fields = ['first_name','last_name','Date_of_Birth','email','phone_number', 'dr_phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
+         fields = ['first_name','last_name','email','phone_number', 'dr_phone_number', 'Dr_name', 'Dr_adrress','last_pharmacy', 'last_pharmacy_adrress',
               'prescription']
 
          widgets = {

@@ -56,7 +56,7 @@
                         <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
                         <td><span class="alert-danger">{{ form.last_name.errors }}</span></td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td>Date of Birth:</td>
                         <td>
                             {% if form.Date_of_Birth.errors %}
@@ -67,7 +67,7 @@
                             <input type="date" class="form-control" name="Date_of_Birth" {% if form.Date_of_Birth.value != None %}value="{{ form.Date_of_Birth.value|stringformat:'s' }}"{% endif %} required>
 
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td>Email:</td>
 

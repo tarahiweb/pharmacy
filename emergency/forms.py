@@ -16,7 +16,7 @@ class Emergency_MedCreateForm(forms.ModelForm):
 class Emergency_as_guest_Form(forms.ModelForm):
     class Meta:
          model = Emergency_as_guest
-         fields = ['first_name','last_name','Date_of_Birth','Email',"Phone_number"]
+         fields = ['first_name','last_name','Email',"Phone_number"]
          widgets = {
             'Date_of_Birth': DateInput(),
          }

@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% block title %} Refill as guest {% endblock %}
+{% block title %} Emergency Medicine as guest {% endblock %}
 <br>
 {% load static %}
 {% block style %}
@@ -67,8 +67,7 @@
                             <input type="date" class="form-control" name="Date_of_Birth" {% if form.Date_of_Birth.value != None %}value="{{ form.Date_of_Birth.value|stringformat:'s' }}"{% endif %} required>
 
                         </td>
-                    </tr>
-                    -->
+                    </tr>-->
                     <tr>
                         <td>Email:</td>
 
@@ -80,14 +79,6 @@
                         <td>Phone number:</td>
                         <td><input name="Phone_number" type="number" class="form-control" value="{{ user.phone_number }}"></td>
                         <td><span class="alert-danger">{{ form.Phone_number.errors }}</span></td>
-                    </td>
-                </tr>
-                <tr>
-                     <tr>
-                        <td>RX number:</td>
-
-                        <td><input name="RX_number" class="form-control" ></td>
-                    <td><span class="alert-danger">{{ form.RX_number.errors }}</span></td>
                     </td>
                 </tr>
                 </table>

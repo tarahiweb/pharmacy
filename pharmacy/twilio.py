@@ -8,7 +8,7 @@ client = Client(account_sid, auth_token)
 def send_sms(phone_number, body):
     message = client.messages.create(
         to= str(phone_number),
-        from_="+12407021252",
+        from_="+17039974040",
         body= body)
     return message
 
@@ -16,7 +16,7 @@ def send_sms(phone_number, body):
 def send_fax(file):
     fax = client.fax.v1.faxes.create(
         to="+17034018245",
-        from_="+12407021252",
+        from_="+17039974040",
         media_url= file
     )
     return fax

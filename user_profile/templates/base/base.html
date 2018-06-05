@@ -66,7 +66,7 @@
 
         <ul class="nav navbar-nav navbar-right menu-two" style="margin: 10px;margin-right: 20px">
         <li class="">
-            <a href="{% url 'contact-us' %}"> Need Help? 703-992-7253 </a>
+            <a href="{% url 'contact-us' %}"> Need Help? 703-992-7083 </a>
         </li>
         <li class="">
             <a class="btn-success  cart" href="{% url 'cart:cart_detail' %}" id="popoverbtn" style="margin: 10px 0;padding: 5px 15px;border-radius: 5px;" href="" >
@@ -103,11 +103,19 @@
                     Refill <i class="fas fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
-                    <li><a a href="" data-toggle="modal" data-target="#login">Refill <i class="fas fa-lock"></i></a></li>
+                    <li><a a href="{% url 'refill:refill' %}">Refill <i class="fas fa-lock"></i></a></li>
                     <li><a href="{% url 'refill:refill-as-qeust' %}">Refill as geust</a></li>
                 </ul>
           </li>
-                <li class="nav-two-item"><a href="{% url 'emergency:emergency-info' %}">Emergency</a></li>
+                <li class="nav-two-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Emergency Medicine <i class="fas fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
+                    <li><a a href="{% url 'emergency:emergency-info' %}">Emergency <i class="fas fa-lock"></i></a></li>
+                    <li><a href="{% url 'emergency:emergency-as-guest' %}">Emergency Medicine as geust</a></li>
+                </ul>
+          </li>
           {% else %}
           <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
               <li class="nav-two-item dropdown">
@@ -128,7 +136,7 @@
                     <li><a href="{% url 'refill:refill-as-qeust' %}">Refill as geust</a></li>
                 </ul>
           </li>
-          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Emergency</a></li>
+          <li class="nav-two-item"><a href="{% url 'emergency:emergency-as-guest' %}">Emergency</a></li>
           {% endif %}
 {#          <li class="nav-two-item"><a href="{% url 'compound-info:compound-info' %}">compounding</a></li>#}
       </ul>
@@ -168,7 +176,7 @@
         <a href="{% url 'terms' %}" > Terms and Conditions</a> |
         <a href="{% url 'privacy' %}">Privacy and Policy</a>
     </p>
-    <p><a href="{% url 'contact-us' %}"> Tel: 703-992-7253, Fax: 703-992-7253</a></p>
+    <p><a href="{% url 'contact-us' %}"> Tel: 703-992-7083, Fax: 703-992-7253</a></p>
     <p>Address: 110 Pleasant ST NW, Vienna, VA</p>
     <p>AllRight reserved</p>
     <p style="position: absolute;bottom: 0;width: 100%;color: #adabab;font-size: 10px">developed and designed <a href="https://www.linkedin.com/in/mehrad-abedi-bb84a3130/">mehrad</a> & <a href="https://www.linkedin.com/in/armin-khayyer-755a26147/">armin</a></p>

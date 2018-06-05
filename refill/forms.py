@@ -80,6 +80,7 @@ class NewRxAsGeustForm(forms.ModelForm):
 
          widgets = {
             'Date_of_Birth': DateInput(),
+
          }
 
     def clean(self):

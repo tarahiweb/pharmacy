@@ -377,11 +377,11 @@ def newrx_as_qeust(request):
             }
             # email
 
-            message = 'Your order is successfully submited, we will notify you as soon as we verify it',
+            message = 'Your order is successfully submited, we will notify you as soon as we verify it'
             msg_html = render_to_string('email/one_text.html',
                                         {'text': message})
-            send_mail(message, message,
-                      settings.DEFAULT_FROM_EMAIL, [rx_qeust.email], fail_silently=False, html_message=msg_html),
+
+            send_mail(message, message,settings.DEFAULT_FROM_EMAIL,[rx_qeust.email], fail_silently=False, html_message=msg_html),
 
             pdf = render_to_pdf('report/refill-report.html', contect)
             # return HttpResponse(pdf, content_type='application/pdf')

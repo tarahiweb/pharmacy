@@ -26,8 +26,8 @@ class DrugForRefilInline(admin.TabularInline):
     model = Drug_refill
     raw_id_fields = ['med']
 class DrugForRefillAdmin(admin.ModelAdmin):
-    list_display = [ 'Phone_number','first_name','last_name','Email','RX_number']
-    list_filter = ['Phone_number', 'first_name','last_name','Email','RX_number']
+    list_display = [ 'Phone_number','first_name','last_name','Email']
+    list_filter = ['Phone_number', 'first_name','last_name','Email']
     inlines = [DrugForRefilInline]
 
 admin.site.register(NewRx,DrugAdmin)

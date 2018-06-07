@@ -43,11 +43,7 @@ class NewRxForm(forms.ModelForm):
 class RefillForm(forms.ModelForm):
     class Meta:
          model = Refill
-         fields = ['first_name','last_name','Email',"Phone_number","RX_number"]
-         widgets = {
-            'Date_of_Birth': DateInput(),
-         }
-
+         fields = ['first_name','last_name','Email',"Phone_number", 'Refill_for']
 
 
 

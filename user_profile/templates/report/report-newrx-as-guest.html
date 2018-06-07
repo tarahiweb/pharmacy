@@ -1,0 +1,135 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <html>
+     <head>
+         <title>new perscription as a guest order {{ refill.first_name }}</title>
+         <style type="text/css">
+             body {
+                 font-weight: 200;
+                 font-size: 14px;
+             }
+             td,th {
+                 padding: 5px;
+             }
+             th{
+                 background-color: #f4f4f4;
+             }
+             table{
+                 border: 1px solid black;
+             }
+             .width-50{
+                 width: 50%;
+             }
+
+         </style>
+     </head>
+     <body>
+         <div class=''>
+             <p class='' style="font-size: 40px;margin-bottom: 20px">TYSONS pharmacy</p>
+             <hr>
+                <p>No. {{ refill.rx_number }}</p>
+         <div>
+         <div class=''>
+                <h1>costumer information</h1>
+             <table style="border: 1px solid black">
+                 <tr>
+                     <td>First name:</td>
+                     <td>{{ refill.first_name }}</td>
+                 </tr>
+                 <tr>
+                     <td>Last name:</td>
+                     <td>{{ refill.last_name }}</td>
+                 </tr>
+                 <tr>
+                     <td>Email address:</td>
+                     <td>{{ refill.email }}</td>
+                 </tr>
+
+                 {% if refill.phone_number %}
+                <tr>
+                     <td>phone number</td>
+                     <td>{{ refill.phone_number }}</td>
+                 </tr>
+             {% endif %}
+             </table>
+             <hr>
+
+            <h1>drugs order</h1>
+         <table style="border: 1px solid black">
+         <tr>
+             <th >drug name</th>
+             <th>drug dose</th>
+         </tr>
+             {% for i in drug %}
+                    <tr>
+                        {% if i.drug_name %}
+                            <td >{{ i.drug_name }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+                        {% if i.drug_dose %}
+                            <td >{{ i.drug_dose}}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
+                    </tr>
+             {% endfor %}
+         </table>
+             <hr>
+            <h1>doctor information</h1>
+            <table>
+                <tr>
+                    <td>doctor name:</td>
+                    {% if refill.Dr_name %}
+                        <td>{{ refill.Dr_name }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>doctor phone number:</td>
+                    {% if refill.dr_phone_number %}
+                        <td>{{ refill.dr_phone_number }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>doctor address:</td>
+                    {% if refill.Dr_adrress %}
+                        <td>{{ refill.Dr_adrress }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                </tr>
+
+            </table>
+             <hr>
+            <h1>pharmacy information</h1>
+            <table>
+                <tr>
+                    <td>last pharmacy:</td>
+                    {% if refill.last_pharmacy %}
+                        <td>{{ refill.last_pharmacy }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>last pharmacy adrress:</td>
+                    {% if refill.last_pharmacy_adrress %}
+                        <td>{{ refill.last_pharmacy_adrress }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                </tr>
+
+
+            </table>
+         </div>
+
+     </div>
+         </div>
+     </body>
+ </html>

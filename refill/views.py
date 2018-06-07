@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
 from user_profile.models import UserInfo
 from pharmacy.twilio import send_fax
-from .models import Refill, Drug, NewRx, Drug_refill,DrugQeust
+from .models import Refill, Drug, NewRx, Drug_refill,DrugQeust,NewRxAsQeust
 from django.forms import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -49,24 +49,24 @@ def new_rx(request):
             send_mail(message, message,
                       settings.DEFAULT_FROM_EMAIL, [request.user.email], fail_silently=False, html_message=msg_html),
 
-
-            pdf = render_to_pdf('report/refill-report.html', contect)
             # return HttpResponse(pdf, content_type='application/pdf')
-            send_fax('https://www.tysonspharmacy.us/refill/report/')
+            send_fax('https://www.tysonspharmacy.us/refill/report/NewRx/')
             return render(request, 'refill/refill_submited.html', {'refill':newrx})
-        print(form.errors)
         return render(request, 'refill/new_rx.html', {'info': info, 'form': form})
     else:
         form = forms.NewRxForm()
         return render(request, 'refill/new_rx.html', {'info':info, 'form':form})
 
 
-def report(request):
+def report_newRx(request):
     info = UserInfo.objects.filter(user=request.user)
     order = NewRx.objects.filter(info=info)
     order=order.first()
-    pdf = render_to_pdf('report/refill-report.html', {'refill':order})  # todo send fax
+    drug= Drug.objects.filter(med=order)
+    print(drug)
+    pdf = render_to_pdf('report/refill-report.html', {'refill':order, "drug":drug})
     return HttpResponse(pdf, content_type='application/pdf')
+
 
 @csrf_exempt
 def ajax(request):
@@ -346,8 +346,8 @@ def refill_as_qeust(request):
                                         {'text': message})
             send_mail(message, message,
                       settings.DEFAULT_FROM_EMAIL, [refill.Email], fail_silently=False, html_message=msg_html),
-
-            pdf = render_to_pdf('report/refill-report.html', contect)
+            sid=send_fax('https://www.tysonspharmacy.us/refill/report/refill-as-guest/')
+            print(sid.sid)
             # return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':refill})
         return render(request, 'refill/refill_as_qeust.html', {'form': form})
@@ -356,6 +356,12 @@ def refill_as_qeust(request):
         form = forms.RefillForm()
         return render(request, 'refill/refill_as_qeust.html', {'form':form})
 
+def report_refill_asguest(request):
+    #info = UserInfo.objects.filter(user=request.user)
+    order=Refill.objects.first()
+    drug= Drug_refill.objects.filter(med=order)
+    pdf = render_to_pdf('report/rport-refill-asguest.html', {'refill':order, "drug":drug})
+    return HttpResponse(pdf, content_type='application/pdf')
 
 
 def newrx_as_qeust(request):
@@ -385,6 +391,8 @@ def newrx_as_qeust(request):
 
             pdf = render_to_pdf('report/refill-report.html', contect)
             # return HttpResponse(pdf, content_type='application/pdf')
+            sid = send_fax('https://www.tysonspharmacy.us/refill/report/NewRx-as-guest/')
+            print(sid.sid)
             return render(request, 'refill/refill_submited.html', {'refill':rx_qeust})
         return render(request, 'refill/newrx_as_qeust.html', {'form': form})
         #return HttpResponse(form.errors)
@@ -393,3 +401,9 @@ def newrx_as_qeust(request):
         return render(request, 'refill/newrx_as_qeust.html', {'form':form})
 
 
+def report_newRx_asguest(request):
+    #info = UserInfo.objects.filter(user=request.user)
+    order=NewRxAsQeust.objects.first()
+    drug= DrugQeust.objects.filter(med=order)
+    pdf = render_to_pdf('report/report-newrx-as-guest.html', {'refill':order, "drug":drug})
+    return HttpResponse(pdf, content_type='application/pdf')

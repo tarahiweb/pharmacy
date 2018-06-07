@@ -1,5 +1,5 @@
 
-from .models import User,UserInfo, Question, Answer
+from .models import User,UserInfo, Question, Answer, consult_as_guest
 from django import  forms
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -58,3 +58,9 @@ class PhoneForm(forms.ModelForm):
     class Meta:
         model=User
         fields=['phone_number']
+
+
+class consulting_as_guest_Form(forms.ModelForm):
+    class Meta:
+         model = consult_as_guest
+         fields = ['first_name','last_name','Email',"Phone_number", 'question']

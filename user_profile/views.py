@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.contrib.auth import authenticate, login,logout,update_session_auth_hash
 from django.conf import settings
-from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm,PhoneForm
+from .form import UserForm,LoginForm,UserInfoForm, QuestionForm, AnswerForm,PhoneForm,consulting_as_guest_Form
 from django.contrib.auth import login as auth_login
 from django.views.generic import View
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Question, Answer, User,UserInfo
+from .models import Question, Answer, User,UserInfo, consult_as_guest
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -22,7 +22,7 @@ from django.db.models import Sum,Count
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from pharmacy.report import render_to_pdf
-from pharmacy.twilio import send_sms
+from pharmacy.twilio import send_sms, send_fax
 
 @login_required(login_url='user_profile:login')
 def profile(request):
@@ -253,3 +253,37 @@ def order(request):
         canselobj.save()
         pdf = render_to_pdf('report/refill-report.html')  # todo send fax for canselation
     return render(request,'user_profile/orders.html',context)
+
+
+def consultiong_as_qeust_view(request):
+    #info=UserInfo.objects.filter(user=request.user)
+    #user= User.objects.filter(pk=request.user.id)
+    if request.method=='POST':
+        form = consulting_as_guest_Form(request.POST)
+        if form.is_valid():
+            consulting_guest = form.save(commit=False)
+            consulting_guest.save()
+            contect = {
+                'consulting_guest': consulting_guest,
+            }
+            # email
+
+            message = 'Your question is successfully submited, we will answere it as soon as possible'
+            msg_html = render_to_string('email/one_text.html',
+                                        {'text': message})
+            send_mail(message, message,
+                      settings.DEFAULT_FROM_EMAIL, [consulting_guest.Email], fail_silently=False, html_message=msg_html),
+
+            send_fax('https://www.tysonspharmacy.us/user/report/consulting-as-guest/')
+            # return HttpResponse(pdf, content_type='application/pdf')
+            return render(request, 'consulting/consulting-submited.html', {'refill':consulting_guest})
+        return render(request, 'consulting/consulting_asguest.html', {'form': form})
+        #return HttpResponse(form.errors)
+    else:
+        form = consulting_as_guest_Form()
+        return render(request, 'consulting/consulting_asguest.html', {'form':form})
+
+def report_consulting_asguest(request):
+    question=consult_as_guest.objects.first()
+    pdf = render_to_pdf('report/report-consulting-as-guest.html', {'refill':question})
+    return HttpResponse(pdf, content_type='application/pdf')

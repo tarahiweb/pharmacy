@@ -27,8 +27,8 @@
          <div class=''>
              <p class='' style="font-size: 40px;margin-bottom: 20px">TYSONS pharmacy</p>
 
-                <p>Refill as a guest order</p>
-         <p>Date : {{ refill.created }}</p>
+                <p>New Question from {{ refill.first_name }}</p>
+                <p>Date : {{ refill.created }}</p>
               <hr>
          <div>
          <div class=''>
@@ -56,33 +56,15 @@
                         <td>-</td>
                     {% endif %}
                  </tr>
+              <tr>
+                     <td>Question:</td>
+                     <td>{{ refill.question }}</td>
+                 </tr>
+
+
              </table>
-             <hr>
-
-            <h1>drugs order</h1>
-         <table style="border: 1px solid black">
-         <tr>
-             <th >drug name</th>
-             <th>drug dose</th>
-         </tr>
-             {% for i in drug %}
-                    <tr>
-                        {% if i.drug_name %}
-                            <td >{{ i.drug_name }}</td>
-                        {% else %}
-                            <td>-</td>
-                        {% endif %}
-                        {% if i.drug_dose %}
-                            <td >{{ i.drug_dose}}</td>
-                        {% else %}
-                            <td>-</td>
-                        {% endif %}
-
-                    </tr>
-             {% endfor %}
-         </table>
+         <hr>
          </div>
-
      </div>
          </div>
      </body>

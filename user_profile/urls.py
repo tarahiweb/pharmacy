@@ -14,7 +14,8 @@ urlpatterns = [
     url(r'^consulting/ask', views.consulting_ask, name='consulting_ask'),
     url(r'^consulting/show/(?P<pk>[0-9]+)/$', views.consulting_show, name='consulting-show'),
     url(r'^consulting/$', views.consulting, name='consulting'),
-
+    url(r'^consulting-as-guest/$', views.consultiong_as_qeust_view, name='consulting-as-guest'),
+    url(r'^report/consulting-as-guest/$', views.report_consulting_asguest, name='report-consulting-as-guest'),
     #profile
     url(r'^$', views.profile, name='profile'),
     url(r'^update', views.EditView.as_view(), name='update'),

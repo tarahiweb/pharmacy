@@ -5,10 +5,48 @@ TYSONS pharmacy | contact us
 {% endblock %}
 {% block content %}
     <div class="container-fluid">
+    <div class="row" style="background-color: white">
+			<div class="col-md-8 col-md-offset-2">
+                <div class="quote"><i class=""></i></div>
+                <h3>About US</h3>
+				<div class="carousel slide" id="fade-quote-carousel" data-ride="carousel" data-interval="3000">
+				  <!-- Carousel indicators -->
+                  <ol class="carousel-indicators">
+				    <li data-target="#fade-quote-carousel" data-slide-to="0"></li>
+				    <li data-target="#fade-quote-carousel" data-slide-to="1" class="active"></li>
+				    <li data-target="#fade-quote-carousel" data-slide-to="2" ></li>
+
+				  </ol>
+				  <!-- Carousel items -->
+				  <div class="carousel-inner">
+				    <div class="item">
+				    	<blockquote>
+				    		<p>Super friendly staff, extremely fast services. And their pricing is competitive</p>
+				    	</blockquote>
+
+				    </div>
+				    <div class="item">
+				    	<blockquote>
+				    		<p>One of the best pharmacies around</p>
+				    	</blockquote>
+
+				    </div>
+				    <div class="active item">
+				    	<blockquote>
+				    		<p>Very well informed and much more interested in you than big companies.</p>
+				    	</blockquote>
+
+				    </div>
+                    <p class="text-center">- A 5-Star Google Review</p>
+				  </div>
+				</div>
+			</div>
+        </div>
+        <hr>
         <div class="row">
             <div class="col-sm-6 col-xs-12">
 
-                <h3 class="">Contact Us</h3>
+                <h3 class="">Contact Information</h3>
                 <p class="" style="height: 5px;width: 120px;border-radius: 5px;background-color: #1e7e34;"></p>
                 <table class="table">
                     <tr>
@@ -28,9 +66,8 @@ TYSONS pharmacy | contact us
                         <td>Ask@tysonspharmacy.us</td>
                     </tr>
                 </table>
-                <br>
-                <br>
-                <iframe  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAM0zrUIHW2yr4LnduzUnbG2zJEAlbtlKg&q=110+Pleasant+St+NW+Vienna+VA" width="100%"  frameborder="0" style="border:0"></iframe>
+                <h3>Our Address on Google Maps</h3>
+                <iframe  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAM0zrUIHW2yr4LnduzUnbG2zJEAlbtlKg&q=110+Pleasant+St+NW+Vienna+VA" width="100%" frameborder="0" style="border:0"></iframe>
 
             </div>
             <div class="col-sm-6 col-xs-12">
@@ -38,8 +75,7 @@ TYSONS pharmacy | contact us
 
             </div>
         </div>
+
     </div>
-    <br>
-    <br>
-    <br>
+
 {% endblock %}

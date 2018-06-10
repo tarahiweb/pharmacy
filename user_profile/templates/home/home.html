@@ -228,7 +228,15 @@
         background-color: rgba(132, 132, 132, 0.8);
         margin: auto;
     }
+    @media screen and (max-device-width: 768px){
+             h1{
+                 font-size: 20px;
+             }
+            h2{
+                font-size: 17px;
+            }
 
+         }
     </style>
 {% endblock %}
 
@@ -269,7 +277,7 @@
 
     <div class="item " style="background-image: url('{% static 'home/seniorsmed4.jpg' %}');height: 100vh;background-size: cover;padding: 10px;background-position: center;padding-top: 120px">
         <div class="col-sm-8 col-xs-12  text-center" style=";margin-top: 10%;color:white;border-radius: 10px">
-            <h1  style="color: #ffad02">TYSONS PHARMACY</h1>
+            <h1 class="test"  style="color: #ffad02">TYSONS PHARMACY</h1>
             <h2 > Do you or your loved one need a special packaging for too many medicines, so they would not be missed doses.</h2>
             <h2>We are here to help, just contact us: <a href="{% url 'contact-us' %}" >703-992-7083</a></h2>
             <br>
@@ -528,65 +536,65 @@
 {#        </div>#}
 {#        <br>#}
 
-        <div class="row" style="background: #3C385C;background: -webkit-linear-gradient(to right, #3C385C, #6c6896);background: linear-gradient(to right, #3C385C, #6c6896);min-height: 400px;padding-bottom: 20px">
-            <h1 class="text-center" style="color: white">Our services</h1>
-            <div class="col-md-4 col-xs-12 service">
-                <div class="servicecard card1 text-center" style="background-color: red;height: 100%;width: 100%;color: white">
-                    <p class="text-center" style="color: white;font-size: 40px">online drug store</p>
-                    <p style="">We provide Free products and meds with coupons just ask our pharmacists about the free meds list</p>
-                    <a class="btn servicebtn" href="{% url 'product:index' %}" style="background-color: white;border-radius: 30px;position: absolute;bottom: 30px;right: 25%"> Shop our products online </a>
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-12 service biger">
-                 <div class="servicecard card2 text-center" style="background-color: red;height: 100%;width: 100%;color: white">
-                     <p class="text-center" style="color: white;font-size: 40px">RX services</p>
-                     <p > We can help with lost medicines and need express replacement, it’s no problem </p>
-                     <p > Do you or your loved one need a special packaging for too many medicines, so they would not be missed doses.</p>
-                     <p> We have all kind of solutions</p>
-                     <a class="btn servicebtn servicebtnshow" style="">order emergency refill fast </a>
-                 </div>
-            </div>
-            <div class="col-md-4 col-xs-12 service">
-                 <div class="servicecard card3 text-center" style="background-color: red;height: 100%;width: 100%;color: white">
-                     <p class="text-center" style="color: white;font-size: 40px">consulting</p>
-                     <p style="">We can Contact your doctor and get an emergency prescription for you and deliver it to you</p>
-                    <p>We also have great list of doctors for your medical problems</p>
-                    <p>We can provide hard to find medicines faster than anybody else, let us try</p>
-                     <a class="btn servicebtn"  href="{% url 'contact-us' %}" style=""> contact our well-informed pharmacists </a>
-                 </div>
-            </div>
-
-        </div>
-        <div class="row" style="background-color: #73a8d3">
-            <div class="col-md-5 col-xs-12">
-                <img src="{% static 'home/doctor.png' %}" alt="" width="100%">
-
-            </div>
-            <div class="col-md-7 col-xs-12" style="">
-                <h1 class="text-center">Other services</h1>
-                <div class="row text-center">
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
-                        <i class="fas fa-pills" style="font-size: 30px;color: #8a368a"></i>
-                        <p>We can help with lost medicines and need express replacement, it’s no problem let our experienced staff handle it. You shouldn’t go without it</p>
-
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
-                        <i class="fas fa-user-md" style="font-size: 30px;color: #8a368a"></i>
-                        <p>We can Contact your doctor and get a emergency prescription for you and deliver it to you </p>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
-                        <i class="fas fa-shipping-fast" style="font-size: 30px;color: #8a368a"></i>
-                        <p>Why fight all the traffic, weather, and big lines at big store pharmacies, not necessary at all. With today’s technologies let us deliver your medicine at privacy of your home and at your conviniece call us for transferring your meds to our Pharmacy</p>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">
-                        <i class="fas fa-search" style="font-size: 30px;color: #8a368a"></i>
-                        <p>We can provide "hard to find medicines" faster than anybody else let us try</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+{#        <div class="row" style="background: #3C385C;background: -webkit-linear-gradient(to right, #3C385C, #6c6896);background: linear-gradient(to right, #3C385C, #6c6896);min-height: 400px;padding-bottom: 20px">#}
+{#            <h1 class="text-center" style="color: white">Our services</h1>#}
+{#            <div class="col-md-4 col-xs-12 service">#}
+{#                <div class="servicecard card1 text-center" style="background-color: red;height: 100%;width: 100%;color: white">#}
+{#                    <p class="text-center" style="color: white;font-size: 40px">online drug store</p>#}
+{#                    <p style="">We provide Free products and meds with coupons just ask our pharmacists about the free meds list</p>#}
+{#                    <a class="btn servicebtn" href="{% url 'product:index' %}" style="background-color: white;border-radius: 30px;position: absolute;bottom: 30px;right: 25%"> Shop our products online </a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-4 col-xs-12 service biger">#}
+{#                 <div class="servicecard card2 text-center" style="background-color: red;height: 100%;width: 100%;color: white">#}
+{#                     <p class="text-center" style="color: white;font-size: 40px">RX services</p>#}
+{#                     <p > We can help with lost medicines and need express replacement, it’s no problem </p>#}
+{#                     <p > Do you or your loved one need a special packaging for too many medicines, so they would not be missed doses.</p>#}
+{#                     <p> We have all kind of solutions</p>#}
+{#                     <a class="btn servicebtn servicebtnshow" style="">order emergency refill fast </a>#}
+{#                 </div>#}
+{#            </div>#}
+{#            <div class="col-md-4 col-xs-12 service">#}
+{#                 <div class="servicecard card3 text-center" style="background-color: red;height: 100%;width: 100%;color: white">#}
+{#                     <p class="text-center" style="color: white;font-size: 40px">consulting</p>#}
+{#                     <p style="">We can Contact your doctor and get an emergency prescription for you and deliver it to you</p>#}
+{#                    <p>We also have great list of doctors for your medical problems</p>#}
+{#                    <p>We can provide hard to find medicines faster than anybody else, let us try</p>#}
+{#                     <a class="btn servicebtn"  href="{% url 'contact-us' %}" style=""> contact our well-informed pharmacists </a>#}
+{#                 </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#        <div class="row" style="background-color: #73a8d3">#}
+{#            <div class="col-md-5 col-xs-12">#}
+{#                <img src="{% static 'home/doctor.png' %}" alt="" width="100%">#}
+{##}
+{#            </div>#}
+{#            <div class="col-md-7 col-xs-12" style="">#}
+{#                <h1 class="text-center">Other services</h1>#}
+{#                <div class="row text-center">#}
+{#                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">#}
+{#                        <i class="fas fa-pills" style="font-size: 30px;color: #8a368a"></i>#}
+{#                        <p>We can help with lost medicines and need express replacement, it’s no problem let our experienced staff handle it. You shouldn’t go without it</p>#}
+{##}
+{#                    </div>#}
+{#                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">#}
+{#                        <i class="fas fa-user-md" style="font-size: 30px;color: #8a368a"></i>#}
+{#                        <p>We can Contact your doctor and get a emergency prescription for you and deliver it to you </p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="row text-center">#}
+{#                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">#}
+{#                        <i class="fas fa-shipping-fast" style="font-size: 30px;color: #8a368a"></i>#}
+{#                        <p>Why fight all the traffic, weather, and big lines at big store pharmacies, not necessary at all. With today’s technologies let us deliver your medicine at privacy of your home and at your conviniece call us for transferring your meds to our Pharmacy</p>#}
+{#                    </div>#}
+{#                    <div class="col-sm-6 col-xs-12" style="margin-top: 20px;margin-bottom: 40px">#}
+{#                        <i class="fas fa-search" style="font-size: 30px;color: #8a368a"></i>#}
+{#                        <p>We can provide "hard to find medicines" faster than anybody else let us try</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 {#    <div class="row text-center" style="">#}
 {#        <h1 style="color: #45801b ">Download Our Free Mobile App</h1>#}
 {#        <div class="col-sm-6 col-md-3 col-xs-12">#}
@@ -614,46 +622,46 @@
 {#            <p>Refill your medications 24/7 without logging into your profile.</p>#}
 {#        </div>#}
 {#    </div>#}
-        <div class="row" style="background-color: #f9f9f9">
-            <br>
-
-			<div class="col-md-8 col-md-offset-2">
-                <div class="quote"><i class="fa fa-quote-left fa-4x"></i></div>
-				<div class="carousel slide" id="fade-quote-carousel" data-ride="carousel" data-interval="3000">
-				  <!-- Carousel indicators -->
-                  <ol class="carousel-indicators">
-				    <li data-target="#fade-quote-carousel" data-slide-to="0"></li>
-				    <li data-target="#fade-quote-carousel" data-slide-to="1" class="active"></li>
-				    <li data-target="#fade-quote-carousel" data-slide-to="2" ></li>
-
-				  </ol>
-				  <!-- Carousel items -->
-				  <div class="carousel-inner">
-				    <div class="item">
-				    	<blockquote>
-				    		<p>"Super friendly staff, extremely fast services. And their pricing is competitive"</p>
-				    	</blockquote>
-                        <p class="text-center">- A 5-Star Google Review</p>
-				    </div>
-				    <div class="item">
-				    	<blockquote>
-				    		<p>One of the best pharmacies around</p>
-				    	</blockquote>
-                        <p class="text-center">- A 5-Star Google Review</p>
-				    </div>
-				    <div class="active item">
-				    	<blockquote>
-				    		<p>Very well informed and much more interested in you than big companies.</p>
-				    	</blockquote>
-                        <p class="text-center">- A 5-Star Google Review</p>
-				    </div>
-
-				  </div>
-				</div>
-			</div>
-
-
-        </div>
+{#        <div class="row" style="background-color: #f9f9f9">#}
+{#            <br>#}
+{##}
+{#			<div class="col-md-8 col-md-offset-2">#}
+{#                <div class="quote"><i class="fa fa-quote-left fa-4x"></i></div>#}
+{#				<div class="carousel slide" id="fade-quote-carousel" data-ride="carousel" data-interval="3000">#}
+{#				  <!-- Carousel indicators -->#}
+{#                  <ol class="carousel-indicators">#}
+{#				    <li data-target="#fade-quote-carousel" data-slide-to="0"></li>#}
+{#				    <li data-target="#fade-quote-carousel" data-slide-to="1" class="active"></li>#}
+{#				    <li data-target="#fade-quote-carousel" data-slide-to="2" ></li>#}
+{##}
+{#				  </ol>#}
+{#				  <!-- Carousel items -->#}
+{#				  <div class="carousel-inner">#}
+{#				    <div class="item">#}
+{#				    	<blockquote>#}
+{#				    		<p>"Super friendly staff, extremely fast services. And their pricing is competitive"</p>#}
+{#				    	</blockquote>#}
+{#                        <p class="text-center">- A 5-Star Google Review</p>#}
+{#				    </div>#}
+{#				    <div class="item">#}
+{#				    	<blockquote>#}
+{#				    		<p>One of the best pharmacies around</p>#}
+{#				    	</blockquote>#}
+{#                        <p class="text-center">- A 5-Star Google Review</p>#}
+{#				    </div>#}
+{#				    <div class="active item">#}
+{#				    	<blockquote>#}
+{#				    		<p>Very well informed and much more interested in you than big companies.</p>#}
+{#				    	</blockquote>#}
+{#                        <p class="text-center">- A 5-Star Google Review</p>#}
+{#				    </div>#}
+{##}
+{#				  </div>#}
+{#				</div>#}
+{#			</div>#}
+{##}
+{##}
+{#        </div>#}
 {#    <div class="row text-center" style="background-image: url('{% static 'home/pharmacy.jpg' %}');height: 300px;background-attachment: fixed;background-position: right;background-size: cover">#}
 {#        <h1>under construction</h1>#}
 {##}

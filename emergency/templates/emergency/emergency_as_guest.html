@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% block title %} Emergency Medicine as guest {% endblock %}
+{% block title %} Refill as guest {% endblock %}
 <br>
 {% load static %}
 {% block style %}
@@ -46,13 +46,14 @@
                 <div class="row">
             <div class="col-sm-10 col-xs-12">
                 <table class="table ">
+                {% if user.is_authenticated  %}
                     <tr>
-                        <td>First name:</td>
+                        <td>First name* :</td>
                         <td><input name="first_name" class="form-control" value="{{ user.first_name }}"></td>
                          <td><span class="alert-danger">{{ form.first_name.errors }}</span></td>
                     </tr>
                     <tr>
-                        <td>Last name:</td>
+                        <td>Last name* :</td>
                         <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
                         <td><span class="alert-danger">{{ form.last_name.errors }}</span></td>
                     </tr>
@@ -67,20 +68,45 @@
                             <input type="date" class="form-control" name="Date_of_Birth" {% if form.Date_of_Birth.value != None %}value="{{ form.Date_of_Birth.value|stringformat:'s' }}"{% endif %} required>
 
                         </td>
-                    </tr>-->
+                    </tr>
+                    -->
                     <tr>
-                        <td>Email:</td>
+                        <td>Email* :</td>
 
                         <td><input name="Email" class="form-control" type="email" value="{{ user.email }}"></td>
                         <td><span class="alert-danger">{{ form.Email.errors }}</span></td>
-                        </td>
+
                 </tr>
                     <tr>
                         <td>Phone number:</td>
                         <td><input name="Phone_number" type="number" class="form-control" value="{{ user.phone_number }}"></td>
                         <td><span class="alert-danger">{{ form.Phone_number.errors }}</span></td>
-                    </td>
+
                 </tr>
+
+                {% else %}
+                <tr>
+                        <td>First name* :</td>
+                        <td>{{ form.first_name }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Last name* :</td>
+                        <td>{{ form.last_name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Email* :</td>
+                        <td>{{ form.Email }}</td>
+
+                </tr>
+                    <tr>
+                        <td>Phone number:</td>
+                        <td>{{ form.Phone_number }}</td>
+                        <td><span class="alert-danger">{{ form.Phone_number.errors }}</span></td>
+
+                </tr>
+                {% endif %}
                 </table>
             </div>
                 </div>

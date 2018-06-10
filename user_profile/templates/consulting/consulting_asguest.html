@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+{% block title %} consult as guest {% endblock %}
+<br>
+{% load static %}
+{% block style %}
+    <style>
+    .hover-cours:hover{
+        cursor: hand;
+    }
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+}
+    </style>
+{% endblock %}
+{% block content %}
+    <br>
+    <br>
+    <br>
+
+    <div class="container-fluid" style="">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="col-sm-8 col-xs-12" >
+        <H3>Consulting as guest</H3>
+        <h7 class="alert-success">You may ask us anonymously</h7>
+            <form action=""  method="post" class="form-horizontal">
+                {% csrf_token %}
+                <div class="row">
+            <div class="col-sm-10 col-xs-12">
+                <table class="table ">
+                    <tr>
+                        <td>First name:</td>
+                        <td><input name="first_name" class="form-control" value="{{ user.first_name }}"></td>
+                         <td><span class="alert-danger">{{ form.first_name.errors }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td>
+                        <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
+                        <td><span class="alert-danger">{{ form.last_name.errors }}</span></td>
+                    </tr>
+                    <!--<tr>
+                        <td>Date of Birth:</td>
+                        <td>
+                            {% if form.Date_of_Birth.errors %}
+                                {% for error in form.Date_of_Birth %}
+                                    <li><span class="error " style="color: #9d0000">This field is required</span></li>
+                                {% endfor %}
+                            {% endif %}
+                            <input type="date" class="form-control" name="Date_of_Birth" {% if form.Date_of_Birth.value != None %}value="{{ form.Date_of_Birth.value|stringformat:'s' }}"{% endif %} required>
+
+                        </td>
+                    </tr>
+                    -->
+                    <tr>
+                        <td>Email* :</td>
+
+                        <td><input name="Email" class="form-control" type="email" value="{{ user.email }}"></td>
+                        <td><span class="alert-danger">{{ form.Email.errors }}</span></td>
+
+                </tr>
+                    <tr>
+                        <td>Phone number:</td>
+                        <td><input name="Phone_number" type="number" class="form-control" value="{{ user.phone_number }}"></td>
+                        <td><span class="alert-danger">{{ form.Phone_number.errors }}</span></td>
+
+                </tr>
+                <tr>
+                     <tr>
+                        <td>Your Question:</td>
+
+                        <td><input name="question" type="text" class="form-control" style="width: 460px; height: 150px" ></td>
+                    <td><span class="alert-danger">{{ form.question.errors }}</span></td>
+
+                </tr>
+                </table>
+            </div>
+                </div>
+
+
+                       <button class="btn btn-success" style="float: right" type="submit" >submit <i class="fas fa-check-circle"></i></button>
+                <br>
+                <br>
+                <br>
+            </form>
+                    </div>
+
+
+            <br>
+        </div>
+    </div>
+
+
+{% endblock %}
+

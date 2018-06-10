@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    your order is submited
+{% endblock %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <div class="container-fluid">
+    <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 text-center" style="background-color: #d1d1d1;border-radius: 5px">
+        <h3 style="color: #6f6f6f">thank you, your question has been successfully submitted, we will reach to you as soon as possible</h3>
+        <a href="{% url 'user_profile:consulting' %}" class="btn btn-success">Ask a new Question</a>
+
+        <br>
+        <br>
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

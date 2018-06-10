@@ -46,3 +46,20 @@ class Answer(models.Model):
 
 
 
+class consult_as_guest(models.Model):
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    first_name = models.CharField(max_length=50, null=True, blank=True)
+    last_name = models.CharField(max_length=50, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    Email = models.EmailField(null=True)
+    Phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True,
+                                    null=True)
+    question = models.CharField(max_length=200, null=True)
+
+    class Meta:
+        ordering= ('-created',)
+
+    def __str__(self):
+        return self.first_name + self.last_name

@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
  <html>
      <head>
-         <title>new refill order {{ refill.rx_number }}</title>
+         <title>new perscription as a guest order {{ refill.first_name }}</title>
          <style type="text/css">
              body {
                  font-weight: 200;
@@ -27,12 +27,6 @@
          <div class=''>
              <p class='' style="font-size: 40px;margin-bottom: 20px">TYSONS pharmacy</p>
              <hr>
-                {% if refill.cansel %}
-                    <p style="text-align: center;color: red;text-decoration: underline;font-weight: bold;font-size: 20px">this order has been canseled by user</p>
-                {% endif %}
-                {% if refill.refill %}
-                <p style="font-size: 30px;">This is refill order</p>
-                {% endif %}
                 <p>No. {{ refill.rx_number }}</p>
          <p>Date : {{ refill.created }}</p>
          <div>
@@ -49,13 +43,13 @@
                  </tr>
                  <tr>
                      <td>Email address:</td>
-                     <td>{{ refill.info.user.email }}</td>
+                     <td>{{ refill.email }}</td>
                  </tr>
 
-                 {% if refill.info.user.phone_number %}
+                 {% if refill.phone_number %}
                 <tr>
                      <td>phone number</td>
-                     <td>{{ refill.info.user.phone_number }}</td>
+                     <td>{{ refill.phone_number }}</td>
                  </tr>
              {% endif %}
              </table>
@@ -134,22 +128,6 @@
 
 
             </table>
-             <hr>
-            <h1>delivery information</h1>
-         <table>
-             <tr>
-                     <td>Address:</td>
-                     <td>{{ refill.info.address }}</td>
-                 </tr>
-                 <tr>
-                     <td>zip code:</td>
-                     <td>{{ refill.info.zip }}</td>
-                 </tr>
-                 <tr>
-                     <td>city:</td>
-                     <td>{{ refill.info.city }}</td>
-                 </tr>
-         </table>
          </div>
 
      </div>

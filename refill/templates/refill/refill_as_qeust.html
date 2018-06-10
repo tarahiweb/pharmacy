@@ -46,13 +46,14 @@
                 <div class="row">
             <div class="col-sm-10 col-xs-12">
                 <table class="table ">
+                {% if user.is_authenticated  %}
                     <tr>
-                        <td>First name:</td>
+                        <td>First name* :</td>
                         <td><input name="first_name" class="form-control" value="{{ user.first_name }}"></td>
                          <td><span class="alert-danger">{{ form.first_name.errors }}</span></td>
                     </tr>
                     <tr>
-                        <td>Last name:</td>
+                        <td>Last name* :</td>
                         <td><input name="last_name" class="form-control" value="{{ user.last_name }}"></td>
                         <td><span class="alert-danger">{{ form.last_name.errors }}</span></td>
                     </tr>
@@ -70,26 +71,56 @@
                     </tr>
                     -->
                     <tr>
-                        <td>Email:</td>
+                        <td>Email* :</td>
 
                         <td><input name="Email" class="form-control" type="email" value="{{ user.email }}"></td>
                         <td><span class="alert-danger">{{ form.Email.errors }}</span></td>
-                        </td>
+
                 </tr>
                     <tr>
                         <td>Phone number:</td>
                         <td><input name="Phone_number" type="number" class="form-control" value="{{ user.phone_number }}"></td>
                         <td><span class="alert-danger">{{ form.Phone_number.errors }}</span></td>
-                    </td>
+
                 </tr>
                 <tr>
                      <tr>
-                        <td>RX number:</td>
+                        <td>Refill for(optional):</td>
 
-                        <td><input name="RX_number" class="form-control" ></td>
-                    <td><span class="alert-danger">{{ form.RX_number.errors }}</span></td>
-                    </td>
+                        <td><input name="Refil_for" class="form-control" ></td>
+                    <td><span class="alert-danger">{{ form.Refill_for.errors }}</span></td>
+
                 </tr>
+
+                {% else %}
+                <tr>
+                        <td>First name* :</td>
+                        <td>{{ form.first_name }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Last name* :</td>
+                        <td>{{ form.last_name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Email* :</td>
+                        <td>{{ form.Email }}</td>
+
+                </tr>
+                    <tr>
+                        <td>Phone number:</td>
+                        <td>{{ form.Phone_number }}</td>
+                        <td><span class="alert-danger">{{ form.Phone_number.errors }}</span></td>
+
+                </tr>
+                <tr>
+                     <tr>
+                        <td>Refill for(optional):</td>
+                        <td>{{ form.Refill_for }}</td>
+
+                    </tr>
+                {% endif %}
                 </table>
             </div>
                 </div>

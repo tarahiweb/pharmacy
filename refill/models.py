@@ -96,7 +96,8 @@ class Refill(models.Model):
     verified = models.BooleanField(default=False)
     #delivered= models.BooleanField(default=False)
     #info = models.ForeignKey(UserInfo,null=True,related_name='infouser')
-    RX_number= models.CharField(max_length=20, blank=True)
+    #RX_number= models.CharField(max_length=20, blank=True)
+    Refill_for = models.CharField(max_length=50, blank=True, null=True)
     Email = models.EmailField(null=True)
     Phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True,
                                     null=True)

@@ -8,8 +8,9 @@ urlpatterns= [
     url(r'^new-rx/checkout-payment/$', views.NewRx_CheckoutView.as_view(), name='newrx-checkoutview'),
     url(r'^new-rx/checkout-successful/$', views.Checkout_Successfull, name='new-rx-checkout-successful'),
     # report html
-    url(r'^report/$', views.report, name='report'),
-
+    url(r'^report/NewRx/$', views.report_newRx, name='report'),
+    url(r'^report/NewRx-as-guest/$', views.report_newRx_asguest, name='report-newrx'),
+    url(r'^report/refill-as-guest/$', views.report_refill_asguest, name='report-refill'),
     # ajax
     url(r'^ajax/$', views.ajax, name='ajax'),
 

@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
 from pharmacy.report import render_to_pdf
+from pharmacy.twilio import send_fax
 
 
 def Emergency_info(request):
@@ -57,7 +58,7 @@ def Emergency_as_qeust_view(request):
             send_mail(message, message,
                       settings.DEFAULT_FROM_EMAIL, [emergency_guest.Email], fail_silently=False, html_message=msg_html),
 
-            pdf = render_to_pdf('report/refill-report.html', contect)
+            send_fax('https://www.tysonspharmacy.us/emergency/report/emergency-as-guest/')
             # return HttpResponse(pdf, content_type='application/pdf')
             return render(request, 'refill/refill_submited.html', {'refill':emergency_guest})
         return render(request, 'emergency/emergency_as_guest.html', {'form': form})
@@ -66,3 +67,9 @@ def Emergency_as_qeust_view(request):
         form = forms.Emergency_as_guest_Form()
         return render(request, 'emergency/emergency_as_guest.html', {'form':form})
 
+def report_emergency_asguest(request):
+    #info = UserInfo.objects.filter(user=request.user)
+    order=Emergency_as_guest.objects.first()
+    drug= Drug_emergency_drug.objects.filter(med=order)
+    pdf = render_to_pdf('report/emergency-report.html', {'refill':order, "drug":drug})
+    return HttpResponse(pdf, content_type='application/pdf')

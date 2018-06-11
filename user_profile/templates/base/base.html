@@ -65,6 +65,9 @@
     </div>
 
         <ul class="nav navbar-nav navbar-right menu-two" style="margin: 10px;margin-right: 20px">
+       <li class="">
+            <a href="{% url 'contact-us' %}"> About-Us </a>
+        </li>
         <li class="">
             <a href="{% url 'contact-us' %}"> Need Help? 703-992-7083 </a>
         </li>
@@ -103,7 +106,7 @@
                     Refill <i class="fas fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
-                    <li><a a href="{% url 'refill:refill' %}">Refill <i class="fas fa-lock"></i></a></li>
+                    <li><a href="{% url 'refill:refill' %}">Refill <i class="fas fa-lock"></i></a></li>
                     <li><a href="{% url 'refill:refill-as-qeust' %}">Refill as geust</a></li>
                 </ul>
           </li>
@@ -112,12 +115,12 @@
                     Emergency Medicine <i class="fas fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
-                    <li><a a href="{% url 'emergency:emergency-info' %}">Emergency <i class="fas fa-lock"></i></a></li>
+                    <li><a href="{% url 'emergency:emergency-info' %}">Emergency <i class="fas fa-lock"></i></a></li>
                     <li><a href="{% url 'emergency:emergency-as-guest' %}">Emergency Medicine as geust</a></li>
                 </ul>
           </li>
           {% else %}
-          <li class="nav-two-item"><a href="" data-toggle="modal" data-target="#login">Consulting</a></li>
+          <li class="nav-two-item"><a href="{% url 'user_profile:consulting-as-guest' %}" >Consulting</a></li>
               <li class="nav-two-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     New Prescription <i class="fas fa-caret-down"></i>
